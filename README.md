@@ -43,5 +43,5 @@ const response = await disbench.interact(echoCommand, {
   },
 });
 
-expect(response).toEqual("Pong!");
+expect(response).toEqual("Hello World!");
 ```
