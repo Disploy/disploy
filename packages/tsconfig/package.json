@@ -9,7 +9,5 @@
     "nextjs.json",
     "react-library.json"
   ],
-  "devDependencies": {
-    "@sapphire/ts-config": "^3.3.4"
-  }
+  "devDependencies": {}
 }
