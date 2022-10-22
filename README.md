@@ -35,15 +35,13 @@ const disbench = new Disbench({
 
 await disbench.setup(); // This will start the bot and start communicating with the framework to "deploy" commands to the mocked API
 
-const commands = [disbench.commands.find({ name: "echo" })];
+const echoCommand = disbench.commands.find({ name: "echo" });
 
-for (const command of commands) {
-  const response = await disbench.interact(command, {
-    options: {
-      message: "Hello World!",
-    },
-  });
+const response = await disbench.interact(echoCommand, {
+  options: {
+    message: "Hello World!",
+  },
+});
 
-  expect(response).toEqual("Pong!");
-}
+expect(response).toEqual("Pong!");
 ```
