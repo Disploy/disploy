@@ -1,0 +1,28 @@
+{
+  "name": "@disploy/starter",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsc -w",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/shelljs": "^0.8.11",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "fs-extra": "^10.1.0",
+    "isomorphic-git": "^1.19.2",
+    "shelljs": "^0.8.5"
+  }
+}
