@@ -1,0 +1,15 @@
+{
+  "name": "tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "frontend-base.json",
+    "nextjs.json",
+    "react-library.json"
+  ],
+  "devDependencies": {
+    "@sapphire/ts-config": "^3.3.4"
+  }
+}
