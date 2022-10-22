@@ -9,7 +9,7 @@ import SelectInput from "ink-select-input/build";
 import type { Item } from "ink-select-input/build/SelectInput";
 import Spinner from "ink-spinner";
 import React from "react";
-import type { Argv } from "yargs";
+import type { Argv, CommandModule } from "yargs";
 import { MultiSelect } from "../components/MultiSelect";
 import { StartersEndpoint } from "../Constants";
 
@@ -103,6 +103,13 @@ const Init = () => {
   );
 };
 
-export const handler = (_argv: Argv) => {
-  render(<Init />);
+const command: CommandModule = {
+  aliases,
+  builder,
+  command: "init",
+  handler() {
+    render(<Init />);
+  },
 };
+
+export default command;

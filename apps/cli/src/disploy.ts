@@ -1,5 +1,10 @@
 import * as yargs from "yargs";
+import Init from "./commands/init";
 
-(async () => {
-  yargs.commandDir("commands").demandCommand().argv;
-})();
+const commands = [Init];
+
+for (const command of commands) {
+  yargs.command(command);
+}
+
+yargs.demandCommand().argv;
