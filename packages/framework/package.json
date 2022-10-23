@@ -1,0 +1,25 @@
+{
+  "name": "@disploy/framework",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix"
+  },
+  "devDependencies": {
+    "@meetuplol/typewriter": "*",
+    "@types/express": "^4.17.14",
+    "esbuild": "^0.15.10",
+    "rollup": "^2.79.1",
+    "rollup-plugin-dts": "^4.2.3",
+    "rollup-plugin-esbuild": "^4.10.1",
+    "tsconfig": "*",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@disploy/core": "*"
+  }
+}
