@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/disploy.js",
   "scripts": {
-    "build": "tsc && rollup -c",
+    "build": "rollup -c",
     "dev": "rollup -c -w",
     "disploy": "node ."
   },
