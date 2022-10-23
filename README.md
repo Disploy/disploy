@@ -14,11 +14,28 @@ Disploy was originally going to be a tool to template any Discord bot, but I dec
 
 ### Core
 
-The core library will be a wrapper of the Discord API and nothing more, it's not final yet if this will exist or if we will just use `@discordjs/rest`.
+The core library will be a wrapper of the Discord API and nothing more, turning raw API objects into classes and providing a nice interface to work with.
 
 ### Framework
 
-The framework will be a batteries included framework that will feel like writing an Angular/Laravel app, it will include interaction handling, routing, and more.
+The framework will be a batteries included framework that will feel like writing an Angular/Laravel app, it will include interaction handling, routing, and more. Simply use an adapter to connect to your favorite web framework.
+
+```ts
+import { App, expressAdapter } from "@disploy/framework";
+import bodyParser from "body-parser";
+import express from "express";
+
+const server = express();
+server.use(bodyParser.json());
+
+const app = new App();
+
+expressAdapter(app, server);
+
+server.listen(3000, () => {
+  console.log("🚀 Express server is running on port 3000");
+});
+```
 
 ### Testing
 
