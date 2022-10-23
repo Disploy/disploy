@@ -62,3 +62,7 @@ const response = await disbench.interact(echoCommand, {
 
 expect(response).toEqual("Hello World!");
 ```
+
+---
+
+https://discord.gg/E3z8MDnTWn
