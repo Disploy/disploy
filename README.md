@@ -18,9 +18,10 @@ The core library will be a wrapper of the Discord API and nothing more, turning 
 
 ### Framework
 
-The framework will be a batteries included framework that will feel like writing an Angular/Laravel app, it will include interaction handling, routing, and more. Simply use an adapter to connect to your favorite web framework.
+The framework will be a batteries included framework that will feel like writing an Angular/Laravel app but instead you're making a discord application, it will include internally interaction handling, routing and more, while on the outside having a command and event handler framework. Simply use an adapter to connect to your favorite web framework.
 
 ```ts
+// Express adapter showcase snippet (real code)
 import { App, expressAdapter } from "@disploy/framework";
 import bodyParser from "body-parser";
 import express from "express";
@@ -37,6 +38,8 @@ server.listen(3000, () => {
 });
 ```
 
+Commands and events will feel similar to how sapphire's discord.js framework feels, with decorators and file system module injecting. 
+
 ### Testing
 
 `@disploy/disbench` will be a testing library that will allow you to test your bot in a similar way to how you would test a web app with a mocked Discord API.
@@ -44,6 +47,7 @@ server.listen(3000, () => {
 Example usage (this is not final):
 
 ```ts
+// Disbench demo snippet (fake code)
 import { Disbench } from "@disploy/disbench";
 
 const disbench = new Disbench({
