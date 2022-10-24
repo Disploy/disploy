@@ -1,5 +1,5 @@
 {
-  "name": "@disploy/example-bot",
+  "name": "@disploy/express-example",
   "version": "0.0.0",
   "private": true,
   "main": "dist/bot.js",
