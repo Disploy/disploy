@@ -21,6 +21,11 @@ const config = [
         format: "cjs",
         sourcemap: true,
       },
+      {
+        file: `dist/index.mjs`,
+        format: "es",
+        sourcemap: true,
+      },
     ],
   }),
 ];
