@@ -10,9 +10,10 @@
     "lint": "TIMING=1 eslint src/**/*.ts* --fix"
   },
   "devDependencies": {
-    "@meetuplol/typewriter": "^1.0.0",
+    "@meetuplol/typewriter": "^1.0.1",
     "@types/express": "^4.17.14",
     "esbuild": "^0.15.10",
+    "next": "^12.3.1",
     "rollup": "^2.79.1",
     "rollup-plugin-dts": "^4.2.3",
     "rollup-plugin-esbuild": "^4.10.1",

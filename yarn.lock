@@ -290,10 +290,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@meetuplol/typewriter@*":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@meetuplol/typewriter/-/typewriter-0.0.0.tgz#80ee796672c76e75d368a441130f929c973a52be"
-  integrity sha512-M4moCGwQavWo/2Y7kY+xUkPAk82GxZ5vwotLnr2bJEQ8qAHx9yIRdNOcoFo8EZk/YjSoSasCuYEUQm6zHjcrbA==
+"@meetuplol/typewriter@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@meetuplol/typewriter/-/typewriter-1.0.1.tgz#5a694ef9fc5a320380457c2723f1891793b6d9a6"
+  integrity sha512-xliHtf3l2nKTnJ7B+yvZam3GRssBSpDygHDAFmyq+UrNbn4D2BKi/OJ3s7q5gQ2vjNp3VKF8qvP/jybDFhRP/A==
 
 "@next/env@12.3.1":
   version "12.3.1"
@@ -2508,7 +2508,7 @@ negotiator@0.6.3:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
-next@12.3.1:
+next@12.3.1, next@^12.3.1:
   version "12.3.1"
   resolved "https://registry.yarnpkg.com/next/-/next-12.3.1.tgz#127b825ad2207faf869b33393ec8c75fe61e50f1"
   integrity sha512-l7bvmSeIwX5lp07WtIiP9u2ytZMv7jIeB8iacR28PuUEFG5j0HGAPnMqyG5kbZNBG2H7tRsrQ4HCjuMOPnANZw==
