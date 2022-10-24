@@ -33,23 +33,23 @@ export class Rest {
     return res.json();
   }
 
-  public async get<T>(path: string): Promise<T> {
+  public async get<RES>(path: string): Promise<RES> {
     return this._request("GET", path);
   }
 
-  public async post<T>(path: string, body?: any): Promise<T> {
+  public async post<REQ, RES>(path: string, body?: REQ): Promise<RES> {
     return this._request("POST", path, body);
   }
 
-  public async patch<T>(path: string, body?: any): Promise<T> {
+  public async patch<REQ, RES>(path: string, body?: REQ): Promise<RES> {
     return this._request("PATCH", path, body);
   }
 
-  public async delete<T>(path: string): Promise<T> {
+  public async delete<RES>(path: string): Promise<RES> {
     return this._request("DELETE", path);
   }
 
-  public async put<T>(path: string, body?: any): Promise<T> {
+  public async put<REQ, RES>(path: string, body?: REQ): Promise<RES> {
     return this._request("PUT", path, body);
   }
 }
