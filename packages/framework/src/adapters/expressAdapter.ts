@@ -10,7 +10,6 @@ export const expressAdapter: IAdapter<Express.Application> = (app, server) => {
       headers: req.headers,
       method: req.method,
       params: req.params,
-      path: req.path,
     });
 
     const tRes = new TResponse((body) => {
