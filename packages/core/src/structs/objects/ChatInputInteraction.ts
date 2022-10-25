@@ -1,10 +1,9 @@
-import {
+import type {
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponseCallbackData,
-  RESTPostAPIInteractionCallbackJSONBody,
-  Routes,
   Snowflake,
 } from "discord-api-types/v10";
+import type { ReplyHook } from "../ReplyHook";
 import type { Rest } from "../rest";
 import { BaseInteraction } from "./BaseInteraction";
 import { GuildMember } from "./GuildMember";
@@ -32,10 +31,11 @@ export class ChatInputInteraction extends BaseInteraction {
   public user!: User | null;
 
   public constructor(
-    client: Rest,
+    replyHook: ReplyHook,
+    rest: Rest,
     raw: APIChatInputApplicationCommandInteraction
   ) {
-    super(client, raw);
+    super(replyHook, rest, raw);
     this.commandId = raw.data.id;
     this.commandName = raw.data.name;
     this.member = raw.member ? new GuildMember(raw.member) : null;
@@ -50,11 +50,7 @@ export class ChatInputInteraction extends BaseInteraction {
   // TODO: Take a response structure or json body
   public reply(payload: APIInteractionResponseCallbackData) {
     // TODO: Fetch reply if enabled in the arguments
-    return void this.client.post<
-      RESTPostAPIInteractionCallbackJSONBody,
-      // TODO: Replace with proper type when fetch reply is implemented
-      unknown
-    >(Routes.interactionCallback(this.id, this.token), {
+    return void this.replyHook({
       type: 4,
       data: payload,
     });
