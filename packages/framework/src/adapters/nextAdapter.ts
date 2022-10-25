@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { App } from "../structs";
-import { TRequest, TResponse } from "../structs/http";
+import type { TRequest } from "../structs/http";
 
 export function createNextAdapter(app: App) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
@@ -10,24 +10,19 @@ export function createNextAdapter(app: App) {
       return;
     }
 
-    const tReq = new TRequest({
+    const tReq: TRequest = {
       body: req.body,
-      query: req.query,
       headers: req.headers,
-      method: req.method,
-      params: Object.entries(req.query).reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: Array.isArray(value) ? value[0] : value,
-        }),
-        {}
-      ),
-    });
+      _request: req,
+    };
 
-    const tRes = new TResponse((body) => {
-      res.json(body);
-    });
+    const payload = await app.router.entry(tReq);
+    const { status, headers, body } = payload.serialized;
 
-    return void app._handle(tReq, tRes);
+    for (const [key, value] of Object.entries(headers)) {
+      res.setHeader(key, value as string);
+    }
+
+    res.status(status).send(body);
   };
 }

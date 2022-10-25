@@ -1,15 +1,30 @@
 export class TResponse {
-  constructor(private _sendJson: (body: any) => void) {}
+  public serialized!: {
+    body: any;
+    headers: { [key: string]: string | string[] | undefined };
+    status: number;
+  };
 
-  public body!: string;
-
-  public json(body: any) {
-    this._sendJson(body);
+  public constructor() {
+    this.serialized = {
+      body: null,
+      headers: {},
+      status: 200,
+    };
   }
 
-  public send(body: string) {
-    this.body = body;
+  public json(body: any) {
+    this.serialized.body = body;
+    return this;
+  }
 
-    throw new Error("Not implemented");
+  public status(status: number) {
+    this.serialized.status = status;
+    return this;
+  }
+
+  public setHeader(key: string, value: string | string[]) {
+    this.serialized.headers[key] = value;
+    return this;
   }
 }

@@ -1,21 +1,18 @@
 import type * as Express from "express";
-import { TRequest, TResponse } from "../structs/http";
+import type { TRequest } from "../structs/http";
 import type { IAdapter } from "./IAdapter";
 
 export const expressAdapter: IAdapter<Express.Application> = (app, server) => {
   server.post("/interactions", async (req, res) => {
-    const tReq = new TRequest({
+    const tReq: TRequest = {
       body: req.body,
-      query: req.query,
       headers: req.headers,
-      method: req.method,
-      params: req.params,
-    });
+      _request: req,
+    };
 
-    const tRes = new TResponse((body) => {
-      res.json(body);
-    });
+    const payload = await app.router.entry(tReq);
+    const { status, headers, body } = payload.serialized;
 
-    await app._handle(tReq, tRes);
+    res.status(status).set(headers).send(body);
   });
 };

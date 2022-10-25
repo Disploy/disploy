@@ -1,10 +1,25 @@
-import type { TRequest, TResponse } from "./http";
+import { Rest } from "@disploy/core";
+import { Router } from "./router/Router";
+
+interface AppOptions {
+  publicKey: string;
+  token: string;
+  clientID: string;
+}
 
 export class App {
-  public _handle(req: TRequest, res: TResponse) {
-    // TODO: Implement actual logic and not just a placeholder test.
-    res.json({
-      hello: `Hello, ${req.body.name}!`,
-    });
+  public publicKey!: string;
+  public clientID!: string;
+  public router!: Router;
+  public token!: string;
+  public rest!: Rest;
+
+  public constructor(options: AppOptions) {
+    this.publicKey = options.publicKey;
+    this.token = options.token;
+    this.clientID = options.clientID;
+
+    this.rest = new Rest({ token: this.token });
+    this.router = new Router(this);
   }
 }

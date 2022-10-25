@@ -22,6 +22,7 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "@disploy/core": "*"
+    "@disploy/core": "*",
+    "tweetnacl": "^1.0.3"
   }
 }
