@@ -46,10 +46,7 @@ export class ChatInputInteraction extends BaseInteraction {
       : null;
   }
 
-  // TODO: Make this an override of BaseInteraction#reply when it's implemented.
-  // TODO: Take a response structure or json body
   public reply(payload: APIInteractionResponseCallbackData) {
-    // TODO: Fetch reply if enabled in the arguments
     return void this.replyHook({
       type: 4,
       data: payload,

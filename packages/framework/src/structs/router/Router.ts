@@ -95,13 +95,9 @@ export class Router {
 
     switch (route.type) {
       case InteractionType.ApplicationCommand: {
-        // TODO: Add proper typings which make a route automatically a ChatInputRoute if it's type is ChannelMessageWithSource
         const chatInputRoute: ChatInputRoute = route as ChatInputRoute;
         const body = req.body as APIChatInputApplicationCommandInteraction;
 
-        // TODO: Rethink the "ReplyHook" concept
-        //     We can't pass the rest client to the interaction due to it being wrapper in a promise.
-        //     It also is really messy and not very intuitive.
         const p = new Promise((resolve) => {
           chatInputRoute.chatInputRun(
             new ChatInputInteraction(
