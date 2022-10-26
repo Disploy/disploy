@@ -19,7 +19,6 @@ export class ChatInputRoute extends BaseRoute {
 
   // @ts-expect-error 6133
   public async chatInputRun(interaction: ChatInputInteraction) {
-    // TODO: When a logger is implemented, warn that this method is not implemented.
     return void 0;
   }
 }
