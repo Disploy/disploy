@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "envject -- node ."
+    "start": "envject -- node . | pino-pretty"
   },
   "dependencies": {
     "@disploy/framework": "*",

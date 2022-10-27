@@ -10,5 +10,5 @@ export const ExampleApp = new App({
 
 for (const command of Commands) {
   ExampleApp.router.addRoute(new command());
-  console.log(`Registered command ${command.name}`);
+  ExampleApp.logger.info(`Registered command ${command.name}`);
 }
