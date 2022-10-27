@@ -6,6 +6,9 @@ export const ExampleApp = new App({
   clientID: process.env.CLIENT_ID!,
   publicKey: process.env.DISCORD_PUBLIC_KEY!,
   token: process.env.DISCORD_TOKEN!,
+  logger: {
+    level: "debug",
+  },
 });
 
 for (const command of Commands) {

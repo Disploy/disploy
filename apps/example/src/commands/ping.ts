@@ -1,5 +1,4 @@
-import type { ChatInputInteraction } from "@disploy/core";
-import { ChatInputRoute } from "@disploy/framework";
+import { ChatInputRoute, type ChatInputInteraction } from "@disploy/framework";
 
 export default class PingCommand extends ChatInputRoute {
   public constructor() {

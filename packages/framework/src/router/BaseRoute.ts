@@ -1,4 +1,4 @@
-import type { InteractionType } from "@disploy/core";
+import type { InteractionType } from "discord-api-types/v10";
 
 export class BaseRoute {
   /**

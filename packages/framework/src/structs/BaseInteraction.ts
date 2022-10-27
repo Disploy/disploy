@@ -1,6 +1,5 @@
 import type { APIInteraction, Snowflake } from "discord-api-types/v10";
-import type { ReplyHook } from "../ReplyHook";
-import type { Rest } from "../rest";
+import type { App } from "../client";
 import { Base } from "./Base";
 
 export class BaseInteraction extends Base {
@@ -14,8 +13,8 @@ export class BaseInteraction extends Base {
    */
   public token!: string;
 
-  public constructor(replyHook: ReplyHook, rest: Rest, raw: APIInteraction) {
-    super(replyHook, rest);
+  public constructor(app: App, raw: APIInteraction) {
+    super(app);
     this.id = raw.id;
     this.token = raw.token;
   }

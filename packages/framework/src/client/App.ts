@@ -1,7 +1,7 @@
-import { Rest } from "@disploy/core";
 import pino, { Logger } from "pino";
+import { Router } from "../router";
 import type { AppOptions } from "./AppOptions";
-import { Router } from "./router/Router";
+import { Rest } from "./Rest";
 
 export class App {
   public publicKey!: string;
