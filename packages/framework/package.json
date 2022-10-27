@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@disploy/core": "*",
+    "pino": "^8.7.0",
     "tweetnacl": "^1.0.3"
   }
 }

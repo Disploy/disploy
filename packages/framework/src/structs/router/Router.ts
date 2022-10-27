@@ -13,9 +13,10 @@ import type { ChatInputRoute } from "./ChatInputRoute";
 export class Router {
   private routes: BaseRoute[] = [];
   private verifier!: RequestVerification;
-  // private app!: App;
+  private app!: App;
 
   public constructor(app: App) {
+    this.app = app;
     this.verifier = new RequestVerification(app.publicKey);
   }
 
@@ -53,7 +54,10 @@ export class Router {
             message: err.message,
           });
         default:
-          console.log("CAUGHT ERROR", err);
+          this.app.logger.error(
+            err,
+            "An error occurred while handling a request."
+          );
           return res.status(500).json({
             message: "Internal server error.",
           });
@@ -64,7 +68,6 @@ export class Router {
   private routeResolver(payload: APIInteraction) {
     switch (payload.type) {
       case InteractionType.ApplicationCommand:
-        console.log(this.routes);
         return this.routes.find(
           (route) =>
             route.type === InteractionType.ApplicationCommand &&
@@ -80,6 +83,7 @@ export class Router {
     await this.verifyRequest(req);
 
     if (req.body.type === 1) {
+      this.app.logger.debug("Received a ping request, responding back!");
       return res.status(200).json({
         type: 1,
       });
@@ -87,10 +91,9 @@ export class Router {
 
     const route = this.routeResolver(req.body);
 
-    console.log(req.body);
-
     if (!route) {
-      throw new Error("No route found for this interaction.");
+      this.app.logger.warn(req.body, "No route found for interaction.");
+      throw new RequestorError("No route found for this interaction.", 404);
     }
 
     switch (route.type) {
