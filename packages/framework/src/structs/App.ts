@@ -1,12 +1,7 @@
 import { Rest } from "@disploy/core";
 import pino, { Logger } from "pino";
+import type { AppOptions } from "./AppOptions";
 import { Router } from "./router/Router";
-
-interface AppOptions {
-  publicKey: string;
-  token: string;
-  clientID: string;
-}
 
 export class App {
   public publicKey!: string;
@@ -17,7 +12,9 @@ export class App {
   public logger!: Logger;
 
   public constructor(options: AppOptions) {
-    this.logger = pino();
+    this.logger = pino({
+      level: options.logger?.level ?? "info",
+    });
 
     this.publicKey = options.publicKey;
     this.token = options.token;
