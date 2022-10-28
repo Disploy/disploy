@@ -1,5 +1,5 @@
 import type * as Express from "express";
-import type { TRequest } from "../structs/http";
+import type { TRequest } from "../http";
 import type { IAdapter } from "./IAdapter";
 
 export const expressAdapter: IAdapter<Express.Application> = (app, server) => {

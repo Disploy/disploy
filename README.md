@@ -1,27 +1,24 @@
 # Disploy
 
-Disploy is a whole ecosystem of tools to help you create your next Discord HTTP Interaction bot.
+Disploy is a whole ecosystem of tools to help you create your next Discord HTTP Interaction bot. It allows you to create an HTTP Interaction bot using your favourite web framework.
 
 ## Planned Features
 
-Disploy was originally going to be a tool to template any Discord bot, but I decided to repurpose it to be a tool to help you create HTTP Interaction bots.
+When Disploy was originally started, it was supposed to be a tool to template any Discord bot, but I decided to repurpose it to be a tool to help you create HTTP Interaction bots.
 
 ### CLI
 
 - Bootstrapping a new project
-- Development server that automatically exposed to the internet using ngrok or cloudflare tunnel
-- Rolling up a production build using rollup and deploying to the edge (vercel, cloudflare workers, etc)
-
-### Core
-
-The core library will be a wrapper of the Discord API and nothing more, turning raw API objects into classes and providing a nice interface to work with.
+- Development server that automatically exposed to the internet using ngrok or Cloudflare tunnel
+- Rolling up a production build using rollup and deploying to the edge (Vercel, Cloudflare workers, etc)
 
 ### Framework
 
-The framework will be a batteries included framework that will feel like writing an Angular/Laravel app but instead you're making a discord application, it will include internally interaction handling, routing and more, while on the outside having a command and event handler framework. Simply use an adapter to connect to your favorite web framework.
+The Disploy framework will be a batteries-included framework that will feel like writing an Angular/Laravel app but instead you're making a Discord application, it will include internally a wrapper of the Discord API; turning raw API objects into classes and providing a nice interface to work with, interaction routing and more, while on the outside API; exposing a command and message component framework. The framework is not a server; rather it takes an already existing web server implementation and adapts to it.
 
 ```ts
 // Express adapter showcase snippet (real code)
+// You can find more implementation examples here https://github.com/Disploy/disploy/tree/main/apps/example#implementations
 import { App, expressAdapter } from "@disploy/framework";
 import bodyParser from "body-parser";
 import express from "express";
@@ -38,7 +35,7 @@ server.listen(3000, () => {
 });
 ```
 
-Commands and events will feel similar to how sapphire's discord.js framework feels, with decorators and file system module injecting. 
+Commands and events will feel similar to how sapphire's discord.js framework feels, with decorators and file system modules injecting.
 
 ### Testing
 

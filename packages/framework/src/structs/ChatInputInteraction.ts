@@ -3,8 +3,7 @@ import type {
   APIInteractionResponseCallbackData,
   Snowflake,
 } from "discord-api-types/v10";
-import type { ReplyHook } from "../ReplyHook";
-import type { Rest } from "../rest";
+import type { App } from "../client";
 import { BaseInteraction } from "./BaseInteraction";
 import { GuildMember } from "./GuildMember";
 import { User } from "./User";
@@ -30,12 +29,8 @@ export class ChatInputInteraction extends BaseInteraction {
    */
   public user!: User | null;
 
-  public constructor(
-    replyHook: ReplyHook,
-    rest: Rest,
-    raw: APIChatInputApplicationCommandInteraction
-  ) {
-    super(replyHook, rest, raw);
+  public constructor(app: App, raw: APIChatInputApplicationCommandInteraction) {
+    super(app, raw);
     this.commandId = raw.data.id;
     this.commandName = raw.data.name;
     this.member = raw.member ? new GuildMember(raw.member) : null;
@@ -47,7 +42,7 @@ export class ChatInputInteraction extends BaseInteraction {
   }
 
   public reply(payload: APIInteractionResponseCallbackData) {
-    return void this.replyHook({
+    return void this.app.router.emit(`${this.id}-respond`, {
       type: 4,
       data: payload,
     });

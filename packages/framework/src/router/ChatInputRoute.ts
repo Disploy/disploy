@@ -1,4 +1,5 @@
-import { ChatInputInteraction, InteractionType } from "@disploy/core";
+import { InteractionType } from "discord-api-types/v10";
+import type { ChatInputInteraction } from "../structs";
 import { BaseRoute } from "./BaseRoute";
 
 export interface ChatInputRouteOptions {

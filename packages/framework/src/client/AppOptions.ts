@@ -1,5 +1,7 @@
+import type { LevelWithSilent } from "pino";
+
 export interface LoggerOptions {
-  level?: string;
+  level?: LevelWithSilent;
 }
 
 export interface AppOptions {

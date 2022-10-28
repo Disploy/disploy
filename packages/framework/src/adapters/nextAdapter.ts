@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { App } from "../structs";
-import type { TRequest } from "../structs/http";
+import type { App } from "../client";
+import type { TRequest } from "../http";
 
 export function createNextAdapter(app: App) {
   return async function (req: NextApiRequest, res: NextApiResponse) {

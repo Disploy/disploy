@@ -1,21 +1,23 @@
 import {
   APIChatInputApplicationCommandInteraction,
   APIInteraction,
-  ChatInputInteraction,
   InteractionType,
-} from "@disploy/core";
-import type { App } from "../App";
-import { RequestorError, TRequest, TResponse } from "../http";
-import { RequestVerification } from "../RequestVerification";
+} from "discord-api-types/v10";
+import EventEmitter from "eventemitter3";
+import type { App } from "../client";
+import { TResponse, type TRequest } from "../http";
+import { ChatInputInteraction } from "../structs";
+import { DiscordAPIUtils, RequestorError, RequestVerification } from "../utils";
 import type { BaseRoute } from "./BaseRoute";
 import type { ChatInputRoute } from "./ChatInputRoute";
 
-export class Router {
+export class Router extends EventEmitter {
   private routes: BaseRoute[] = [];
   private verifier!: RequestVerification;
   private app!: App;
 
   public constructor(app: App) {
+    super();
     this.app = app;
     this.verifier = new RequestVerification(app.publicKey);
   }
@@ -96,28 +98,35 @@ export class Router {
       throw new RequestorError("No route found for this interaction.", 404);
     }
 
+    const body = req.body as APIInteraction;
+
+    const promise = new Promise<unknown>((resolve) => {
+      this.on(`${body.id}-respond`, (res: unknown) => {
+        resolve(res);
+      });
+    });
+
     switch (route.type) {
       case InteractionType.ApplicationCommand: {
         const chatInputRoute: ChatInputRoute = route as ChatInputRoute;
-        const body = req.body as APIChatInputApplicationCommandInteraction;
+        const interaction =
+          req.body as APIChatInputApplicationCommandInteraction;
+        const user = DiscordAPIUtils.resolveUserFromInteraction(interaction);
 
-        const p = new Promise((resolve) => {
-          chatInputRoute.chatInputRun(
-            new ChatInputInteraction(
-              (data) => {
-                resolve(data);
-              },
-              // @ts-ignore
-              null, // this.app.rest,
-              body
-            )
-          );
-        });
+        this.app.logger.debug(
+          `Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`
+        );
 
-        return res.status(200).json(await p);
+        chatInputRoute.chatInputRun(
+          new ChatInputInteraction(this.app, interaction)
+        );
+        break;
       }
-      default:
+      default: {
         throw new Error("No handler for this interaction type.");
+      }
     }
+
+    return res.status(200).json(await promise);
   }
 }
