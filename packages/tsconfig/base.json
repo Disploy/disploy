@@ -13,7 +13,7 @@
     "strict": true,
     "useUnknownInCatchVariables": true,
     "noUncheckedIndexedAccess": true,
-
+    "module": "es2020",
     "importHelpers": true,
     "moduleResolution": "node",
     "importsNotUsedAsValues": "error",
@@ -25,12 +25,12 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ESNext",
     "useDefineForClassFields": true,
-
+    "declaration": true,
+    "declarationMap": true,
     "skipLibCheck": true
   },
   "exclude": ["node_modules"]
