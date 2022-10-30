@@ -5,6 +5,7 @@ import type {
 } from "discord-api-types/v10";
 import type { App } from "../client";
 import { BaseInteraction } from "./BaseInteraction";
+import { ChatInputInteractionOptions } from "./ChatInputInteractionOptions";
 import { GuildMember } from "./GuildMember";
 import { User } from "./User";
 
@@ -20,6 +21,11 @@ export class ChatInputInteraction extends BaseInteraction {
   public commandName!: string;
 
   /**
+   * The options of the interaction.
+   */
+  public options!: ChatInputInteractionOptions;
+
+  /**
    * The GuildMember who invoked the interaction.
    */
   public member!: GuildMember | null;
@@ -29,7 +35,10 @@ export class ChatInputInteraction extends BaseInteraction {
    */
   public user!: User | null;
 
-  public constructor(app: App, raw: APIChatInputApplicationCommandInteraction) {
+  public constructor(
+    app: App,
+    public raw: APIChatInputApplicationCommandInteraction
+  ) {
     super(app, raw);
     this.commandId = raw.data.id;
     this.commandName = raw.data.name;
@@ -39,6 +48,7 @@ export class ChatInputInteraction extends BaseInteraction {
         ? new User(raw.member.user)
         : null
       : null;
+    this.options = new ChatInputInteractionOptions(app, this);
   }
 
   public reply(payload: APIInteractionResponseCallbackData) {
