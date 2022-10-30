@@ -1,0 +1,17 @@
+{
+  "name": "@disploy/cf-example",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.18.0",
+    "wrangler": "2.1.13",
+    "@disploy/framework": "*"
+  },
+  "dependencies": {
+    "@disploy/example": "*"
+  },
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler publish",
+    "build": "wrangler publish --dry-run --outdir=dist"
+  }
+}
