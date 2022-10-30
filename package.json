@@ -15,6 +15,7 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "latest",
+    "tsup": "^6.3.0",
     "turbo": "latest"
   },
   "engines": {
