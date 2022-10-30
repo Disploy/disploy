@@ -1,12 +1,13 @@
 {
-  "name": "@disploy/cli",
-  "version": "0.0.0",
-  "private": true,
+  "name": "disploy",
+  "version": "0.1.0",
   "main": "dist/disploy.js",
+  "bin": "disploy",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && echo '#!/usr/bin/env node' | cat - dist/disploy.js > disploy && chmod +x disploy",
     "dev": "rollup -c -w",
-    "disploy": "node ."
+    "disploy": "./disploy",
+    "disploy:dev": "node dist/disploy.js"
   },
   "dependencies": {
     "@disploy/starter": "*",
