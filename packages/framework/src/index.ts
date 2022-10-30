@@ -1,5 +1,6 @@
 export * from "./adapters";
 export * from "./client";
+export * from "./http";
 export * from "./router";
 export * from "./structs";
-export { SnowflakeUtil } from "./utils";
+export { RuntimeConstants, SnowflakeUtil } from "./utils";

@@ -1,0 +1,10 @@
+name = "cf-example"
+main = "src/index.ts"
+compatibility_date = "2022-10-28"
+node_compat = true
+
+[vars]
+# The necessary secrets are:
+# - DISCORD_TOKEN
+# - DISCORD_PUBLIC_KEY
+# - CLIENT_ID

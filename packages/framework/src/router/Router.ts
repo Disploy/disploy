@@ -7,19 +7,28 @@ import EventEmitter from "eventemitter3";
 import type { App } from "../client";
 import { TResponse, type TRequest } from "../http";
 import { ChatInputInteraction } from "../structs";
-import { DiscordAPIUtils, RequestorError, RequestVerification } from "../utils";
+import {
+  DiscordAPIUtils,
+  RequestorError,
+  RuntimeConstants,
+  Verify,
+  VerifyCFW,
+  VerifyNode,
+} from "../utils";
 import type { BaseRoute } from "./BaseRoute";
 import type { ChatInputRoute } from "./ChatInputRoute";
 
 export class Router extends EventEmitter {
   private routes: BaseRoute[] = [];
-  private verifier!: RequestVerification;
+  private verifier!: Verify;
   private app!: App;
 
   public constructor(app: App) {
     super();
     this.app = app;
-    this.verifier = new RequestVerification(app.publicKey);
+    this.verifier = RuntimeConstants.isNode
+      ? new VerifyNode(this.app)
+      : new VerifyCFW(this.app);
   }
 
   public addRoute(route: BaseRoute) {
