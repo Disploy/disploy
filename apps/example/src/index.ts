@@ -21,7 +21,7 @@ import { Commands } from "./commands";
     });
 
     for (const command of Commands) {
-      this.router.addRoute(new command());
+      this.commands.registerCommand(new command());
       this.logger.info(`Registered command ${command.name}`);
     }
   }

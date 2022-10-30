@@ -1,4 +1,5 @@
 import pino, { Logger } from "pino";
+import { CommandManager } from "../commands";
 import { Router } from "../router";
 import type { AppOptions } from "./AppOptions";
 import { Rest } from "./Rest";
@@ -10,6 +11,7 @@ export class App {
   public token!: string;
   public rest!: Rest;
   public logger!: Logger;
+  public commands!: CommandManager;
 
   public constructor(options: AppOptions) {
     this.logger = pino({
@@ -22,6 +24,7 @@ export class App {
 
     this.rest = new Rest({ token: this.token });
     this.router = new Router(this);
+    this.commands = new CommandManager(this);
 
     this.logger.info(
       {
