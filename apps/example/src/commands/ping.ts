@@ -7,7 +7,7 @@ export default class PingCommand extends ChatInputRoute {
 
   override async chatInputRun(interaction: ChatInputInteraction) {
     return void interaction.reply({
-      content: "Pong!",
+      content: `Pong! ${Date.now() - interaction.createdTimestamp}ms`,
     });
   }
 }
