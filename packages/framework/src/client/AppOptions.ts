@@ -5,8 +5,5 @@ export interface LoggerOptions {
 }
 
 export interface AppOptions {
-  publicKey: string;
-  token: string;
-  clientID: string;
   logger?: LoggerOptions;
 }
