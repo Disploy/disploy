@@ -1,28 +1,9 @@
 import { App } from "@disploy/framework";
-import { Commands } from "./commands";
 
-/* eslint-disable turbo/no-undeclared-env-vars */ export class ExampleApp extends App {
-  public constructor({
-    clientID,
-    publicKey,
-    token,
-  }: {
-    clientID: string;
-    publicKey: string;
-    token: string;
-  }) {
-    super({
-      clientID,
-      publicKey,
-      token,
-      logger: {
-        level: "debug",
-      },
-    });
+const app = new App({
+  logger: {
+    level: "debug",
+  },
+});
 
-    for (const command of Commands) {
-      this.commands.registerCommand(new command());
-      this.logger.info(`Registered command ${command.name}`);
-    }
-  }
-}
+export default app;

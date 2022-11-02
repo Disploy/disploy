@@ -103,7 +103,7 @@ const Init = () => {
   );
 };
 
-const command: CommandModule = {
+export const InitCommand: CommandModule = {
   aliases,
   builder,
   command: "init",
@@ -111,5 +111,3 @@ const command: CommandModule = {
     render(<Init />);
   },
 };
-
-export default command;

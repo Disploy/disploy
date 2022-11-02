@@ -1,7 +1,10 @@
-import * as yargs from "yargs";
-import Init from "./commands/init";
+#!/usr/bin/env node
 
-const commands = [Init];
+import * as yargs from "yargs";
+import { DeployCommand } from "./commands/deploy";
+import { InitCommand } from "./commands/init";
+
+const commands = [DeployCommand, InitCommand];
 
 for (const command of commands) {
   yargs.command(command);
