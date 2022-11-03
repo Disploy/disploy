@@ -1,11 +1,11 @@
 import { glob } from "glob";
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { logger } from "../../utils/logger";
 import { CompilerAssets } from "./assets";
 
-export async function parseCommands(root: string) {
-  const commandsDir = path.join(root, "commands");
+export async function parseCommands(workbench: string) {
+  const commandsDir = path.join(workbench, "commands");
 
   const commandsFiles = await new Promise<string[]>((resolve, reject) => {
     glob(`${commandsDir}/**/*.js`, (err, files) => {
@@ -21,13 +21,15 @@ export async function parseCommands(root: string) {
 
   const commands = await Promise.all(
     commandsFiles.map(async (file) => {
-      const code = await readFile(file, "utf-8");
+      let code = await readFile(file, "utf-8");
       const commandName = path.basename(file, ".js");
 
-      return code.replace(
+      code = code.replace(
         /export default class ([a-zA-Z0-9]+) /,
         `export class ${commandName} `
       );
+
+      return await writeFile(file, code);
     })
   );
 
@@ -41,14 +43,16 @@ export async function parseCommands(root: string) {
     imports: commandsFiles
       .map(
         (file) =>
-          `import {${path.basename(file, ".js")}} from "${path.basename(
+          `import {${path.basename(
             file,
             ".js"
-          )}";`
+          )}} from "./commands/${path.basename(file, ".js")}";`
       )
       .join("\n"),
     array: commandsFiles.map((file) => path.basename(file, ".js")).join(",\n"),
   });
+
+  await writeFile(path.join(workbench, "commands.js"), commandArray);
 
   return { commandVirts, commandArray };
 }

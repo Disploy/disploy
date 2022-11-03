@@ -1,5 +1,5 @@
 import { App } from "@disploy/framework";
-import { Commands } from "commands";
+import { Commands } from "./commands";
 
 const app = new App({
   logger: {

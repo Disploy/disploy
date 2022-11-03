@@ -1,9 +1,12 @@
-import virtual from "@rollup/plugin-virtual";
+import { mkdir, rm, writeFile } from "fs/promises";
 import { rollup } from "rollup";
 import esbuild from "rollup-plugin-esbuild";
+import { logger } from "../../utils/logger";
 import type { DisployConfig } from "../disployConf";
 import { CompilerAssets } from "./assets";
 import { parseCommands } from "./comamnds";
+import { TempDir } from "./constants";
+import { copyDir } from "./copyDir";
 
 function parseTarget(target: DisployConfig["target"]) {
   switch (target) {
@@ -23,18 +26,25 @@ export async function Compile({
   root: string;
   target: DisployConfig["target"];
 }) {
-  const { commandVirts, commandArray } = await parseCommands(root);
+  await rm(TempDir, { recursive: true, force: true });
+  await mkdir(TempDir, { recursive: true });
+
+  logger.debug("Copying project files to temp dir...");
+  const workbenchDir = `${TempDir}/workbench`;
+
+  await mkdir(workbenchDir, { recursive: true });
+  copyDir(root, workbenchDir);
+
+  await parseCommands(workbenchDir);
   const entry = parseTarget(target);
 
+  await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[entry]());
+
   const bundle = await rollup({
-    input: "entry",
+    input: `${workbenchDir}/entry.js`,
     plugins: [
       // @ts-ignore - Plugin types mismatch
-      virtual({
-        ...commandVirts,
-        commands: commandArray,
-        entry: CompilerAssets[entry](),
-      }),
+
       esbuild({
         platform: "neutral",
         treeShaking: true,
@@ -44,7 +54,9 @@ export async function Compile({
   });
 
   await bundle.write({
-    file: ".disploy/entry.mjs",
+    file: `${TempDir}/entry.mjs`,
     format: "es",
   });
+
+  await rm(workbenchDir, { recursive: true, force: true });
 }
