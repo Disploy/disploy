@@ -84,7 +84,7 @@ const config = {
             items: [
               {
                 label: "Guides",
-                to: "/guides",
+                to: "/docs/Guide/getting-started/welcome",
               },
               {
                 label: "GitHub",
