@@ -25,7 +25,8 @@
     "react": "^18.2.0",
     "rollup": "^3.2.3",
     "rollup-plugin-esbuild": "^4.10.1",
-    "yargs": "^17.5.1"
+    "yargs": "^17.5.1",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

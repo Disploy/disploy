@@ -1,26 +1,29 @@
 import virtual from "@rollup/plugin-virtual";
 import { rollup } from "rollup";
 import esbuild from "rollup-plugin-esbuild";
+import type { DisployConfig } from "../disployConf";
 import { CompilerAssets } from "./assets";
 import { parseCommands } from "./comamnds";
 
-function parseTarget(target: string) {
+function parseTarget(target: DisployConfig["target"]) {
   switch (target) {
     case "cloudflare":
       return "cfWorkerEntry";
+    case "standalone":
+      return "standaloneEntry";
     default:
       throw new Error(`Unknown target: ${target}`);
   }
 }
 
 export async function Compile({
-  main,
+  root,
   target,
 }: {
-  main: string;
-  target: string;
+  root: string;
+  target: DisployConfig["target"];
 }) {
-  const { commandVirts, commandArray } = await parseCommands(main);
+  const { commandVirts, commandArray } = await parseCommands(root);
   const entry = parseTarget(target);
 
   const bundle = await rollup({

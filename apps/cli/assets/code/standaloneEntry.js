@@ -1,11 +1,11 @@
 import { App } from "@disploy/framework";
 import { Commands } from "commands";
 
-export const app = new App({
+const app = new App({
   logger: {
     level: "debug",
   },
+  commands: Commands,
 });
 
-app.start({ commands: Commands });
-// test!
+export default app;

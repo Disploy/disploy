@@ -39,12 +39,11 @@ function createCloudflareAdapter(app) {
 
 export default {
   async fetch(request, env, ctx) {
-    const app = new App();
+    const app = new App({ commands: Commands });
     app.start({
       publicKey: env.PUBLIC_KEY,
       clientId: env.CLIENT_ID,
       token: env.TOKEN,
-      commands: Commands,
     });
     return await createCloudflareAdapter(app)(request);
   },

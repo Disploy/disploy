@@ -14,10 +14,14 @@ export class App {
   public logger!: Logger;
   public commands!: CommandManager;
 
+  private _commandBuffer: Command[] = [];
+
   public constructor(options?: AppOptions) {
     this.logger = pino({
       level: options?.logger?.level ?? "info",
     });
+
+    this._commandBuffer = options?.commands ?? [];
   }
 
   public start({
@@ -29,7 +33,7 @@ export class App {
     publicKey: string;
     clientId: string;
     token: string;
-    commands: Command[];
+    commands?: Command[];
   }): void {
     this.publicKey = publicKey;
     this.clientId = clientId;
@@ -39,7 +43,13 @@ export class App {
     this.router = new Router(this);
     this.commands = new CommandManager(this);
 
-    commands.forEach((command) => {
+    this._commandBuffer.forEach((command) => {
+      this.commands.registerCommand(command);
+    });
+
+    this._commandBuffer = [];
+
+    commands?.forEach((command) => {
       this.commands.registerCommand(command);
     });
 

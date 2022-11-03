@@ -1,12 +1,11 @@
-import * as swc from "@swc/core";
 import { glob } from "glob";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { logger } from "../../utils/logger";
 import { CompilerAssets } from "./assets";
 
-export async function parseCommands(main: string) {
-  const commandsDir = path.join(path.dirname(main), "commands");
+export async function parseCommands(root: string) {
+  const commandsDir = path.join(root, "commands");
 
   const commandsFiles = await new Promise<string[]>((resolve, reject) => {
     glob(`${commandsDir}/**/*.js`, (err, files) => {
@@ -25,21 +24,10 @@ export async function parseCommands(main: string) {
       const code = await readFile(file, "utf-8");
       const commandName = path.basename(file, ".js");
 
-      return (
-        await swc.transform(
-          code.replace(
-            /export default class ([a-zA-Z0-9]+) /,
-            `export class ${commandName} `
-          ),
-          {
-            jsc: {
-              parser: {
-                syntax: "typescript",
-              },
-            },
-          }
-        )
-      ).code;
+      return code.replace(
+        /export default class ([a-zA-Z0-9]+) /,
+        `export class ${commandName} `
+      );
     })
   );
 

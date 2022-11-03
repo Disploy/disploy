@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import type { ArgumentsCamelCase, Argv, CommandModule } from "yargs";
+import type { Argv, CommandModule } from "yargs";
 import { Compile } from "../lib/compiler";
 import { ProjectTools } from "../lib/ProjectTools";
 import { logger } from "../utils/logger";
@@ -7,22 +7,16 @@ import { logger } from "../utils/logger";
 export const aliases: string[] = [];
 export const desc: string = "Deploy a project";
 
-export const builder = (yargs: Argv) =>
-  yargs.options({
-    target: {
-      alias: "t",
-      choices: ["cloudflare"],
-    },
-  });
+export const builder = (yargs: Argv) => yargs.options({});
 
 export const DeployCommand: CommandModule = {
   aliases,
   builder,
   command: "deploy",
-  async handler(args: ArgumentsCamelCase) {
+  async handler() {
     logger.info("Deploying...");
 
-    const { main, prebuild } = await ProjectTools.resolveProject({
+    const { root, prebuild, target } = await ProjectTools.resolveProject({
       cwd: process.cwd(),
     });
 
@@ -43,6 +37,6 @@ export const DeployCommand: CommandModule = {
     }
 
     logger.info("Compiling...");
-    await Compile({ main, target: args.target });
+    await Compile({ root, target });
   },
 };
