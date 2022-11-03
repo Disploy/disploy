@@ -10,7 +10,7 @@ export default class HeyCommand extends Command {
 
   override async slashRun(interaction: ChatInputInteraction) {
     return void interaction.reply({
-      content: `heyy! (from new command framework1!1) `,
+      content: `heyy! (from new command framework1!1)`,
     });
   }
 }

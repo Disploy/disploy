@@ -59,4 +59,6 @@ export async function Compile({
   });
 
   await rm(workbenchDir, { recursive: true, force: true });
+
+  return `${TempDir}/entry.mjs`;
 }

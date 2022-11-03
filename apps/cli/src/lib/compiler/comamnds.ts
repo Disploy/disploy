@@ -1,4 +1,4 @@
-import { glob } from "glob";
+import glob from "glob";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { logger } from "../../utils/logger";
@@ -49,7 +49,9 @@ export async function parseCommands(workbench: string) {
           )}} from "./commands/${path.basename(file, ".js")}";`
       )
       .join("\n"),
-    array: commandsFiles.map((file) => path.basename(file, ".js")).join(",\n"),
+    array: commandsFiles
+      .map((file) => `new ${path.basename(file, ".js")}`)
+      .join(",\n"),
   });
 
   await writeFile(path.join(workbench, "commands.js"), commandArray);

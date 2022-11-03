@@ -1,9 +1,14 @@
-import { readConfig } from "./disployConf";
+import { DisployConfig, readConfig } from "./disployConf";
+
+let config: DisployConfig | undefined;
 
 async function resolveProject({ cwd }: { cwd: string }) {
-  const pkg = await readConfig(cwd);
+  if (!config) {
+    const pkg = await readConfig(cwd);
+    config = pkg;
+  }
 
-  return pkg;
+  return config;
 }
 
 export const ProjectTools = {
