@@ -44,6 +44,25 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc",
+
+      // Plugin / TypeDoc options
+      {
+        id: "framework",
+        entryPoints: ["../../packages/framework/src/index.ts"],
+        tsconfig: "../../packages/framework/tsconfig.json",
+        out: "Documentation/framework",
+        sidebar: {
+          categoryLabel: "@disploy/framework",
+          position: 1,
+          fullNames: true,
+        },
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
