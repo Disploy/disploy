@@ -3,7 +3,6 @@
   "include": ["./src"],
   "compilerOptions": {
     "outDir": "./dist",
-    "jsx": "react",
     "noUncheckedIndexedAccess": false
   },
   "exclude": ["dist", "build", "node_modules"]

@@ -1,12 +1,12 @@
 {
   "name": "disploy",
   "version": "0.1.0",
-  "main": "dist/disploy.js",
-  "bin": "dist/disploy.js",
+  "main": "dist/disploy.mjs",
+  "bin": "dist/disploy.mjs",
   "scripts": {
     "build": "tsup && node scripts/copyAssets.mjs",
     "dev": "tsup --watch --onSuccess \"node scripts/copyAssets.mjs\"",
-    "disploy": "LOG_LEVEL=debug node dist/disploy.js"
+    "disploy": "LOG_LEVEL=debug node dist/disploy.mjs"
   },
   "dependencies": {
     "@disploy/starter": "*",
