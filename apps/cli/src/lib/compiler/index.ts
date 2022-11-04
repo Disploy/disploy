@@ -4,7 +4,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import type { DisployConfig } from '../disployConf';
 import { UserError } from '../UserError';
 import { CompilerAssets } from './assets';
-import { parseCommands } from './comamnds';
+import { parseCommands } from './commands';
 import { TempDir } from './constants';
 import { copyDir } from './copyDir';
 
