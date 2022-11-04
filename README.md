@@ -31,21 +31,21 @@ The Disploy [framework](/docs/Documentation/framework) will be a batteries-inclu
 
 ```ts
 // Example command
-import { Command, type ChatInputInteraction } from "@disploy/framework";
+import { Command, type ChatInputInteraction } from '@disploy/framework';
 
 export default class HeyCommand extends Command {
-  public constructor() {
-    super({
-      name: "hey",
-      description: "heyy!",
-    });
-  }
+	public constructor() {
+		super({
+			name: 'hey',
+			description: 'heyy!',
+		});
+	}
 
-  override async slashRun(interaction: ChatInputInteraction) {
-    return void interaction.reply({
-      content: `heyy!`,
-    });
-  }
+	override async slashRun(interaction: ChatInputInteraction) {
+		return void interaction.reply({
+			content: `heyy!`,
+		});
+	}
 }
 ```
 
@@ -57,23 +57,23 @@ Example usage (this is not final):
 
 ```ts
 // Disbench demo snippet (fake code)
-import { Disbench } from "@disploy/disbench";
+import { Disbench } from '@disploy/disbench';
 
 const disbench = new Disbench({
-  app: "dist/bot.js",
+	app: 'dist/bot.js',
 });
 
 await disbench.setup(); // This will start the bot and start communicating with the framework to "deploy" commands to the mocked API
 
-const echoCommand = disbench.commands.find({ name: "echo" });
+const echoCommand = disbench.commands.find({ name: 'echo' });
 
 const response = await disbench.interact(echoCommand, {
-  options: {
-    message: "Hello World!",
-  },
+	options: {
+		message: 'Hello World!',
+	},
 });
 
-expect(response).toEqual("Hello World!");
+expect(response).toEqual('Hello World!');
 ```
 
 ---

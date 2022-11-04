@@ -1,5 +1,4 @@
-const createAppSettingsURL = (appId: string) =>
-  `https://discord.com/developers/applications/${appId}/information`;
+const createAppSettingsURL = (appId: string) => `https://discord.com/developers/applications/${appId}/information`;
 
 const createInteractionsURI = (url: string) => `${url}/interactions`;
 

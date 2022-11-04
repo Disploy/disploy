@@ -1,10 +1,10 @@
-import type { Command } from "../commands";
+import type { Command } from '../commands';
 
 export interface LoggerOptions {
-  debug?: boolean;
+	debug?: boolean;
 }
 
 export interface AppOptions {
-  logger?: LoggerOptions;
-  commands?: Command[];
+	logger?: LoggerOptions;
+	commands?: Command[];
 }

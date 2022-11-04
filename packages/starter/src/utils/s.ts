@@ -5,7 +5,4 @@
  * @param cmd The command to format
  * @returns The formatted command
  */
-export const s = (cmd: string) =>
-  `${cmd} ${
-    process.env.NODE_ENV === "Development" ? "" : " >> /dev/null 2>&1"
-  }`;
+export const s = (cmd: string) => `${cmd} ${process.env.NODE_ENV === 'Development' ? '' : ' >> /dev/null 2>&1'}`;

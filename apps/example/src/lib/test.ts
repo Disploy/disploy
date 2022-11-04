@@ -1,1 +1,1 @@
-export const testImportVar = "hello world!";
+export const testImportVar = 'hello world!';

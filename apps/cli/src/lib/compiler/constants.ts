@@ -1,1 +1,1 @@
-export const TempDir = ".disploy";
+export const TempDir = '.disploy';

@@ -8,13 +8,13 @@ When you start a new project, you want to get to the fun stuff as soon as possib
 
 ## Features 🎉
 
--   📦 **Bundled with Disploy** - Starter is bundled with Disploy, so you can get started right away.
--   📝 **TypeScript** - Starter contains templates for TypeScript and JavaScript.
--   📦 **ESLint** - Starter comes with ESLint pre-configured.
--   📦 **Prettier** - Starter comes with Prettier pre-configured.
--   🧪 **Tests** - Starter comes with `@disploy/playground` pre-configured for testing.
--   👨‍💻 **GitHub Actions** - Starter comes with GitHub Actions pre-configured for testing and linting.
--   📦 **Vast package manager support** - Starter supports `pnpm`, `yarn`, and `npm`.
+- 📦 **Bundled with Disploy** - Starter is bundled with Disploy, so you can get started right away.
+- 📝 **TypeScript** - Starter contains templates for TypeScript and JavaScript.
+- 📦 **ESLint** - Starter comes with ESLint pre-configured.
+- 📦 **Prettier** - Starter comes with Prettier pre-configured.
+- 🧪 **Tests** - Starter comes with `@disploy/playground` pre-configured for testing.
+- 👨‍💻 **GitHub Actions** - Starter comes with GitHub Actions pre-configured for testing and linting.
+- 📦 **Vast package manager support** - Starter supports `pnpm`, `yarn`, and `npm`.
 
 ## Usage 🚀
 
