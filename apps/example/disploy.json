@@ -1,5 +1,5 @@
 {
   "prebuild": "yarn run build",
   "root": "dist",
-  "target": "standalone"
+  "target": "cloudflare"
 }
