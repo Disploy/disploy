@@ -19,20 +19,17 @@ function createCloudflareAdapter(app) {
     const { status, headers, body } = payload.serialized;
     return new Response(JSON.stringify(body), {
       status,
-      headers: (() => {
-        const headersObj = {
-          "content-type": "application/json",
-        };
-        for (const [key, value] of Object.entries(headers)) {
-          if (typeof value === "string") {
-            headersObj[key] = value;
-          }
-          if (Array.isArray(value)) {
-            headersObj[key] = value.join(",");
-          }
+      headers: Object.entries(headers).reduce<Record<string, string>>((acc, [key, value]) => {
+        if (typeof value === "string") {
+          acc[key] = value;
         }
-        return headersObj;
-      })(),
+        
+        if (Array.isArray(value)) {
+          acc[key] = value.join(",");
+        }
+          
+        return acc;
+      }),
     });
   };
 }
