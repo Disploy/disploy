@@ -40,13 +40,17 @@ export class CommandManager {
 
 		this.app.logger.debug(`Found ${commandsToRegister.length} commands to register!`, commandsToRegister);
 
-		for (const command of commandsToRegister) {
-			await this.registerCommandToDiscord(command, guildId);
-		}
+		await Promise.all(
+			commandsToRegister.map(async (command) => {
+				await this.registerCommandToDiscord(command, guildId);
+			}),
+		);
 
-		for (const [command, existingCommand] of commandsToUpdate) {
-			await this.updateCommandOnDiscord(existingCommand.id, command, guildId);
-		}
+		await Promise.all(
+			commandsToUpdate.map(async ([command, existingCommand]) => {
+				await this.updateCommandOnDiscord(existingCommand.id, command, guildId);
+			}),
+		);
 	}
 
 	/**
