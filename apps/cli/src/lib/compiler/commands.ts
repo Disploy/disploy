@@ -16,22 +16,16 @@ export async function parseCommands(workbench: string) {
 		});
 	});
 
-	const commands = await Promise.all(
+	await Promise.all(
 		commandsFiles.map(async (file) => {
 			let code = await readFile(file, 'utf-8');
 			const commandName = path.basename(file, '.js');
 
 			code = code.replace(/export default class ([a-zA-Z0-9]+) /, `export class ${commandName} `);
 
-			return await writeFile(file, code);
+			return writeFile(file, code);
 		}),
 	);
-
-	const commandVirts = commandsFiles.reduce((acc, file) => {
-		// @ts-ignore
-		acc[path.basename(file, '.js')] = commands[commandsFiles.indexOf(file)];
-		return acc;
-	}, {});
 
 	const commandArray = CompilerAssets.commandArray({
 		imports: commandsFiles
@@ -41,6 +35,4 @@ export async function parseCommands(workbench: string) {
 	});
 
 	await writeFile(path.join(workbench, 'commands.js'), commandArray);
-
-	return { commandVirts, commandArray };
 }
