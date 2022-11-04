@@ -1,9 +1,18 @@
 import { spawn } from "child_process";
+import * as color from "colorette";
 import ora from "ora";
 import { Compile } from "../../lib/compiler";
+import type { DisployConfig } from "../../lib/disployConf";
 import { ProjectTools } from "../../lib/ProjectTools";
-
-export async function BuildApp({ skipPrebuild = false } = {}) {
+export async function BuildApp({
+  skipPrebuild = false,
+  overrideTarget,
+}:
+  | {
+      skipPrebuild?: boolean;
+      overrideTarget?: DisployConfig["target"];
+    }
+  | undefined = {}) {
   let spinner = ora("Resolving project").start();
 
   const { root, prebuild, target } = await ProjectTools.resolveProject({
@@ -29,8 +38,13 @@ export async function BuildApp({ skipPrebuild = false } = {}) {
     spinner.succeed();
   }
 
-  spinner = ora("Bundling project").start();
-  const res = await Compile({ root, target });
+  spinner = ora(
+    [
+      "Bundling project",
+      `${color.gray("Target:")} ${color.magenta(overrideTarget || target)}`,
+    ].join("\n")
+  ).start();
+  const res = await Compile({ root, target: overrideTarget || target });
   spinner.succeed();
   return res;
 }

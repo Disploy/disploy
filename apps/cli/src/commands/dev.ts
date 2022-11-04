@@ -36,7 +36,10 @@ export const DevCommand: CommandModule = {
 
     const devAction = async () => {
       const spinner = ora("Found change! Building project").start();
-      const entry = await BuildApp({ skipPrebuild: true });
+      const entry = await BuildApp({
+        skipPrebuild: true,
+        overrideTarget: "standalone",
+      });
 
       const app = await import(path.join(process.cwd(), entry));
 
