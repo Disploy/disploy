@@ -11,6 +11,6 @@ export const BuildCommand: CommandModule = {
   builder,
   command: "build",
   async handler() {
-    BuildApp();
+    await BuildApp();
   },
 };
