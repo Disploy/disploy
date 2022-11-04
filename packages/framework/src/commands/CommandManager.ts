@@ -35,16 +35,16 @@ export class CommandManager {
     const commandsToUpdate = this.filterExistingCommands(existingCommands);
 
     this.app.logger.debug(
-      commandsToUpdate,
-      `Found ${commandsToUpdate.length} commands to update!`
+      `Found ${commandsToUpdate.length} commands to update!`,
+      commandsToUpdate
     );
 
     const commandsToRegister =
       this.filterNonFrameworkCommands(existingCommands);
 
     this.app.logger.debug(
-      commandsToRegister,
-      `Found ${commandsToRegister.length} commands to register!`
+      `Found ${commandsToRegister.length} commands to register!`,
+      commandsToRegister
     );
 
     for (const command of commandsToRegister) {
@@ -116,8 +116,8 @@ export class CommandManager {
     >(route, command.toJson());
 
     this.app.logger.debug(
-      response,
-      `Registered command ${command.options.name}!`
+      `Registered command ${command.options.name}!`,
+      response
     );
   }
 
@@ -135,7 +135,7 @@ export class CommandManager {
       RESTPatchAPIApplicationCommandResult
     >(route, command.toJson());
 
-    this.app.logger.debug(response, `Updated command ${command.options.name}!`);
+    this.app.logger.debug(`Updated command ${command.options.name}!`, response);
   }
 
   private areCommandsEqual(

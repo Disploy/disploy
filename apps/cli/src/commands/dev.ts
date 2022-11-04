@@ -1,6 +1,7 @@
 import * as ngrok from "ngrok";
 import { watch } from "node:fs";
 import path from "node:path";
+import ora from "ora";
 import type { Argv, CommandModule } from "yargs";
 import { createServer, setApp } from "../lib/devServer";
 import { ProjectTools } from "../lib/ProjectTools";
@@ -23,15 +24,27 @@ export const DevCommand: CommandModule = {
       cwd: process.cwd(),
     });
 
+    const { clientId, publicKey, token } =
+      await ProjectTools.resolveEnvironment({
+        cwd: process.cwd(),
+      });
+
     const watcher = watch(root, { recursive: true });
     let timeout: NodeJS.Timeout | null = null;
 
     const devAction = async () => {
+      const spinner = ora("Found change! Building project").start();
       const entry = await BuildApp({ skipPrebuild: true });
 
       const app = await import(path.join(process.cwd(), entry));
 
-      setApp(app.default);
+      setApp(app.default, {
+        clientId,
+        publicKey,
+        token,
+      });
+
+      spinner.succeed();
     };
 
     logger.warn(
@@ -49,11 +62,17 @@ export const DevCommand: CommandModule = {
 
     createServer(devServerPort);
 
+    const spinner = ora("Tunneling to ngrok").start();
+
     const url = await ngrok.connect({
       addr: devServerPort,
       proto: "http",
     });
 
-    logger.info(`Dev server running at ${url}`);
+    spinner.succeed();
+    logger.info(
+      `Visit https://discord.com/developers/applications/${clientId}/information and set "INTERACTIONS ENDPOINT URL" to ${url}/interactions`
+    );
+    ``;
   },
 };

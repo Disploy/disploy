@@ -1,7 +1,6 @@
 import glob from "glob";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { logger } from "../../utils/logger";
 import { CompilerAssets } from "./assets";
 
 export async function parseCommands(workbench: string) {
@@ -16,8 +15,6 @@ export async function parseCommands(workbench: string) {
       }
     });
   });
-
-  logger.debug(commandsFiles, "Commands files");
 
   const commands = await Promise.all(
     commandsFiles.map(async (file) => {

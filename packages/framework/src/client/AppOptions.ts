@@ -1,8 +1,7 @@
-import type { LevelWithSilent } from "pino";
 import type { Command } from "../commands";
 
 export interface LoggerOptions {
-  level?: LevelWithSilent;
+  debug?: boolean;
 }
 
 export interface AppOptions {

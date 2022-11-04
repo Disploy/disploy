@@ -3,9 +3,8 @@ import { Commands } from "./commands";
 
 const app = new App({
   logger: {
-    level: "debug",
+    debug: true,
   },
-  commands: Commands,
 });
 
-export default app;
+export default [app, Commands];

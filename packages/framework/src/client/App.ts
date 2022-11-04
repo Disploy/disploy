@@ -1,7 +1,7 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
-import pino, { Logger } from "pino";
 import { Command, CommandManager } from "../commands";
 import { Router } from "../router";
+import { Logger } from "../utils";
 import type { AppOptions } from "./AppOptions";
 import { Rest } from "./Rest";
 
@@ -17,8 +17,8 @@ export class App {
   private _commandBuffer: Command[] = [];
 
   public constructor(options?: AppOptions) {
-    this.logger = pino({
-      level: options?.logger?.level ?? "info",
+    this.logger = new Logger({
+      debug: options?.logger?.debug ? true : false,
     });
 
     this._commandBuffer = options?.commands ?? [];
@@ -45,21 +45,24 @@ export class App {
 
     this._commandBuffer.forEach((command) => {
       this.commands.registerCommand(command);
+      this.logger.debug(
+        `Registered command ${command.options.name} from buffer`
+      );
     });
 
     this._commandBuffer = [];
 
     commands?.forEach((command) => {
       this.commands.registerCommand(command);
+      this.logger.debug(
+        `Registered command ${command.options.name} from start()`
+      );
     });
 
-    this.logger.info(
-      {
-        publicKey: this.publicKey,
-        token: this.token.replace(/^(.{5}).*$/, "$1**********"),
-        clientID: this.clientId,
-      },
-      "App initialized."
-    );
+    this.logger.info("App initialized.", {
+      publicKey: this.publicKey,
+      token: this.token.replace(/^(.{5}).*$/, "$1**********"),
+      clientID: this.clientId,
+    });
   }
 }

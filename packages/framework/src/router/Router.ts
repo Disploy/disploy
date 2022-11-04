@@ -66,8 +66,8 @@ export class Router extends EventEmitter {
           });
         default:
           this.app.logger.error(
-            err,
-            "An error occurred while handling a request."
+            "An error occurred while handling a request.",
+            err
           );
           return res.status(500).json({
             message: "Internal server error.",
@@ -103,7 +103,7 @@ export class Router extends EventEmitter {
     const route = this.routeResolver(req.body);
 
     if (!route) {
-      this.app.logger.warn(req.body, "No route found for interaction.");
+      this.app.logger.warn("No route found for interaction.", req.body);
       throw new RequestorError("No route found for this interaction.", 404);
     }
 

@@ -1,7 +1,6 @@
 import { mkdir, rm, writeFile } from "fs/promises";
 import { rollup } from "rollup";
 import esbuild from "rollup-plugin-esbuild";
-import { logger } from "../../utils/logger";
 import type { DisployConfig } from "../disployConf";
 import { CompilerAssets } from "./assets";
 import { parseCommands } from "./comamnds";
@@ -29,7 +28,6 @@ export async function Compile({
   await rm(TempDir, { recursive: true, force: true });
   await mkdir(TempDir, { recursive: true });
 
-  logger.debug("Copying project files to temp dir...");
   const workbenchDir = `${TempDir}/workbench`;
 
   await mkdir(workbenchDir, { recursive: true });

@@ -1,5 +1,4 @@
 import { Command, type ChatInputInteraction } from "@disploy/framework";
-import { testImportVar } from "../lib/test";
 
 export default class PingCommand extends Command {
   public constructor() {
@@ -11,7 +10,7 @@ export default class PingCommand extends Command {
 
   override async slashRun(interaction: ChatInputInteraction) {
     return void interaction.reply({
-      content: `${testImportVar}`,
+      content: `hello world!!!!!!!!`,
     });
   }
 }

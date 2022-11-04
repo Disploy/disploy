@@ -1,19 +1,23 @@
 import { spawn } from "child_process";
+import ora from "ora";
 import { Compile } from "../../lib/compiler";
 import { ProjectTools } from "../../lib/ProjectTools";
-import { logger } from "../../utils/logger";
 
 export async function BuildApp({ skipPrebuild = false } = {}) {
+  let spinner = ora("Resolving project").start();
+
   const { root, prebuild, target } = await ProjectTools.resolveProject({
     cwd: process.cwd(),
   });
 
+  spinner.succeed();
+
   if (prebuild && !skipPrebuild) {
-    logger.info("Running prebuild script...");
+    spinner = ora("Running prebuild script").start();
     await new Promise<void>((resolve, reject) => {
       spawn(prebuild.split(" ")[0]!, prebuild.split(" ").slice(1), {
         cwd: process.cwd(),
-        stdio: "inherit",
+        stdio: "ignore",
       }).on("exit", (code) => {
         if (code === 0) {
           resolve();
@@ -22,8 +26,11 @@ export async function BuildApp({ skipPrebuild = false } = {}) {
         }
       });
     });
+    spinner.succeed();
   }
 
-  logger.info("Compiling...");
-  return await Compile({ root, target });
+  spinner = ora("Bundling project").start();
+  const res = await Compile({ root, target });
+  spinner.succeed();
+  return res;
 }

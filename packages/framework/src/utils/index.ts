@@ -1,4 +1,5 @@
 export * from "./DiscordAPIUtils";
+export * from "./Logger";
 export * from "./RequestorError";
 export * from "./runtime";
 export * from "./SnowflakeUtil";

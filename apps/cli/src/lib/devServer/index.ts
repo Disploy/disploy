@@ -1,7 +1,6 @@
-import type { App, TRequest } from "@disploy/framework";
+import type { App, Command, TRequest } from "@disploy/framework";
 import bodyParser from "body-parser";
 import express from "express";
-import { logger } from "../../utils/logger";
 
 let app: App | null = null;
 
@@ -26,16 +25,18 @@ server.post("/interactions", async (req, res) => {
 });
 
 export function createServer(port: number) {
-  server.listen(port, () => {
-    logger.debug(`Express server listening on port ${port}`);
-  });
+  server.listen(port);
 }
 
-export function setApp(newApp: App) {
-  app = newApp;
+export function setApp(
+  newApp: [App, Command[]],
+  options: { clientId: string; publicKey: string; token: string }
+) {
+  app = newApp[0];
   app.start({
-    clientId: process.env.DISCORD_CLIENT_ID!,
-    publicKey: process.env.DISCORD_PUBLIC_KEY!,
-    token: process.env.DISCORD_TOKEN!,
+    clientId: options.clientId,
+    publicKey: options.publicKey,
+    token: options.token,
+    commands: newApp[1],
   });
 }

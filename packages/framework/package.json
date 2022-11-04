@@ -19,7 +19,6 @@
   "dependencies": {
     "discord-api-types": "^0.37.14",
     "eventemitter3": "^4.0.7",
-    "pino": "^8.7.0",
     "tweetnacl": "^1.0.3"
   }
 }
