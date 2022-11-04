@@ -1,10 +1,6 @@
 import { App } from "@disploy/framework";
 import { Commands } from "./commands";
 
-const app = new App({
-  logger: {
-    debug: true,
-  },
-});
+const app = new App();
 
 export default [app, Commands];
