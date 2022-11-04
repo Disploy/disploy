@@ -1,24 +1,25 @@
 {
-  "name": "@disploy/example",
-  "version": "0.0.0",
-  "disploy:main": "dist/index.js",
-  "disploy:prebuild": "yarn build",
-  "main": "./dist/index.js",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w"
-  },
-  "dependencies": {
-    "@disploy/framework": "*"
-  },
-  "devDependencies": {
-    "@meetuplol/envject": "^0.0.0",
-    "@types/node": "^18.11.3",
-    "eslint": "7.32.0",
-    "eslint-config-custom": "*",
-    "tsconfig": "*",
-    "typescript": "^4.5.3"
-  }
+	"name": "@disploy/example",
+	"version": "0.0.0",
+	"disploy:main": "dist/index.js",
+	"disploy:prebuild": "yarn build",
+	"main": "./dist/index.js",
+	"source": "./src/index.ts",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"type-check": "tsc --noEmit",
+		"dev": "tsc -w"
+	},
+	"dependencies": {
+		"@disploy/framework": "*"
+	},
+	"devDependencies": {
+		"@meetuplol/envject": "^0.0.0",
+		"@types/node": "^18.11.3",
+		"eslint": "7.32.0",
+		"eslint-config-custom": "*",
+		"tsconfig": "*",
+		"typescript": "^4.5.3"
+	}
 }

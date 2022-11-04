@@ -13,8 +13,8 @@ async function resolveProject({ cwd }: { cwd: string }) {
 	return config;
 }
 
-async function findClosestEnv() {
-	let cwd = process.cwd();
+async function findClosestEnv(opts: { cwd: string }) {
+	let cwd = opts.cwd;
 
 	while (cwd !== '/') {
 		const envPath = `${cwd}/.env`;
@@ -30,7 +30,7 @@ async function findClosestEnv() {
 }
 
 async function resolveEnvironment({ cwd }: { cwd: string }) {
-	dotenv.config({ path: await findClosestEnv() });
+	dotenv.config({ path: await findClosestEnv({ cwd }) });
 
 	const { DISCORD_TOKEN: token, DISCORD_PUBLIC_KEY: publicKey, DISCORD_CLIENT_ID: clientId } = process.env;
 
