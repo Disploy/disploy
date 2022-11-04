@@ -17,9 +17,7 @@ export class Command {
 
 	public toJson(): RESTPostAPIChatInputApplicationCommandsJSONBody {
 		return {
-			name: this.options.name,
-			description: this.options.description,
-			options: this.options.options,
+			...this.options,
 		};
 	}
 }
