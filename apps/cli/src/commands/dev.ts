@@ -55,7 +55,7 @@ export const DevCommand: CommandModule = {
     logger.warn(
       [
         "If you're using a prebuild script, it will not be run!",
-        "Disploy's development mode, expects the root of your project to be ready to run javascript.",
+        "Disploy's development mode expects the root of your project to be ready to run JavaScript.",
         "For example, if you're using typescript, you should run `tsc -w` alongside disploy's dev command.",
       ].join("\n")
     );
