@@ -59,7 +59,7 @@ export class App {
       );
     });
 
-    this.logger.info("App initialized.", {
+    this.logger.debug("App initialized.", {
       publicKey: this.publicKey,
       token: this.token.replace(/^(.{5}).*$/, "$1**********"),
       clientID: this.clientId,
