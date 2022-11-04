@@ -1,3 +1,4 @@
+import * as color from "colorette";
 import * as ngrok from "ngrok";
 import { watch } from "node:fs";
 import path from "node:path";
@@ -5,6 +6,7 @@ import ora from "ora";
 import type { Argv, CommandModule } from "yargs";
 import { createServer, setApp } from "../lib/devServer";
 import { ProjectTools } from "../lib/ProjectTools";
+import { F } from "../lib/StringFormatters";
 import { logger } from "../utils/logger";
 import { BuildApp } from "./common/build";
 
@@ -48,7 +50,11 @@ export const DevCommand: CommandModule = {
     };
 
     logger.warn(
-      "If you're using a prebuild script, it will not be run on dev. (i.e if you're using typescript, you'll need to run tsc watch yourself!)"
+      [
+        "If you're using a prebuild script, it will not be run!",
+        "Disploy's development mode, expects the root of your project to be ready to run javascript.",
+        "For example, if you're using typescript, you should run `tsc -w` alongside disploy's dev command.",
+      ].join("\n")
     );
     devAction();
 
@@ -69,9 +75,16 @@ export const DevCommand: CommandModule = {
       proto: "http",
     });
 
-    spinner.succeed();
+    spinner.succeed("Connected to ngrok");
+
     logger.info(
-      `Visit https://discord.com/developers/applications/${clientId}/information and set "INTERACTIONS ENDPOINT URL" to ${url}/interactions`
+      [
+        "Your bot is ready to recieve interactions!",
+        `1. Visit ${color.cyan(F.createAppSettingsURL(clientId))}`,
+        `2. Set ${color.gray("INTERACTIONS ENDPOINT URL")} to ${color.cyan(
+          F.createInteractionsURI(url)
+        )}`,
+      ].join("\n")
     );
     ``;
   },
