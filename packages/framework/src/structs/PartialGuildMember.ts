@@ -1,4 +1,4 @@
-import type {APIGuildMember, Snowflake} from "discord-api-types/v10";
+import type {APIGuildMember, APIInteractionDataResolvedGuildMember, Snowflake} from "discord-api-types/v10";
 
 export class PartialGuildMember {
     /**
@@ -36,7 +36,7 @@ export class PartialGuildMember {
      */
     public communication_disabled_until!: boolean | null;
 
-    public constructor(raw: APIGuildMember) {
+    public constructor(raw: APIGuildMember | APIInteractionDataResolvedGuildMember) {
         this.nickname = raw.nick ?? null;
         this.avatar = raw.avatar ?? null;
         this.roles = raw.roles;
