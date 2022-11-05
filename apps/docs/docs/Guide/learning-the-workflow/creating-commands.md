@@ -49,7 +49,7 @@ Next, we define the `slashRun` method. This is the method that will be called wh
 
 The `slashRun` method is called when the command is run. It takes a single argument, the interaction. The interaction is an object which contains information about the interaction, such as the user who ran the command, the arguments they provided, and the channel the command was run in.
 
-The `slashRun` method must return a `Promise<void>`, once returned the command will be considered finished; in serverless environments this will kill the process. This allows you to run code after initaliy responding to the interaction. This is useful for doing things like sending followup messages or deferring the interaction to do a long-running task and edit the interaction later.
+The `slashRun` method must return `Promise<void>`, once returned the command will be considered finished; in serverless environments this will kill the process. This allows you to run code after initially responding to the interaction. This is useful for doing things like sending follow-up messages or deferring the interaction to do a long-running task and editing the interaction later.
 
 <details>
   <summary> Click here to see an example of a command with followup messages </summary>
