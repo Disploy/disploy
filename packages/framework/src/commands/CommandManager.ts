@@ -17,6 +17,14 @@ export class CommandManager {
 
 	private readonly commands = new Map<string, Command>();
 
+	/**
+	 * Get the locally registered commands in this manager
+	 * @returns Registered commands in this manager
+	 */
+	public getCommands() {
+		return this.commands;
+	}
+
 	public registerCommand(command: Command) {
 		this.app.router.addRoute(new ChatInputRoute(this.app, command));
 		this.commands.set(command.options.name, command);
