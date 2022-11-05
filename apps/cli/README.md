@@ -1,5 +1,23 @@
 # Disploy CLI
 
-Commands:
+Welcome to the Disploy CLI!
 
-- `disploy init` - Initialize a new project
+## Installation
+
+### Install with NPM
+
+```bash
+npm install -g disploy
+```
+
+### Install with Yarn
+
+```bash
+yarn global add disploy
+```
+
+## Usage
+
+```bash
+disploy
+```

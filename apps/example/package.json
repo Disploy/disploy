@@ -9,13 +9,14 @@
 	"scripts": {
 		"build": "tsc",
 		"type-check": "tsc --noEmit",
-		"dev": "tsc -w"
+		"dev": "tsc -w",
+		"serve": "disploy dev"
 	},
 	"dependencies": {
 		"@disploy/framework": "*"
 	},
 	"devDependencies": {
-		"@meetuplol/envject": "^0.0.0",
+		"disploy": "*",
 		"@types/node": "^18.11.3",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",

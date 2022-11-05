@@ -17,12 +17,10 @@ Disploy is a whole ecosystem of tools to help you create your next Discord HTTP 
 
 ## Planned Features
 
-When Disploy was originally started, it was supposed to be a tool to template any Discord bot, but I decided to repurpose it to be a tool to help you create HTTP Interaction bots.
-
 ### CLI
 
 - Bootstrapping a new project
-- Development server that automatically exposed to the internet using ngrok or Cloudflare tunnel
+- Development server that automatically exposed to the internet using ngrok
 - Rolling up a production build using rollup and deploying to the edge (Vercel, Cloudflare workers, etc)
 
 ### Framework

@@ -14,8 +14,7 @@ This will start watching your changes and compile TypeScript on the fly.
 
 https://user-images.githubusercontent.com/69066026/197907414-7dcf6b84-e525-4471-b5d8-fc76597c9727.mp4
 
-When testing, we recommend to use the next-example, this would have already started when you ran `yarn dev` and is either on port 3000 or 3001.
-Otherwise we have an express-example you can run by opening another terminal, changing the directory to apps/express-example and running `yarn start`.
+When testing your changes, you should cd into `apps/example` and run `yarn serve` to start a local Disploy development server with hot reloading, make sure to still have `yarn dev` running in the root of the monorepo.
 
 ## Secrets
 
