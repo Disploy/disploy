@@ -112,7 +112,7 @@ export class CommandManager {
 	private async updateCommandOnDiscord(id: string, command: Command, guildId?: string) {
 		const route = guildId
 			? Routes.applicationGuildCommand(this.app.clientId, guildId, id)
-			: Routes.applicationCommand(this.app.clientId, id);
+			: Routes.applicationCommand(id, this.app.clientId);
 
 		const response = await this.app.rest.patch<
 			RESTPatchAPIApplicationCommandJSONBody,
