@@ -23,7 +23,7 @@ export class Rest {
 		});
 
 		if (res.status >= 400) {
-			throw new Error(`Request failed with status ${res.status}`);
+			throw new Error(`${method} ${path} returned ${res.status} ${res.statusText}`);
 		}
 
 		return res.json();

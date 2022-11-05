@@ -9,8 +9,12 @@ export default class HeyCommand extends Command {
 	}
 
 	override async slashRun(interaction: ChatInputInteraction) {
-		return void interaction.reply({
-			content: `heyy! (from new command framework1!1)`,
+		interaction.deferReply();
+
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+
+		return void interaction.editReply({
+			content: `Just wanted to say hey!`,
 		});
 	}
 }
