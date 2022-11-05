@@ -36,8 +36,8 @@ async function resolveEnvironment({ cwd }: { cwd: string }) {
 
 	if (!token || !publicKey || !clientId) {
 		throw new UserError(
-			`Missing ${!token ? 'token' : ''} ${!publicKey ? 'publicKey' : ''} ${
-				!clientId ? 'clientId' : ''
+			`Missing ${!token ? 'DISCORD_TOKEN' : ''} ${!publicKey ? 'DISCORD_PUBLIC_KEY' : ''} ${
+				!clientId ? 'DISCORD_CLIENT_ID' : ''
 			} environment variables`,
 		);
 	}
