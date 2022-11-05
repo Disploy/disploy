@@ -7,10 +7,12 @@ import { ProjectTools } from '../../lib/ProjectTools';
 export async function BuildApp({
 	skipPrebuild = false,
 	overrideTarget,
+	entryFileName = 'entry.mjs',
 }:
 	| {
 			skipPrebuild?: boolean;
 			overrideTarget?: DisployConfig['target'];
+			entryFileName?: string;
 	  }
 	| undefined = {}) {
 	let spinner = ora('Resolving project').start();
@@ -41,7 +43,7 @@ export async function BuildApp({
 	spinner = ora(
 		['Bundling project', `${color.gray('Target:')} ${color.magenta(overrideTarget || target)}`].join('\n'),
 	).start();
-	const res = await Compile({ root, target: overrideTarget || target });
+	const res = await Compile({ root, target: overrideTarget || target, entryFileName });
 	spinner.succeed();
 	return res;
 }
