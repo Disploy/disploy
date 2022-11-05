@@ -9,7 +9,7 @@ import { TempDir } from './constants';
 import { copyDir } from './copyDir';
 
 function parseTarget(target: DisployConfig['target']) {
-	switch (target) {
+	switch (target.type) {
 		case 'cloudflare':
 			return 'cfWorkerEntry';
 		case 'standalone':

@@ -40,7 +40,7 @@ export const SyncCommand: CommandModule = {
 
 		const entry = await BuildApp({
 			skipPrebuild: true,
-			overrideTarget: 'standalone',
+			overrideTarget: { type: 'standalone' },
 			entryFileName: `entry.mjs`,
 		});
 
