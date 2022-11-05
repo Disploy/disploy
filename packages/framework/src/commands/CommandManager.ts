@@ -34,7 +34,16 @@ export class CommandManager {
 	 * Sync all registered commands with the DAPI
 	 * @param guildId Guild ID to sync commands for
 	 */
-	public async syncCommands(guildId?: string) {
+	public async syncCommands(merge = true, guildId?: string) {
+		if (!merge) {
+			await this.app.rest.put(
+				guildId
+					? Routes.applicationGuildCommands(this.app.clientId, guildId)
+					: Routes.applicationCommands(this.app.clientId),
+				[...this.commands.values()].map((command) => command.toJson()),
+			);
+		}
+
 		const existingCommands = await this.getRegisteredCommands({
 			guildId,
 			onlyFramework: true,

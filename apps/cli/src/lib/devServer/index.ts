@@ -1,6 +1,7 @@
-import type { App, Command, TRequest } from '@disploy/framework';
+import type { App, TRequest } from '@disploy/framework';
 import bodyParser from 'body-parser';
 import express from 'express';
+import type { DisployStandaloneBundle } from '../../types';
 import { logger } from '../../utils/logger';
 
 let app: App | null = null;
@@ -31,17 +32,17 @@ export function createServer(port: number) {
 }
 
 export async function setApp(
-	newApp: [App, Command[]],
+	newApp: DisployStandaloneBundle,
 	options: { clientId: string; publicKey: string; token: string },
 ) {
 	const firstTime = !app;
 
-	app = newApp[0];
+	app = newApp.app;
 	app.start({
 		clientId: options.clientId,
 		publicKey: options.publicKey,
 		token: options.token,
-		commands: newApp[1],
+		commands: newApp.commands,
 	});
 
 	if (firstTime) {
@@ -50,7 +51,7 @@ export async function setApp(
 
 	let needsSync = false;
 
-	for (const command of newApp[1]) {
+	for (const command of newApp.commands) {
 		if (!remoteCommands.includes(command.options.name)) {
 			needsSync = true;
 			break;
