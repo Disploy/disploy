@@ -1,10 +1,31 @@
 {
 	"name": "@disploy/framework",
-	"version": "0.1.0",
+	"version": "0.2.0",
+	"license": "Apache-2.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"source": "./src/index.ts",
 	"types": "./dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"contributors": [
+		"Tristan Camejo <contact@tristancamejo.com>",
+		"TenDRILLL <sofyeer@gmail.com>"
+	],
+	"keywords": [
+		"api",
+		"bot",
+		"discord",
+		"node",
+		"typescript",
+		"cf-worker"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Disploy/disploy.git"
+	},
+	"homepage": "https://disploy.dev",
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch",
