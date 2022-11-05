@@ -19,7 +19,15 @@ function parseTarget(target: DisployConfig['target']) {
 	}
 }
 
-export async function Compile({ root, target }: { root: string; target: DisployConfig['target'] }) {
+export async function Compile({
+	root,
+	target,
+	entryFileName,
+}: {
+	root: string;
+	target: DisployConfig['target'];
+	entryFileName: string;
+}) {
 	await rm(TempDir, { recursive: true, force: true });
 	await mkdir(TempDir, { recursive: true });
 
@@ -47,11 +55,11 @@ export async function Compile({ root, target }: { root: string; target: DisployC
 	});
 
 	await bundle.write({
-		file: `${TempDir}/entry.mjs`,
+		file: `${TempDir}/${entryFileName}`,
 		format: 'es',
 	});
 
 	await rm(workbenchDir, { recursive: true, force: true });
 
-	return `${TempDir}/entry.mjs`;
+	return `${TempDir}/${entryFileName}`;
 }
