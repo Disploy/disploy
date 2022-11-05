@@ -2,11 +2,13 @@ import type {
     APIInteractionResponseCallbackData,
     APIUserApplicationCommandInteraction,
     Snowflake,
+    APIInteractionDataResolvedGuildMember
 } from "discord-api-types/v10";
 import type { App } from "../client";
 import { BaseInteraction } from "./BaseInteraction";
 import { GuildMember } from "./GuildMember";
 import { User } from "./User";
+import {PartialGuildMember} from "./PartialGuildMember";
 
 export class UserInteraction extends BaseInteraction {
     /**
@@ -39,12 +41,12 @@ export class UserInteraction extends BaseInteraction {
      */
     public targetId!: Snowflake;
 
-    /*
+    /**
     * The targeted GuildMember.
     */
-    public targetMember!: GuildMember | null;
+    public targetMember!: PartialGuildMember | null;
 
-    /*
+    /**
     * The targeted User.
     */
     public targetUser!: User | null;
@@ -63,7 +65,7 @@ export class UserInteraction extends BaseInteraction {
                 : null
             : null;
         this.targetId = raw.data.target_id;
-        this.targetMember = raw.data.resolved.members ? new GuildMember(raw.data.resolved.members[raw.data.target_id]!) : null;
+        this.targetMember = raw.data.resolved.members ? new PartialGuildMember(raw.data.resolved.members[this.targetId] as APIInteractionDataResolvedGuildMember) : null;
         this.targetUser = new User(raw.data.resolved.users[raw.data.target_id]!);
         //this.options = new UserInteractionOptions(app, this);
     }
