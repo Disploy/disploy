@@ -6,7 +6,15 @@ import { UserError } from '../UserError';
 const disployConfigSchema = z.object({
 	prebuild: z.string().optional(),
 	root: z.string(),
-	target: z.union([z.literal('cloudflare'), z.literal('standalone')]),
+	target: z.union([
+		z.object({
+			type: z.literal('cloudflare'),
+			name: z.string(),
+		}),
+		z.object({
+			type: z.literal('standalone'),
+		}),
+	]),
 });
 
 export type DisployConfig = z.infer<typeof disployConfigSchema>;

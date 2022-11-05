@@ -1,5 +1,8 @@
 {
 	"prebuild": "yarn run build",
 	"root": "dist",
-	"target": "cloudflare"
+	"target": {
+		"type": "cloudflare",
+		"name": "cf-example"
+	}
 }

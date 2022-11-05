@@ -37,7 +37,7 @@ export const DevCommand: CommandModule = {
 			const spinner = ora('Found change! Building project').start();
 			const entry = await BuildApp({
 				skipPrebuild: true,
-				overrideTarget: 'standalone',
+				overrideTarget: { type: 'standalone' },
 				entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 			});
 
