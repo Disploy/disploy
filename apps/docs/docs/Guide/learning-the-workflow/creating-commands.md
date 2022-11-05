@@ -52,7 +52,7 @@ The `slashRun` method is called when the command is run. It takes a single argum
 The `slashRun` method must return `Promise<void>`, once returned the command will be considered finished; in serverless environments this will kill the process. This allows you to run code after initially responding to the interaction. This is useful for doing things like sending follow-up messages or deferring the interaction to do a long-running task and editing the interaction later.
 
 <details>
-  <summary> Click here to see an example of a command with followup messages </summary>
+  <summary> Example of a command with follow-up messages </summary>
 
 ```ts
 import { Command, type ChatInputInteraction } from '@disploy/framework';
