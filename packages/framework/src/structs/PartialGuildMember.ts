@@ -1,4 +1,4 @@
-import type {APIInteractionDataResolvedGuildMember, Permissions, Snowflake} from "discord-api-types/v10";
+import type {APIGuildMember, Snowflake} from "discord-api-types/v10";
 
 export class PartialGuildMember {
     /**
@@ -36,13 +36,7 @@ export class PartialGuildMember {
      */
     public communication_disabled_until!: boolean | null;
 
-    /**
-     * Member's permissions on the guild.
-     */
-    public permissions!: Permissions;
-
-
-    public constructor(raw: APIInteractionDataResolvedGuildMember) {
+    public constructor(raw: APIGuildMember) {
         this.nickname = raw.nick ?? null;
         this.avatar = raw.avatar ?? null;
         this.roles = raw.roles;
@@ -50,6 +44,5 @@ export class PartialGuildMember {
         this.premium_since = raw.premium_since ?? null;
         this.pending = raw.pending ?? null;
         this.communication_disabled_until = Boolean(raw.communication_disabled_until) ?? null;
-        this.permissions = raw.permissions;
     }
 }
