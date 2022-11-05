@@ -98,7 +98,7 @@ export class Router extends EventEmitter {
 				const interaction = req.body as APIChatInputApplicationCommandInteraction;
 				const user = DiscordAPIUtils.resolveUserFromInteraction(interaction);
 
-				this.app.logger.debug(
+				this.app.logger.info(
 					`Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
 				);
 
