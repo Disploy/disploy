@@ -1,19 +1,27 @@
 import type { APIGuildMember } from "discord-api-types/v10";
 import { User } from "./User";
+import {PartialGuildMember} from "./PartialGuildMember";
 
-export class GuildMember {
+export class GuildMember extends PartialGuildMember {
   /**
    * The User object of the member.
    */
   public user!: User | null;
 
   /**
-   * The nickname of the member.
+   * Whether the user is deafened in voice channels
    */
-  public nickname!: string | null;
+  public deaf!: boolean | null;
+
+  /**
+   * Whether the user is muted in voice channels
+   */
+  public mute!: boolean | null;
 
   public constructor(raw: APIGuildMember) {
+    super(raw);
     this.user = raw.user ? new User(raw.user) : null;
-    this.nickname = raw.nick || null;
+    this.deaf = Boolean(raw.deaf) ?? null;
+    this.mute = Boolean(raw.mute) ?? null;
   }
 }
