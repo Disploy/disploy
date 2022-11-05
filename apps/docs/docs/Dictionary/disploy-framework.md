@@ -25,7 +25,7 @@ export default class PingCommand extends Command {
 
 	override async slashRun(interaction: ChatInputInteraction) {
 		return void interaction.reply({
-			content: `hello world!`,
+			content: 'hello world!',
 		});
 	}
 }
