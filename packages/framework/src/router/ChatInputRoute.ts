@@ -1,25 +1,24 @@
-import { InteractionType } from "discord-api-types/v10";
-import type { ChatInputInteraction } from "../structs";
-import { BaseRoute } from "./BaseRoute";
-
-export interface ChatInputRouteOptions {
-  /**
-   * The name of the command.
-   */
-  name: string;
-}
+import { InteractionType } from 'discord-api-types/v10';
+import type { App } from '../client';
+import type { Command } from '../commands';
+import type { ChatInputInteraction } from '../structs';
+import { RequestorError } from '../utils';
+import { BaseRoute } from './BaseRoute';
 
 export class ChatInputRoute extends BaseRoute {
-  public name!: string;
+	public name!: string;
 
-  public constructor(options: ChatInputRouteOptions) {
-    super();
-    this.type = InteractionType.ApplicationCommand;
-    this.name = options.name;
-  }
+	public constructor(app: App, private command: Command) {
+		super(app);
+		this.type = InteractionType.ApplicationCommand;
+		this.name = command.options.name;
+	}
 
-  // @ts-expect-error 6133
-  public async chatInputRun(interaction: ChatInputInteraction) {
-    return void 0;
-  }
+	public async chatInputRun(interaction: ChatInputInteraction) {
+		if (!this.command.slashRun) {
+			throw new RequestorError('Command does not have a slashRun method.');
+		}
+
+		this.command.slashRun(interaction);
+	}
 }

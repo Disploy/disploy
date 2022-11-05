@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   // This tells ESLint to load the config from the package `eslint-config-custom`
   extends: ["custom"],
+  ignores: ["**/assets/**"],
   settings: {
     next: {
       rootDir: ["apps/*/"],

@@ -1,10 +1,17 @@
-import * as yargs from "yargs";
-import Init from "./commands/init";
+#!/usr/bin/env node
 
-const commands = [Init];
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { BuildCommand } from './commands/build';
+import { DevCommand } from './commands/dev';
+import { SyncCommand } from './commands/sync';
 
-for (const command of commands) {
-  yargs.command(command);
-}
+const commands = [SyncCommand, DevCommand, BuildCommand];
 
-yargs.demandCommand().argv;
+const handler = yargs(hideBin(process.argv));
+
+commands.forEach((command) => {
+	handler.command(command);
+});
+
+handler.demandCommand(1).parse();

@@ -3,8 +3,10 @@
   "include": ["./src"],
   "compilerOptions": {
     "outDir": "./dist",
-    "declaration": true,
-    "emitDeclarationOnly": true
+    "declarationMap": false,
+    "declaration": false,
+    "sourceMap": false,
+    "inlineSources": false
   },
   "exclude": ["dist", "build", "node_modules"]
 }

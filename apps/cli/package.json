@@ -1,40 +1,41 @@
 {
-  "name": "disploy",
-  "version": "0.1.0",
-  "main": "dist/disploy.js",
-  "bin": "disploy",
-  "scripts": {
-    "build": "rollup -c && echo '#!/usr/bin/env node' | cat - dist/disploy.js > disploy && chmod +x disploy",
-    "dev": "rollup -c -w",
-    "disploy": "./disploy",
-    "disploy:dev": "node dist/disploy.js"
-  },
-  "dependencies": {
-    "@disploy/starter": "*",
-    "axios": "^0.27.2",
-    "cli-spinners": "^2.7.0",
-    "colorette": "^2.0.19",
-    "ink": "^3.2.0",
-    "ink-select-input": "^4.2.1",
-    "ink-spinner": "^4.0.3",
-    "ink-text-input": "^4.0.3",
-    "ora": "^6.1.2",
-    "react": "^18.2.0",
-    "yargs": "^17.5.1"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@meetuplol/typewriter": "^1.0.1",
-    "@types/node": "^17.0.12",
-    "@types/react": "^18.0.21",
-    "@types/yargs": "^17.0.11",
-    "esbuild": "^0.15.10",
-    "eslint": "7.32.0",
-    "eslint-config-custom": "*",
-    "rollup": "^2.79.1",
-    "rollup-plugin-dts": "^4.2.3",
-    "rollup-plugin-esbuild": "^4.10.1",
-    "tsconfig": "*",
-    "typescript": "^4.5.3"
-  }
+	"name": "disploy",
+	"version": "0.1.0",
+	"main": "dist/disploy.mjs",
+	"bin": "dist/disploy.mjs",
+	"scripts": {
+		"build": "tsup && node scripts/copyAssets.mjs",
+		"dev": "tsup --watch --onSuccess \"node scripts/copyAssets.mjs\"",
+		"disploy": "LOG_LEVEL=debug node dist/disploy.mjs",
+		"type-check": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@disploy/starter": "*",
+		"axios": "^0.27.2",
+		"cli-spinners": "^2.7.0",
+		"colorette": "^2.0.19",
+		"dotenv": "^16.0.3",
+		"esbuild": "^0.15.12",
+		"express": "^4.18.2",
+		"glob": "^8.0.3",
+		"inquirer": "^9.1.4",
+		"ngrok": "^4.3.3",
+		"ora": "^6.1.2",
+		"pino-pretty": "^9.1.1",
+		"rollup": "^3.2.3",
+		"rollup-plugin-esbuild": "^4.10.1",
+		"yargs": "^17.5.1",
+		"zod": "^3.19.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.0.0",
+		"@types/express": "^4.17.14",
+		"@types/inquirer": "^9.0.2",
+		"@types/node": "^17.0.12",
+		"@types/yargs": "^17.0.11",
+		"eslint": "7.32.0",
+		"eslint-config-custom": "*",
+		"tsconfig": "*",
+		"typescript": "^4.5.3"
+	}
 }

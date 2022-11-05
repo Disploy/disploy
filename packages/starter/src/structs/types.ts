@@ -1,24 +1,24 @@
 export interface StarterDatabaseResponse {
-  type: string;
-  base: string;
-  starters: StarterPayload[];
+	type: string;
+	base: string;
+	starters: StarterPayload[];
 }
 
 export interface GitStarterDatabaseResponse extends StarterDatabaseResponse {
-  repo: string;
+	repo: string;
 }
 
 export interface StarterPayload {
-  name: string;
-  description: string;
-  base: string;
-  extras: ExtraPayload[];
+	name: string;
+	description: string;
+	base: string;
+	extras: ExtraPayload[];
 }
 
 export interface ExtraPayload {
-  name: string;
-  description: string;
-  location: string;
+	name: string;
+	description: string;
+	location: string;
 }
 
 // {
@@ -62,12 +62,12 @@ export interface ExtraPayload {
 // }
 
 export interface PackageStarterJson {
-  // Base
-  name: string;
-  version: string;
-  main: string;
-  scripts: Record<string, string>;
-  dependencies: Record<string, string>;
-  devDependencies: Record<string, string>;
-  tsconfig: Record<string, unknown>;
+	// Base
+	name: string;
+	version: string;
+	main: string;
+	scripts: Record<string, string>;
+	dependencies: Record<string, string>;
+	devDependencies: Record<string, string>;
+	tsconfig: Record<string, unknown>;
 }

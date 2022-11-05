@@ -1,13 +1,16 @@
-import { ChatInputRoute, type ChatInputInteraction } from "@disploy/framework";
+import { Command, type ChatInputInteraction } from '@disploy/framework';
 
-export default class PingCommand extends ChatInputRoute {
-  public constructor() {
-    super({ name: "ping" });
-  }
+export default class PingCommand extends Command {
+	public constructor() {
+		super({
+			name: 'ping',
+			description: 'pong!',
+		});
+	}
 
-  override async chatInputRun(interaction: ChatInputInteraction) {
-    return void interaction.reply({
-      content: `Pong! ${Date.now() - interaction.createdTimestamp}ms`,
-    });
-  }
+	override async slashRun(interaction: ChatInputInteraction) {
+		return void interaction.reply({
+			content: `hello world!!!!!!!!`,
+		});
+	}
 }

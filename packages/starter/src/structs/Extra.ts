@@ -1,13 +1,13 @@
-import type { ExtraPayload } from "./types";
+import type { ExtraPayload } from './types';
 
 export class Extra {
-  public description!: string;
-  public location!: string;
-  public name!: string;
+	public description!: string;
+	public location!: string;
+	public name!: string;
 
-  constructor(data: ExtraPayload) {
-    this.description = data.description;
-    this.name = data.name;
-    this.location = data.location;
-  }
+	constructor(data: ExtraPayload) {
+		this.description = data.description;
+		this.name = data.name;
+		this.location = data.location;
+	}
 }

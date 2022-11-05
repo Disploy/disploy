@@ -1,25 +1,25 @@
 {
-  "name": "@disploy/framework",
-  "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "TIMING=1 eslint src/**/*.ts* --fix"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.14",
-    "next": "^12.3.1",
-    "tsconfig": "*",
-    "typescript": "^4.5.2"
-  },
-  "dependencies": {
-    "discord-api-types": "^0.37.14",
-    "eventemitter3": "^4.0.7",
-    "pino": "^8.7.0",
-    "tweetnacl": "^1.0.3"
-  }
+	"name": "@disploy/framework",
+	"version": "0.0.0",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"source": "./src/index.ts",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"type-check": "tsc --noEmit",
+		"lint": "TIMING=1 eslint src/**/*.ts* --fix"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.14",
+		"next": "^12.3.1",
+		"tsconfig": "*",
+		"typescript": "^4.5.2"
+	},
+	"dependencies": {
+		"discord-api-types": "^0.37.14",
+		"eventemitter3": "^4.0.7",
+		"tweetnacl": "^1.0.3"
+	}
 }

@@ -1,12 +1,10 @@
-import type { LevelWithSilent } from "pino";
+import type { Command } from '../commands';
 
 export interface LoggerOptions {
-  level?: LevelWithSilent;
+	debug?: boolean;
 }
 
 export interface AppOptions {
-  publicKey: string;
-  token: string;
-  clientID: string;
-  logger?: LoggerOptions;
+	logger?: LoggerOptions;
+	commands?: Command[];
 }
