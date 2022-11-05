@@ -1,6 +1,6 @@
 {
 	"name": "disploy",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"main": "dist/disploy.mjs",
 	"bin": "dist/disploy.mjs",
 	"scripts": {
