@@ -22,11 +22,6 @@ export class UserInteraction extends BaseInteraction {
     public commandName!: string;
 
     /**
-     * The options of the interaction.
-     */
-    //public options!: UserInteractionOptions;
-
-    /**
      * The GuildMember who invoked the interaction.
      */
     public member!: GuildMember | null;
@@ -67,7 +62,6 @@ export class UserInteraction extends BaseInteraction {
         this.targetId = raw.data.target_id;
         this.targetMember = raw.data.resolved.members ? new PartialGuildMember(raw.data.resolved.members[this.targetId] as APIInteractionDataResolvedGuildMember) : null;
         this.targetUser = new User(raw.data.resolved.users[raw.data.target_id]!);
-        //this.options = new UserInteractionOptions(app, this);
     }
 
     public reply(payload: APIInteractionResponseCallbackData) {
