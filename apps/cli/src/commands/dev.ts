@@ -82,7 +82,7 @@ export const DevCommand: CommandModule = {
 
 		logger.info(
 			[
-				'Your bot is ready to recieve interactions!',
+				'Your bot is ready to receive interactions!',
 				`1. Visit ${color.cyan(F.createAppSettingsURL(clientId))}`,
 				`2. Set ${color.gray('INTERACTIONS ENDPOINT URL')} to ${color.cyan(F.createInteractionsURI(url))}`,
 			].join('\n'),
