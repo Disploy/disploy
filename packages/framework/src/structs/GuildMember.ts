@@ -21,7 +21,7 @@ export class GuildMember extends PartialGuildMember {
   public constructor(raw: APIGuildMember) {
     super(raw);
     this.user = raw.user ? new User(raw.user) : null;
-    this.deaf = Boolean(raw.deaf) ?? null;
-    this.mute = Boolean(raw.mute) ?? null;
+    this.deaf = raw.deaf ? Boolean(raw.deaf) : null;
+    this.mute = raw.mute ? Boolean(raw.mute) : null;
   }
 }
