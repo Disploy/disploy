@@ -1,8 +1,10 @@
 import type { App, Command, TRequest } from '@disploy/framework';
 import bodyParser from 'body-parser';
 import express from 'express';
+import { logger } from '../../utils/logger';
 
 let app: App | null = null;
+const remoteCommands: string[] = [];
 
 const server = express();
 server.use(bodyParser.json());
@@ -28,7 +30,12 @@ export function createServer(port: number) {
 	server.listen(port);
 }
 
-export function setApp(newApp: [App, Command[]], options: { clientId: string; publicKey: string; token: string }) {
+export async function setApp(
+	newApp: [App, Command[]],
+	options: { clientId: string; publicKey: string; token: string },
+) {
+	const firstTime = !app;
+
 	app = newApp[0];
 	app.start({
 		clientId: options.clientId,
@@ -36,4 +43,22 @@ export function setApp(newApp: [App, Command[]], options: { clientId: string; pu
 		token: options.token,
 		commands: newApp[1],
 	});
+
+	if (firstTime) {
+		remoteCommands.push(...(await app.commands.getRegisteredCommands()).map((c) => c.name));
+	}
+
+	let needsSync = false;
+
+	for (const command of newApp[1]) {
+		if (!remoteCommands.includes(command.options.name)) {
+			needsSync = true;
+			break;
+		}
+	}
+
+	if (needsSync) {
+		logger.info('Syncing commands...');
+		await app.commands.syncCommands();
+	}
 }
