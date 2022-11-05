@@ -2,7 +2,7 @@ import { App } from '@disploy/framework';
 import { Commands } from './commands';
 
 function createCloudflareAdapter(app) {
-	return async function (req) {
+	return async function (req, randId) {
 		if (req.method !== 'POST') {
 			return new Response('Method not allowed', { status: 405 });
 		}
@@ -14,6 +14,7 @@ function createCloudflareAdapter(app) {
 			body: await req.json(),
 			headers: reqHeaders,
 			_request: req,
+			randId,
 		};
 		const payload = await app.router.entry(tReq);
 		const { status, headers, body } = payload.serialized;
@@ -45,6 +46,14 @@ export default {
 			clientId: env.CLIENT_ID,
 			token: env.TOKEN,
 		});
-		return await createCloudflareAdapter(app)(request);
+		const randId = Math.random().toString(36).substring(7);
+		ctx.waitUntil(
+			new Promise((resolve) => {
+				app.router.on(`finish-${randId}`, () => {
+					resolve();
+				});
+			}),
+		);
+		return await createCloudflareAdapter(app)(request, randId);
 	},
 };

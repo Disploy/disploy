@@ -1,9 +1,12 @@
-import type {
+import {
 	APIChatInputApplicationCommandInteraction,
 	APIInteractionResponseCallbackData,
+	InteractionResponseType,
+	Routes,
 	Snowflake,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
+import { RouterEvents } from '../router';
 import { BaseInteraction } from './BaseInteraction';
 import { ChatInputInteractionOptions } from './ChatInputInteractionOptions';
 import { GuildMember } from './GuildMember';
@@ -44,10 +47,22 @@ export class ChatInputInteraction extends BaseInteraction {
 		this.options = new ChatInputInteractionOptions(app, this);
 	}
 
+	public deferReply() {
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.DeferredChannelMessageWithSource,
+		});
+	}
+
 	public reply(payload: APIInteractionResponseCallbackData) {
-		return void this.app.router.emit(`${this.id}-respond`, {
-			type: 4,
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.ChannelMessageWithSource,
 			data: payload,
+		});
+	}
+
+	public async editReply(payload: APIInteractionResponseCallbackData) {
+		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
+			...payload,
 		});
 	}
 }

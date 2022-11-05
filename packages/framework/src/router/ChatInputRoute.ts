@@ -19,6 +19,9 @@ export class ChatInputRoute extends BaseRoute {
 			throw new RequestorError('Command does not have a slashRun method.');
 		}
 
-		this.command.slashRun(interaction);
+		// The await is required here since the slashRun method *can* be async.
+		// This ensures the route calls the finish event after the slashRun method is done.
+		// This is important because serverless functions will end the process after the finish event is called.
+		await this.command.slashRun(interaction);
 	}
 }

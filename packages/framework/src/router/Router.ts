@@ -6,6 +6,7 @@ import { ChatInputInteraction } from '../structs';
 import { DiscordAPIUtils, RequestorError, RuntimeConstants, Verify, VerifyCFW, VerifyNode } from '../utils';
 import type { BaseRoute } from './BaseRoute';
 import type { ChatInputRoute } from './ChatInputRoute';
+import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
 	private routes: BaseRoute[] = [];
@@ -87,7 +88,7 @@ export class Router extends EventEmitter {
 		const body = req.body as APIInteraction;
 
 		const promise = new Promise<unknown>((resolve) => {
-			this.on(`${body.id}-respond`, (res: unknown) => {
+			this.on(RouterEvents.Respond(body.id), (res: unknown) => {
 				resolve(res);
 			});
 		});
@@ -102,7 +103,10 @@ export class Router extends EventEmitter {
 					`Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
 				);
 
-				chatInputRoute.chatInputRun(new ChatInputInteraction(this.app, interaction));
+				chatInputRoute
+					.chatInputRun(new ChatInputInteraction(this.app, interaction))
+					.then(() => req.randId && this.emit(RouterEvents.FinishedRun(req.randId), res));
+
 				break;
 			}
 			default: {
