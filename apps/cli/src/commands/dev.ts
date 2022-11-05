@@ -38,6 +38,7 @@ export const DevCommand: CommandModule = {
 			const entry = await BuildApp({
 				skipPrebuild: true,
 				overrideTarget: 'standalone',
+				entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 			});
 
 			const app = await import(path.join(process.cwd(), entry));
