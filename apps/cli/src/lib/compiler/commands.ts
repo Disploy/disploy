@@ -7,11 +7,24 @@ export async function parseCommands(workbench: string) {
 	const commandsDir = path.join(workbench, 'commands');
 
 	const commandsFiles = await new Promise<string[]>((resolve, reject) => {
-		glob(`${commandsDir}/**/*.js`, (err, files) => {
+		glob(`${commandsDir}/**/*.js`, async (err, files) => {
 			if (err) {
 				reject(err);
 			} else {
-				resolve(files);
+				const commands = await Promise.all(
+					files.map(async (file) => {
+						const contents = await readFile(file, 'utf8');
+						const match = contents.match(/export default class (\w+) extends Command/);
+
+						if (match) {
+							return file;
+						} else {
+							return null;
+						}
+					}),
+				);
+
+				resolve(commands.filter((command) => command !== null) as string[]);
 			}
 		});
 	});
