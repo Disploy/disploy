@@ -51,13 +51,16 @@ export class UserInteraction extends BaseInteraction {
 		super(app, raw);
 		this.commandId = raw.data.id;
 		this.commandName = raw.data.name;
-		this.member = raw.member ? new GuildMember(raw.member) : null;
-		this.user = raw.member ? (raw.member.user ? new User(raw.member.user) : null) : null;
+		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
+		this.user = raw.member ? (raw.member.user ? new User(this.app, raw.member.user) : null) : null;
 		this.targetId = raw.data.target_id;
 		this.targetMember = raw.data.resolved.members
-			? new PartialGuildMember(raw.data.resolved.members[this.targetId] as APIInteractionDataResolvedGuildMember)
+			? new PartialGuildMember(
+					this.app,
+					raw.data.resolved.members[this.targetId] as APIInteractionDataResolvedGuildMember,
+			  )
 			: null;
-		this.targetUser = new User(raw.data.resolved.users[raw.data.target_id]!);
+		this.targetUser = new User(this.app, raw.data.resolved.users[raw.data.target_id]!);
 	}
 
 	public reply(payload: APIInteractionResponseCallbackData) {
