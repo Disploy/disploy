@@ -6,7 +6,7 @@ sidebar_position: 2
 
 :::warning
 
-The `disploy new` commands is not [yet implemented](https://github.com/Disploy/disploy/pull/23). You can find an example project [here](https://github.com/TeamEvie/Valor) for now.
+The `disploy new` command is not [yet implemented](https://github.com/Disploy/disploy/pull/23). You can find an example project [here](https://github.com/TeamEvie/Valor) for now.
 
 :::
 
