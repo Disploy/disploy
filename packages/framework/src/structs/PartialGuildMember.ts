@@ -34,7 +34,7 @@ export class PartialGuildMember {
 	/**
 	 * Timestamp of when the time out will be removed; until then, they cannot interact with the guild.
 	 */
-	public communication_disabled_until!: boolean | null;
+	public communicationDisabledUntil!: boolean | null;
 
 	public constructor(raw: APIGuildMember | APIInteractionDataResolvedGuildMember) {
 		this.nickname = raw.nick ?? null;
@@ -43,6 +43,6 @@ export class PartialGuildMember {
 		this.joinedAt = raw.joined_at;
 		this.premiumSince = raw.premium_since ?? null;
 		this.pending = raw.pending ?? null;
-		this.communication_disabled_until = Boolean(raw.communication_disabled_until) ?? null;
+		this.communicationDisabledUntil = Boolean(raw.communication_disabled_until) ?? null;
 	}
 }
