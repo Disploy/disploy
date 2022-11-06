@@ -1,6 +1,8 @@
 import type { APIGuild, Snowflake } from 'discord-api-types/v10';
+import type { App } from '../client';
+import { Base } from './Base';
 
-export class Guild {
+export class Guild extends Base {
 	/**
 	 * The ID of the guild.
 	 */
@@ -16,7 +18,8 @@ export class Guild {
 	 */
 	public name!: string;
 
-	public constructor(raw: APIGuild) {
+	public constructor(app: App, raw: APIGuild) {
+		super(app);
 		this.id = raw.id;
 		this.ownerId = raw.owner_id;
 		this.name = raw.name;
