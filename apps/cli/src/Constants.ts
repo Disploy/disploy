@@ -1,1 +1,2 @@
 export const StartersEndpoint = 'https://raw.githubusercontent.com/Disploy/starters/main/starters.json';
+export const StartersApiEndpoint = 'https://api.github.com/repos/Disploy/starters/releases/latest';
