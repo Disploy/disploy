@@ -27,7 +27,7 @@ wrangler login
 Once you have a Cloudflare account and a Cloudflare Workers subscription, you can deploy your Discord application by running the following command:
 
 ```bash
-$ disploy deploy
+disploy deploy
 ```
 
 This will deploy your Discord application to a Cloudflare Worker defined in the `disploy.json` file.
