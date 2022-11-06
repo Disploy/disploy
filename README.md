@@ -13,6 +13,8 @@
 	</p>
 </div>
 
+> **Warning**: This README is out of date, we reccomend you read our in-development [documentaion and guide](https://disploy.dev/docs/Guide/getting-started/introduction) to learn more about Disploy.
+
 Disploy is a whole ecosystem of tools to help you create your next Discord HTTP Interaction bot. It allows you to create an HTTP Interaction bot using your favourite web framework.
 
 ## Planned Features
