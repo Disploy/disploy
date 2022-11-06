@@ -9,12 +9,16 @@ export default class HeyCommand extends Command {
 	}
 
 	override async slashRun(interaction: ChatInputInteraction) {
+		if (!interaction.guild) {
+			return interaction.reply({ content: 'You are not in a guild.' });
+		}
+
 		interaction.deferReply();
 
-		await new Promise((resolve) => setTimeout(resolve, 2000));
+		const guild = await interaction.guild.fetch();
 
 		return void interaction.editReply({
-			content: `Just wanted to say hey!`,
+			content: `Hello the people of ${guild.name}!`,
 		});
 	}
 }
