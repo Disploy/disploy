@@ -42,8 +42,8 @@ export class ChatInputInteraction extends BaseInteraction {
 		super(app, raw);
 		this.commandId = raw.data.id;
 		this.commandName = raw.data.name;
-		this.member = raw.member ? new GuildMember(raw.member) : null;
-		this.user = raw.member ? (raw.member.user ? new User(raw.member.user) : null) : null;
+		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
+		this.user = raw.member ? (raw.member.user ? new User(this.app, raw.member.user) : null) : null;
 		this.options = new ChatInputInteractionOptions(app, this);
 	}
 
