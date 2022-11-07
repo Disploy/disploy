@@ -13,11 +13,12 @@
 		"serve": "disploy dev"
 	},
 	"dependencies": {
-		"@disploy/framework": "*"
+		"@disploy/framework": "*",
+		"discord-api-types": "^0.37.16"
 	},
 	"devDependencies": {
-		"disploy": "*",
 		"@types/node": "^18.11.3",
+		"disploy": "*",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",
 		"tsconfig": "*",

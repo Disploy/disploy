@@ -31,6 +31,6 @@ export class BaseInteraction extends Base {
 		this.id = raw.id;
 		this.token = raw.token;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
-		this.guild = raw.guild_id ? new ToBeFetched(this, Guild, () => app.rest.get(`/guilds/${raw.guild_id}`)) : null;
+		this.guild = raw.guild_id ? new ToBeFetched(this.app, Guild, () => app.rest.get(`/guilds/${raw.guild_id}`)) : null;
 	}
 }
