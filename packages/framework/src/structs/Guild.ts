@@ -3,8 +3,7 @@ import type { App } from '../client';
 import { Base } from './Base';
 import { BaseChannel } from './BaseChannel';
 import { GuildBan } from './GuildBan';
-import type { ChannelManager } from './managers';
-import { StructureManager } from './managers';
+import { ChannelManager, StructureManager } from './managers';
 import { ToBeFetched } from './ToBeFetched';
 
 export class Guild extends Base {
@@ -72,7 +71,7 @@ export class Guild extends Base {
 
 	public constructor(app: App, raw: APIGuild) {
 		super(app);
-		this.channels = this.app.channels;
+		this.channels = new ChannelManager(app, this.id);
 		this.patch(raw);
 	}
 
