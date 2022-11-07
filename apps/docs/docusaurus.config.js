@@ -11,7 +11,7 @@ const config = {
     "Disploy is a whole ecosystem of tools to help you create your next Discord HTTP Interaction bot.",
   url: "https://disploy.dev",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
 
