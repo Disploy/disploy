@@ -1,8 +1,10 @@
 import { APIGuild, Routes, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
+import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { BaseChannel } from './BaseChannel';
 import { GuildBan } from './GuildBan';
+import { GuildMember } from './GuildMember';
 import { ChannelManager, StructureManager } from './managers';
 import { ToBeFetched } from './ToBeFetched';
 
@@ -69,6 +71,21 @@ export class Guild extends Base {
 	 */
 	public channels!: ChannelManager;
 
+	/**
+	 * Timestamp of when the channel was created.
+	 */
+	public createdTimestamp!: number;
+
+	/**
+	 * The description of the guild (if it has one).
+	 */
+	public description!: string | null;
+
+	/**
+	 * The member manager for this guild.
+	 */
+	public members!: StructureManager<GuildMember>;
+
 	public constructor(app: App, raw: APIGuild) {
 		super(app);
 		this.channels = new ChannelManager(app, this.id);
@@ -93,6 +110,11 @@ export class Guild extends Base {
 				raw: await this.app.rest.get(Routes.guildBan(this.id, id)),
 			};
 		});
+		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
+		this.description = raw.description;
+		this.members = new StructureManager(this.app, GuildMember, async (id) =>
+			this.app.rest.get(Routes.guildMember(this.id, id)),
+		);
 
 		if ('approximate_member_count' in raw) {
 			this.approximateMemberCount = raw.approximate_member_count;
