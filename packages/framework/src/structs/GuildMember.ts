@@ -7,7 +7,7 @@ export class GuildMember extends PartialGuildMember {
 	/**
 	 * The User object of the member.
 	 */
-	public user!: User | null;
+	public user!: User;
 
 	/**
 	 * Whether the user is deafened in voice channels
@@ -21,7 +21,7 @@ export class GuildMember extends PartialGuildMember {
 
 	public constructor(app: App, raw: APIGuildMember) {
 		super(app, raw);
-		this.user = raw.user ? new User(this.app, raw.user) : null;
+		this.user = new User(this.app, raw.user!);
 		this.deaf = raw.deaf ? Boolean(raw.deaf) : null;
 		this.mute = raw.mute ? Boolean(raw.mute) : null;
 	}
