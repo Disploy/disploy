@@ -1,4 +1,5 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
+import { Routes } from 'discord-api-types/v10';
 import { Command, CommandManager } from '../commands';
 import { Router } from '../router';
 import { Guild, StructureManager, User } from '../structs';
@@ -52,9 +53,9 @@ export class App {
 		this.router = new Router(this);
 
 		// Structure Managers
-		this.guilds = new StructureManager(this, Guild, (id) => this.rest.get(`/guilds/${id}`));
-		this.users = new StructureManager(this, User, (id) => this.rest.get(`/users/${id}`));
-		this.channels = new StructureManager(this, Channel, (id) => this.rest.get(`/channels/${id}`));
+		this.guilds = new StructureManager(this, Guild, (id) => this.rest.get(Routes.guild(id)));
+		this.users = new StructureManager(this, User, (id) => this.rest.get(Routes.user(id)));
+		this.channels = new StructureManager(this, Channel, (id) => this.rest.get(Routes.channel(id)));
 
 		// Command Framework
 
