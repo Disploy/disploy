@@ -1,4 +1,4 @@
-import type { APIChannel, Snowflake } from 'discord-api-types/v10';
+import { APIChannel, Routes, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
@@ -24,7 +24,7 @@ export class Channel extends Base {
 	 * Deletes the channel.
 	 */
 	public async delete(): Promise<void> {
-		await this.app.rest.delete(`/channels/${this.id}`);
+		await this.app.rest.delete(Routes.channel(this.id));
 	}
 
 	/**
