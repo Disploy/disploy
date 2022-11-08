@@ -13,7 +13,7 @@
 	</p>
 </div>
 
-> **Warning**: This README is out of date, we reccomend you read our in-development [documentaion and guide](https://disploy.dev/docs/Guide/getting-started/introduction) to learn more about Disploy. We also have a [contributing guide](/.github/CONTRIBUTING.md) if you're interested 💙
+> **Warning**: This README is out of date, we recommend you read our in-development [documentation and guide](https://disploy.dev/docs/Guide/getting-started/introduction) to learn more about Disploy. We also have a [contributing guide](/.github/CONTRIBUTING.md) if you're interested 💙
 
 ## Planned Features
 
