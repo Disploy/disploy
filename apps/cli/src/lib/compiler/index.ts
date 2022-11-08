@@ -14,6 +14,8 @@ function parseTarget(target: DisployConfig['target']) {
 			return 'cfWorkerEntry';
 		case 'standalone':
 			return 'standaloneEntry';
+		case 'deno':
+			return 'denoEntry';
 		default:
 			throw new UserError(`Unknown target: ${target}`);
 	}

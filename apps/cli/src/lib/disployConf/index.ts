@@ -12,6 +12,10 @@ const disployConfigSchema = z.object({
 			name: z.string(),
 		}),
 		z.object({
+			type: z.literal('deno'),
+			name: z.string(),
+		}),
+		z.object({
 			type: z.literal('standalone'),
 		}),
 	]),
