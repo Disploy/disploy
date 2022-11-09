@@ -17,8 +17,6 @@
 
 </div>
 
-> **Warning**: We're still in development, and the packages published are not up to date. They're just early builds that we've published to reserve our package names on NPM.
-
 Disploy is a framework for building Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
 ## It's as easy as 1, 2, 3, 4
