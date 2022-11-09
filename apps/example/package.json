@@ -13,8 +13,7 @@
 		"serve": "disploy dev"
 	},
 	"dependencies": {
-		"@disploy/framework": "*",
-		"discord-api-types": "^0.37.16"
+		"disploy": "*"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.3",
