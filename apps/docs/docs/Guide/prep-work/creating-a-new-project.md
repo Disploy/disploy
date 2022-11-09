@@ -6,14 +6,16 @@ sidebar_position: 2
 
 :::warning
 
-The `disploy new` command is not [yet implemented](https://github.com/Disploy/disploy/pull/31). You can find an example project [here](https://github.com/TeamEvie/Valor) for now.
+`create-disploy-app` is not [yet implemented](https://github.com/Disploy/disploy/issues/50).
 
 :::
 
-The Disploy toolchain allows you to create a new project using the Disploy Framework by running the following command:
-
 ```bash
-disploy new
+npx create-disploy-app@latest
+# or
+yarn create disploy-app
+# or
+pnpm create disploy-app
 ```
 
 ## Project structure
