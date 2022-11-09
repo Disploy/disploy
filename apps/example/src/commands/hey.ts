@@ -1,4 +1,4 @@
-import { Command, type ChatInputInteraction } from '@disploy/framework';
+import { Command, type ChatInputInteraction } from 'disploy';
 
 export default class HeyCommand extends Command {
 	public constructor() {

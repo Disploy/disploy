@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Creating commands
 
-Commands are easy to create with the Disploy Framework, simply export default classes which extend the [`Command` class](/docs/Documentation/framework/classes/Command) and store them in the `commands` directory.
+Commands are easy to create with Disploy, simply export default classes which extend the [`Command` class](/docs/Documentation/disploy/classes/Command) and store them in the `commands` directory.
 
 ```
 ├── commands
@@ -13,7 +13,7 @@ Commands are easy to create with the Disploy Framework, simply export default cl
 
 ```ts
 // commands/ping.ts
-import { Command, type ChatInputInteraction } from '@disploy/framework';
+import { Command, type ChatInputInteraction } from 'disploy';
 
 export default class PingCommand extends Command {
 	public constructor() {
@@ -33,7 +33,7 @@ export default class PingCommand extends Command {
 
 ## So what's going on here?
 
-Firstly, we're importing the `Command` class from the Disploy Framework. This is the base class for all commands. We're also importing the `ChatInputInteraction` type from the Disploy Framework. This is the type for interactions of the `CHAT_INPUT` type. You can learn more about interaction types in the [Discord documentation](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types). We then export a default class which extends the `Command` class. This class is the command itself. We then define a constructor for the class.
+Firstly, we're importing the `Command` class from Disploy. This is the base class for all commands. We're also importing the `ChatInputInteraction` type from Disploy. This is the type for interactions of the `CHAT_INPUT` type. You can learn more about interaction types in the [Discord documentation](https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types). We then export a default class which extends the `Command` class. This class is the command itself. We then define a constructor for the class.
 
 ### Constructor
 
@@ -55,7 +55,7 @@ The `slashRun` method must return `Promise<void>`, once returned the command wil
   <summary> Example of a command with follow-up messages </summary>
 
 ```ts
-import { Command, type ChatInputInteraction } from '@disploy/framework';
+import { Command, type ChatInputInteraction } from 'disploy';
 
 export default class HeyCommand extends Command {
 	public constructor() {
