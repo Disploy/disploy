@@ -16,12 +16,7 @@ curl https://get.volta.sh | bash
 
 # Install Node.js v18
 volta install node@18
-```
 
-## Installing Disploy
-
-Disploy is available on [npm](https://www.npmjs.com/package/disploy). You can install it by running the following command. This builds on the previous installation of volta and ensures that when you switch Node versions with volta, `disploy` will remain available as command as it gets symlinked automatically.
-
-```bash
-volta install disploy
+# Install yarn
+volta install yarn
 ```
