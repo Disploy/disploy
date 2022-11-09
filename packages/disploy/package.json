@@ -1,5 +1,5 @@
 {
-	"name": "@disploy/framework",
+	"name": "disploy",
 	"version": "0.3.0",
 	"license": "Apache-2.0",
 	"main": "./dist/index.js",
