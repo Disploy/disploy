@@ -1249,15 +1249,6 @@
   resolved "https://registry.npmjs.org/@colors/colors/-/colors-1.5.0.tgz"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@disploy/framework@*":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@disploy/framework/-/framework-0.3.0.tgz#fe71f2ca598a23a003bf7b90efd6a25477996cc0"
-  integrity sha512-ypmUdkdVx6LzNozNanFWceHV0xTo/udOvQX6v019uojPGQ1BTEkAlXNhMqmDXxGH89BZJgLyQMZdaGKZSEm9rQ==
-  dependencies:
-    discord-api-types "^0.37.14"
-    eventemitter3 "^4.0.7"
-    tweetnacl "^1.0.3"
-
 "@docsearch/css@3.3.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/@docsearch/css/-/css-3.3.0.tgz"

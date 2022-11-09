@@ -13,10 +13,9 @@
 		"serve": "disploy dev"
 	},
 	"dependencies": {
-		"@disploy/framework": "*"
+		"disploy": "*"
 	},
 	"devDependencies": {
-		"disploy": "*",
 		"@types/node": "^18.11.3",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",
