@@ -11,6 +11,52 @@ You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone
 
 :::
 
-Disploy is a Discord interactions framework. Think of Disploy as Next.js for Discord applications.
+Disploy is a framework for building Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
-This guide will walk you through the basics of Disploy, we recommend reading it from top to bottom.
+## It's as easy as 1, 2, 3, 4
+
+### #1
+
+```bash
+npx create-disploy-app@latest
+# or
+yarn create disploy-app
+# or
+pnpm create disploy-app
+```
+
+### #2
+
+```ts
+// Example command
+import { Command, type ChatInputInteraction } from 'disploy';
+
+export default class HeyCommand extends Command {
+	public constructor() {
+		super({
+			name: 'hey',
+			description: 'heyy!',
+		});
+	}
+
+	override async slashRun(interaction: ChatInputInteraction) {
+		return void interaction.reply({
+			content: `heyy!`,
+		});
+	}
+}
+```
+
+### #3
+
+```bash
+disploy dev # test your bot locally with hot-reloading and tunneling
+```
+
+### #4
+
+```bash
+disploy deploy # deploy your bot to Cloudflare Workers
+```
+
+This guide will walk you through the basics of Disploy, we recommend reading it from top to bottom. If you have any questions, feel free to ask in our [Discord server](https://discord.gg/E3z8MDnTWn).
