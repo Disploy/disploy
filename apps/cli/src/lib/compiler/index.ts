@@ -1,6 +1,8 @@
+import type { JscTarget } from '@swc/core';
 import { mkdir, rm, writeFile } from 'fs/promises';
-import { rollup } from 'rollup';
+import { InputPluginOption, Plugin, rollup } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 import type { DisployConfig } from '../disployConf';
 import { UserError } from '../UserError';
 import { CompilerAssets } from './assets';
@@ -8,26 +10,66 @@ import { parseCommands } from './commands';
 import { TempDir } from './constants';
 import { copyDir } from './copyDir';
 
-function parseTarget(target: DisployConfig['target']) {
-	switch (target.type) {
+interface ParsedTarget {
+	entry: string;
+	jsVersion: JscTarget;
+	type: DisployConfig['target']['type'];
+	isNode: boolean;
+}
+
+function parseTarget(type: DisployConfig['target']['type']): ParsedTarget {
+	switch (type) {
 		case 'cloudflare':
-			return 'cfWorkerEntry';
+			return {
+				entry: 'cfWorkerEntry',
+				jsVersion: 'es2020', // https://github.com/cloudflare/wrangler2/blob/b164e2d6faff3a9a18f447ff47fe98e8cee24c86/packages/wrangler/src/bundle.ts#L272
+				isNode: false,
+				type,
+			};
 		case 'standalone':
-			return 'standaloneEntry';
+			return {
+				entry: 'standaloneEntry',
+				jsVersion: 'es2022',
+				isNode: true,
+				type,
+			};
 		case 'deno':
-			return 'denoEntry';
+			return {
+				entry: 'denoEntry',
+				jsVersion: 'es2022',
+				isNode: false,
+				type,
+			};
 		default:
-			throw new UserError(`Unknown target: ${target}`);
+			throw new UserError(`Unknown target type: ${type}`);
 	}
+}
+
+function generatePlugins(target: ParsedTarget) {
+	const plugins: InputPluginOption[] = [];
+
+	if (!target.isNode) {
+		plugins.push(nodePolyfills() as Plugin);
+	}
+
+	plugins.push(
+		esbuild({
+			platform: 'neutral',
+			treeShaking: true,
+			target: target.jsVersion,
+		}),
+	);
+
+	return plugins;
 }
 
 export async function Compile({
 	root,
-	target,
+	target: targetConfig,
 	entryFileName,
 }: {
 	root: string;
-	target: DisployConfig['target'];
+	target: DisployConfig['target']['type'];
 	entryFileName: string;
 }) {
 	await rm(TempDir, { recursive: true, force: true });
@@ -39,20 +81,13 @@ export async function Compile({
 	copyDir(root, workbenchDir);
 
 	await parseCommands(workbenchDir);
-	const entry = parseTarget(target);
+	const target = parseTarget(targetConfig);
 
-	await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[entry]());
+	await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[target.entry]());
 
 	const bundle = await rollup({
 		input: `${workbenchDir}/entry.js`,
-		plugins: [
-			// @ts-ignore - Plugin types mismatch
-
-			esbuild({
-				platform: 'neutral',
-				treeShaking: true,
-			}),
-		],
+		plugins: generatePlugins(target),
 		external: ['@disploy/framework'],
 	});
 

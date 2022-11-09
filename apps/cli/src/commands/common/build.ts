@@ -43,7 +43,7 @@ export async function BuildApp({
 	spinner = ora(
 		['Bundling project', `${color.gray('Target:')} ${color.magenta(overrideTarget?.type || target.type)}`].join('\n'),
 	).start();
-	const res = await Compile({ root, target: overrideTarget || target, entryFileName });
+	const res = await Compile({ root, target: overrideTarget?.type || target.type, entryFileName });
 	spinner.succeed();
 	return res;
 }
