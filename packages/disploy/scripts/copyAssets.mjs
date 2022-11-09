@@ -5,7 +5,7 @@ const copy = (src, dest) => {
 	if (existsSync(src)) {
 		if (statSync(src).isDirectory()) {
 			if (!existsSync(dest)) {
-				mkdirSync(dest);
+				mkdirSync(dest, { recursive: true });
 			}
 			readdirSync(src).forEach((file) => {
 				console.log(`📁 Copying ${file} from ${src} to ${dest}`);
