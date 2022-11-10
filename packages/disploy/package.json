@@ -32,7 +32,7 @@
 	"scripts": {
 		"build": "node scripts/architect.mjs build",
 		"dev": "node scripts/architect.mjs build -w",
-		"type-check": "tsc --noEmit",
+		"type-check": "tsc --noEmit && cd cli && tsc --noEmit",
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix"
 	},
 	"devDependencies": {
