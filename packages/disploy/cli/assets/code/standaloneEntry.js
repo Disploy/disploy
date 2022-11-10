@@ -1,4 +1,4 @@
-import { App } from '@disploy/framework';
+import { App } from 'disploy';
 import { Commands } from './commands';
 
 const app = new App();

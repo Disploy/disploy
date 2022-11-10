@@ -1,5 +1,5 @@
-import type { App, TRequest } from '@disploy/framework';
 import bodyParser from 'body-parser';
+import type { App, TRequest } from 'disploy';
 import express from 'express';
 import type { DisployStandaloneBundle } from '../../types';
 import { logger } from '../../utils/logger';
