@@ -53,6 +53,13 @@ export class CommandInteraction extends BaseInteraction {
 		});
 	}
 
+	public showModal(payload: APIInteractionResponseCallbackData) {
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.Modal,
+			data: payload,
+		});
+	}
+
 	public async editReply(payload: APIInteractionResponseCallbackData) {
 		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
 			...payload,
