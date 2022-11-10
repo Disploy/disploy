@@ -20,10 +20,10 @@ const copy = (src, dest) => {
 let listener = null;
 
 export const copyAssets = () => {
-	if (existsSync('./cli/dist/assets')) {
-		rmdirSync('./cli/dist/assets', { recursive: true });
+	if (existsSync('./dist/cli/src/assets')) {
+		rmdirSync('./dist/cli/src/assets', { recursive: true });
 	}
-	copy('./cli/assets', './cli/dist/assets');
+	copy('./cli/assets', './dist/cli/src/assets');
 };
 
 export function startWatching() {
