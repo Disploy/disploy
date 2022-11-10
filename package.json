@@ -11,7 +11,9 @@
 		"type-check": "turbo run type-check --parallel",
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\""
+		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"publish": "node scripts/ayumi.mjs publish",
+		"publish:dev": "node scripts/ayumi.mjs publish -d"
 	},
 	"devDependencies": {
 		"eslint-config-custom": "*",
