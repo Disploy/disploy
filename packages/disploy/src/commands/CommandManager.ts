@@ -10,7 +10,7 @@ import {
 } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { ApplicationCommandRoute } from '../router';
-import type { Command, SlashCommand } from './Command';
+import type { Command, ChatInputCommand } from './Command';
 
 export class CommandManager {
 	public constructor(private app: App) {}
@@ -140,7 +140,7 @@ export class CommandManager {
 		this.app.logger.debug(`Updated command ${command.name}!`, response);
 	}
 
-	private areSlashCommandsEqual(command: SlashCommand, existingCommand: APIApplicationCommand) {
+	private areSlashCommandsEqual(command: ChatInputCommand, existingCommand: APIApplicationCommand) {
 		// Disploy only has ChatInput commands for now
 		if (existingCommand.type !== ApplicationCommandType.ChatInput) return false;
 

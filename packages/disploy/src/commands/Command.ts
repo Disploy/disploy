@@ -10,7 +10,7 @@ export interface ApplicationCommand {
 	run(interaction: CommandInteraction): void | Promise<void>;
 }
 
-export interface SlashCommand extends ApplicationCommand {
+export interface ChatInputCommand extends ApplicationCommand {
 	description: string;
 	options?: APIApplicationCommandOption[];
 	type?: ApplicationCommandType.ChatInput;
@@ -29,4 +29,4 @@ export interface UserContextMenuCommand extends ApplicationCommand {
 
 export type ContextMenuCommand = UserContextMenuCommand | MessageContextMenuCommand;
 
-export type Command = SlashCommand | ContextMenuCommand;
+export type Command = ChatInputCommand | ContextMenuCommand;
