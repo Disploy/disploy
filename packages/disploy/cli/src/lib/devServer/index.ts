@@ -52,7 +52,7 @@ export async function setApp(
 	let needsSync = false;
 
 	for (const command of newApp.commands) {
-		if (!remoteCommands.includes(command.options.name)) {
+		if (!remoteCommands.includes(command.name)) {
 			needsSync = true;
 			break;
 		}
