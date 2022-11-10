@@ -1,4 +1,3 @@
-import type { JscTarget } from '@swc/core';
 import { mkdir, rm, writeFile } from 'fs/promises';
 import { InputPluginOption, Plugin, rollup } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
@@ -12,7 +11,7 @@ import { copyDir } from './copyDir';
 
 interface ParsedTarget {
 	entry: string;
-	jsVersion: JscTarget;
+	jsVersion: string;
 	type: DisployConfig['target']['type'];
 	isNode: boolean;
 }
