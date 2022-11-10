@@ -51,7 +51,7 @@ export async function Compile({
 				treeShaking: true,
 			}),
 		],
-		external: ['@disploy/framework'],
+		external: ['disploy'],
 	});
 
 	await bundle.write({
