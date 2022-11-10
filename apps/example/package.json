@@ -7,7 +7,7 @@
 	"source": "./src/index.ts",
 	"types": "./dist/index.d.ts",
 	"scripts": {
-		"build": "tsc",
+		"build": "rimraf dist && tsc",
 		"type-check": "tsc --noEmit",
 		"dev": "tsc -w",
 		"serve": "disploy dev"
@@ -19,6 +19,7 @@
 		"@types/node": "^18.11.3",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",
+		"rimraf": "^3.0.2",
 		"tsconfig": "*",
 		"typescript": "^4.5.3"
 	}
