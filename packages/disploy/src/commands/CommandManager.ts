@@ -9,8 +9,8 @@ import {
 	Routes,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
-import { ChatInputRoute } from '../router';
-import type { Command } from './Command';
+import { ApplicationCommandRoute } from '../router';
+import type { Command, SlashCommand } from './Command';
 
 export class CommandManager {
 	public constructor(private app: App) {}
@@ -26,8 +26,8 @@ export class CommandManager {
 	}
 
 	public registerCommand(command: Command) {
-		this.app.router.addRoute(new ChatInputRoute(this.app, command));
-		this.commands.set(command.options.name, command);
+		this.app.router.addRoute(new ApplicationCommandRoute(this.app, command));
+		this.commands.set(command.name, command);
 	}
 
 	/**
@@ -40,7 +40,7 @@ export class CommandManager {
 				guildId
 					? Routes.applicationGuildCommands(this.app.clientId, guildId)
 					: Routes.applicationCommands(this.app.clientId),
-				[...this.commands.values()].map((command) => command.toJson()),
+				[...this.commands.values()],
 			);
 		}
 
@@ -99,7 +99,10 @@ export class CommandManager {
 			const localCommand = this.commands.get(command.name);
 			if (!localCommand) continue;
 
-			if (!this.areCommandsEqual(localCommand, command)) {
+			if (
+				localCommand.type === ApplicationCommandType.ChatInput &&
+				!this.areSlashCommandsEqual(localCommand, command)
+			) {
 				commandsToUpdate.push([localCommand, command]);
 			}
 		}
@@ -108,9 +111,7 @@ export class CommandManager {
 	}
 
 	private filterNonFrameworkCommands(existingCommands: RESTGetAPIApplicationCommandsResult) {
-		return [...this.commands.values()].filter(
-			(command) => !existingCommands.find((c) => c.name === command.options.name),
-		);
+		return [...this.commands.values()].filter((command) => !existingCommands.find((c) => c.name === command.name));
 	}
 
 	private async registerCommandToDiscord(command: Command, guildId?: string) {
@@ -121,9 +122,9 @@ export class CommandManager {
 		const response = await this.app.rest.post<
 			RESTPostAPIApplicationCommandsJSONBody,
 			RESTPostAPIApplicationCommandsResult
-		>(route, command.toJson());
+		>(route, command);
 
-		this.app.logger.debug(`Registered command ${command.options.name}!`, response);
+		this.app.logger.debug(`Registered command ${command.name}!`, response);
 	}
 
 	private async updateCommandOnDiscord(id: string, command: Command, guildId?: string) {
@@ -134,19 +135,19 @@ export class CommandManager {
 		const response = await this.app.rest.patch<
 			RESTPatchAPIApplicationCommandJSONBody,
 			RESTPatchAPIApplicationCommandResult
-		>(route, command.toJson());
+		>(route, command);
 
-		this.app.logger.debug(`Updated command ${command.options.name}!`, response);
+		this.app.logger.debug(`Updated command ${command.name}!`, response);
 	}
 
-	private areCommandsEqual(command: Command, existingCommand: APIApplicationCommand) {
+	private areSlashCommandsEqual(command: SlashCommand, existingCommand: APIApplicationCommand) {
 		// Disploy only has ChatInput commands for now
 		if (existingCommand.type !== ApplicationCommandType.ChatInput) return false;
 
-		const { options } = command.options;
+		const { options } = command;
 		const { options: existingOptions } = existingCommand;
 
-		if (existingCommand.description !== command.options.description) return false;
+		if (existingCommand.description !== command.description) return false;
 
 		for (const option of options ?? []) {
 			const existingOption = existingOptions?.find((o) => o.name === option.name);
