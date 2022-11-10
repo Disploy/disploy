@@ -1,16 +1,14 @@
-import { Command, type ChatInputInteraction } from 'disploy';
 
-export default class PingCommand extends Command {
-	public constructor() {
-		super({
-			name: 'ping',
-			description: 'pong!',
-		});
-	}
+import type { Command } from 'disploy';
 
-	override async slashRun(interaction: ChatInputInteraction) {
+export default {
+	name: 'ping',
+	description: 'pong!',
+
+	async run(interaction) {
 		return void interaction.reply({
-			content: `hello world!!!!!!!!`,
-		});
+			content: 'hello world!!!!!!!!',
+		})
 	}
-}
+
+} satisfies Command;

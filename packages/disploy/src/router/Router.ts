@@ -1,11 +1,21 @@
-import { APIChatInputApplicationCommandInteraction, APIInteraction, InteractionType } from 'discord-api-types/v10';
+import {
+	APIApplicationCommandInteraction,
+	APIChatInputApplicationCommandInteraction,
+	APIInteraction,
+	APIMessageApplicationCommandInteraction,
+	APIUserApplicationCommandInteraction,
+	ApplicationCommandType,
+	InteractionType,
+} from 'discord-api-types/v10';
 import EventEmitter from 'eventemitter3';
 import type { App } from '../client';
 import { TResponse, type TRequest } from '../http';
 import { ChatInputInteraction } from '../structs';
+import { MessageContextMenuInteraction } from '../structs/MessageContextMenuInteraction';
+import { UserContextMenuInteraction } from '../structs/UserContextMenuInteraction';
 import { DiscordAPIUtils, RequestorError, RuntimeConstants, Verify, VerifyCFW, VerifyNode } from '../utils';
 import type { BaseRoute } from './BaseRoute';
-import type { ChatInputRoute } from './ChatInputRoute';
+import type { ApplicationCommandRoute } from './ApplicationCommandRoute';
 import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
@@ -61,7 +71,8 @@ export class Router extends EventEmitter {
 				return this.routes.find(
 					(route) =>
 						route.type === InteractionType.ApplicationCommand &&
-						(route as ChatInputRoute).name === (payload as APIChatInputApplicationCommandInteraction).data.name,
+						(route as ApplicationCommandRoute).name ===
+							(payload as APIChatInputApplicationCommandInteraction).data.name,
 				);
 			default:
 				return void 0;
@@ -95,17 +106,34 @@ export class Router extends EventEmitter {
 
 		switch (route.type) {
 			case InteractionType.ApplicationCommand: {
-				const chatInputRoute: ChatInputRoute = route as ChatInputRoute;
-				const interaction = req.body as APIChatInputApplicationCommandInteraction;
+				const chatInputRoute: ApplicationCommandRoute = route as ApplicationCommandRoute;
+				const interaction = req.body as APIApplicationCommandInteraction;
 				const user = DiscordAPIUtils.resolveUserFromInteraction(interaction);
 
 				this.app.logger.info(
 					`Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
 				);
 
-				chatInputRoute
-					.chatInputRun(new ChatInputInteraction(this.app, interaction))
-					.then(() => req.randId && this.emit(RouterEvents.FinishedRun(req.randId), res));
+				let promise: Promise<unknown>;
+
+				switch (interaction.data.type) {
+					case ApplicationCommandType.ChatInput:
+						promise = chatInputRoute.chatInputRun(
+							new ChatInputInteraction(this.app, interaction as APIChatInputApplicationCommandInteraction),
+						);
+						break;
+					case ApplicationCommandType.Message:
+						promise = chatInputRoute.chatInputRun(
+							new MessageContextMenuInteraction(this.app, interaction as APIMessageApplicationCommandInteraction),
+						);
+						break;
+					case ApplicationCommandType.User:
+						promise = chatInputRoute.chatInputRun(
+							new UserContextMenuInteraction(this.app, interaction as APIUserApplicationCommandInteraction),
+						);
+				}
+
+				promise.then(() => req.randId && this.emit(RouterEvents.FinishedRun(req.randId), res));
 
 				break;
 			}

@@ -4057,6 +4057,11 @@ discord-api-types@^0.37.14:
   resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.14.tgz"
   integrity sha512-byBH7SfDCMJwxdqeS8k5sihltH88/YPhuwx+vF2cftSxFLdxyHyU/ZxDL3bq+LB2c4ls/TymE76/ISlLfniUXg==
 
+discord-api-types@^0.37.17:
+  version "0.37.17"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.17.tgz#314e4225fdff31b08b83ba5104d46564bc02303c"
+  integrity sha512-5ZIw1VtkmToBy8ziketjHkZnW1FoLevyXdK/TslNFLozijug2RnB3MyBNtSGzML1c72koU3neeGkvFZ8OiU0tQ==
+
 dns-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/dns-equal/-/dns-equal-1.0.0.tgz"
@@ -9179,10 +9184,15 @@ typedoc@^0.23.19:
     minimatch "^5.1.0"
     shiki "^0.11.1"
 
-typescript@^4.5.2, typescript@^4.5.3, typescript@^4.7.4:
+typescript@^4.5.2, typescript@^4.7.4:
   version "4.7.4"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
+
+typescript@^4.9.2-rc:
+  version "4.9.2-rc"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.2-rc.tgz#3525dbeb8458a8c98ce7d60724e4a9380d7b46e7"
+  integrity sha512-Ly9UUxJBfiiFjfegI1gsW9FI8Xhw1cuwRMBJ4wdYg+UXZR4VnZvD1OnBDj/iQ2U+tWbWEjYqJ5xx1Cwr4Vsa4w==
 
 ua-parser-js@^0.7.30:
   version "0.7.32"
