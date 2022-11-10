@@ -1,18 +1,10 @@
-import { Command, type ChatInputInteraction } from 'disploy';
+import type { Command } from 'disploy';
 
-export default class HeyCommand extends Command {
-	public constructor() {
-		super({
-			name: 'hey',
-			description: 'heyy!',
-		});
-	}
-
-	override async slashRun(interaction: ChatInputInteraction) {
-		if (!interaction.guild) {
-			return interaction.reply({ content: 'You are not in a guild.' });
-		}
-
+export default {
+	name: 'hey',
+	description: 'heyy!',
+	
+	async run(interaction) {
 		interaction.deferReply();
 
 		const guild = await interaction.guild.fetch();
@@ -21,4 +13,4 @@ export default class HeyCommand extends Command {
 			content: `Hello the people of ${guild.name}!`,
 		});
 	}
-}
+} satisfies Command;

@@ -69,14 +69,14 @@ export class App {
 
 		this._commandBuffer.forEach((command) => {
 			this.commands.registerCommand(command);
-			this.logger.debug(`Registered command ${command.options.name} from buffer`);
+			this.logger.debug(`Registered command ${command.name} from buffer`);
 		});
 
 		this._commandBuffer = [];
 
 		commands?.forEach((command) => {
 			this.commands.registerCommand(command);
-			this.logger.debug(`Registered command ${command.options.name} from start()`);
+			this.logger.debug(`Registered command ${command.name} from start()`);
 		});
 
 		this.logger.debug('App initialized.', {

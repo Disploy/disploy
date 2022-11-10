@@ -13,6 +13,7 @@
 		"serve": "disploy dev"
 	},
 	"dependencies": {
+		"discord-api-types": "^0.37.17",
 		"disploy": "*"
 	},
 	"devDependencies": {
@@ -22,6 +23,6 @@
 		"eslint-config-custom": "*",
 		"rimraf": "^3.0.2",
 		"tsconfig": "*",
-		"typescript": "^4.5.3"
+		"typescript": "^4.9.2-rc"
 	}
 }

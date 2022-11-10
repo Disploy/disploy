@@ -1,3 +1,3 @@
-export * from './ChatInputRoute';
+export * from './ApplicationCommandRoute';
 export * from './Router';
 export * from './RouterEvents';

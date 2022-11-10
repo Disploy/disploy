@@ -29,22 +29,18 @@ pnpm create disploy-app
 
 ```ts
 // Example command
-import { Command, type ChatInputInteraction } from 'disploy';
+import type { Command } from 'disploy';
 
-export default class HeyCommand extends Command {
-	public constructor() {
-		super({
-			name: 'hey',
-			description: 'heyy!',
+export default {
+	name: 'hey',
+	description: 'heyy!',
+
+	async run(interaction) {
+		return void interaction.editReply({
+			content: `Just wanted to say hey!`,
 		});
 	}
-
-	override async slashRun(interaction: ChatInputInteraction) {
-		return void interaction.reply({
-			content: `heyy!`,
-		});
-	}
-}
+} satisfies Command;
 ```
 
 ### #3
