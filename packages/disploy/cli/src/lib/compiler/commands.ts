@@ -14,7 +14,7 @@ export async function parseCommands(workbench: string) {
 				const commands = await Promise.all(
 					files.map(async (file) => {
 						const contents = await readFile(file, 'utf8');
-						const match = contents.match(/export default class (\w+) extends Command/);
+						const match = contents.match(/export default/);
 
 						if (match) {
 							return file;
@@ -34,7 +34,7 @@ export async function parseCommands(workbench: string) {
 			let code = await readFile(file, 'utf-8');
 			const commandName = path.basename(file, '.js');
 
-			code = code.replace(/export default class ([a-zA-Z0-9]+) /, `export class ${commandName} `);
+			code = code.replace(/export default/, `export const ${commandName} = `);
 
 			return writeFile(file, code);
 		}),
@@ -44,7 +44,7 @@ export async function parseCommands(workbench: string) {
 		imports: commandsFiles
 			.map((file) => `import {${path.basename(file, '.js')}} from "./commands/${path.basename(file, '.js')}";`)
 			.join('\n'),
-		array: commandsFiles.map((file) => `new ${path.basename(file, '.js')}`).join(',\n'),
+		array: commandsFiles.map((file) => `${path.basename(file, '.js')}`).join(',\n'),
 	});
 
 	await writeFile(path.join(workbench, 'commands.js'), commandArray);
