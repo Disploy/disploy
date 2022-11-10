@@ -3,8 +3,8 @@ import { Base } from "./Base";
 import type { ActionRow } from "./ActionRow";
 
 export class Modal extends Base {
-    public customId: string | undefined;
-    public title: string | undefined;
+    public customId?: string;
+    public title?: string;
     public components: Array<ActionRow> = [];
 
     setCustomId(id: string){
