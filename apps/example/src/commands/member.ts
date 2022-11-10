@@ -1,5 +1,5 @@
-import { Command, type ChatInputInteraction } from '@disploy/framework';
 import { ApplicationCommandOptionType } from 'discord-api-types/v10';
+import { Command, type ChatInputInteraction } from 'disploy';
 
 export default class PingCommand extends Command {
 	public constructor() {

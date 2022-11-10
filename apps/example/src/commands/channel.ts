@@ -1,5 +1,5 @@
-import { Command, type ChatInputInteraction } from '@disploy/framework';
 import { ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v10';
+import { Command, type ChatInputInteraction } from 'disploy';
 export default class ChannelCommand extends Command {
 	public constructor() {
 		super({
