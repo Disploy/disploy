@@ -5,7 +5,7 @@ import type { ActionRow } from "./ActionRow";
 export class Modal extends Base {
     public customId: string | undefined;
     public title: string | undefined;
-    public components: Array<ActionRow> = [];
+    public components: ActionRow[] = [];
 
     setCustomId(id: string){
         this.customId = id;

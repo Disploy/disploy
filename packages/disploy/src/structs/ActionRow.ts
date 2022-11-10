@@ -5,13 +5,13 @@ import type { ActionRowComponent } from "./ActionRowComponent";
 
 export class ActionRow extends Base {
     private type: ComponentType;
-    private components: Array<ActionRowComponent> = [];
+    private components: ActionRowComponent[] = [];
 
-    public addComponents(components: Array<ActionRowComponent>){
+    public addComponents(components: ActionRowComponent[]){
         this.components.push(...components);
     }
 
-    public setComponents(components: Array<ActionRowComponent>){
+    public setComponents(components: ActionRowComponent[]){
         this.components = components;
     }
 
