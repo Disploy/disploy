@@ -34,7 +34,7 @@ Firstly, we're importing the `Command` type from Disploy. This is the type used 
 
 ### `run`
 
-The `slashRun` method is called when the command is run. It takes a single argument, the interaction. The interaction is an object which contains information about the interaction, such as the user who ran the command, the arguments they provided, and the channel the command was run in.
+The `run` method is called when the command is run. It takes a single argument, the interaction. The interaction is an object which contains information about the interaction, such as the user who ran the command, the arguments they provided, and the channel the command was run in.
 
 The `run` method must return `Promise<void>`, once returned the command will be considered finished; in serverless environments this will kill the process. This allows you to run code after initially responding to the interaction. This is useful for doing things like sending follow-up messages or deferring the interaction to do a long-running task and editing the interaction later.
 

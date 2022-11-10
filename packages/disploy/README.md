@@ -44,6 +44,10 @@ export default {
 	description: 'heyy!',
 
 	async run(interaction) {
+		interaction.deferReply(); // You can even defer on serverless platforms like Cloudflare Workers! https://disploy.dev/docs/Guide/learning-the-workflow/creating-commands#run
+
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+
 		return void interaction.editReply({
 			content: `Just wanted to say hey!`,
 		});
