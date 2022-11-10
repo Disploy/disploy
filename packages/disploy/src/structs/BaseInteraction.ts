@@ -5,6 +5,7 @@ import { Base } from './Base';
 import { Guild } from './Guild';
 import { ToBeFetched } from './ToBeFetched';
 
+
 export class BaseInteraction extends Base {
 	/**
 	 * The ID of the interaction.
