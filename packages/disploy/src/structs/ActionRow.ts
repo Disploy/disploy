@@ -4,7 +4,7 @@ import { ComponentType } from "discord-api-types/v10";
 import type { ActionRowComponent } from "./ActionRowComponent";
 
 export class ActionRow extends Base {
-    private type: ComponentType;
+    public type: ComponentType;
     private components: ActionRowComponent[] = [];
 
     public addComponents(components: ActionRowComponent[]){
