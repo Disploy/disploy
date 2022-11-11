@@ -3,15 +3,15 @@ import type { App } from "../client";
 import type { ComponentType } from "discord-api-types/v10";
 
 export class ActionRowComponent extends Base {
-    public customId: string | undefined;
-    public type: ComponentType;
+    public customId?: string;
+    public type?: ComponentType;
 
     setCustomId(id: string){
         this.customId = id;
+        return this;
     }
 
-    constructor(app: App, type: ComponentType){
+    constructor(app: App){
         super(app);
-        this.type = type;
     }
 }
