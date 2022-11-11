@@ -9,18 +9,22 @@ export class Modal extends Base {
 
     setCustomId(id: string){
         this.customId = id;
+        return this;
     }
 
     setTitle(title: string){
         this.title = title;
+        return this;
     }
 
     setComponents(components: Array<ActionRow>){
         this.components = components;
+        return this;
     }
 
     addComponents(components: Array<ActionRow>){
         this.components.push(...components);
+        return this;
     }
 
     constructor(app: App) {
