@@ -4010,6 +4010,11 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
+disbench@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/disbench/-/disbench-1.1.6.tgz#0dae13becdeee53c09fd15d08b965797beb0bd5d"
+  integrity sha512-/XTohU1AvxNZM+4EC7d3Ji3DaMWMWmrEkBdfmTq4MaoO+EpmGhFy2/5i20Qi/E0rzPal5cnLalzNM5W1EkOuJg==
+
 discord-api-types@^0.37.14:
   version "0.37.14"
   resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.14.tgz"

@@ -29,24 +29,37 @@ async function findClosestEnv(opts: { cwd: string }) {
 	return undefined;
 }
 
-async function resolveEnvironment({ cwd }: { cwd: string }) {
+export type EnvironmentKey = 'token' | 'publicKey' | 'clientId';
+
+async function resolveEnvironment({ cwd, requires }: { cwd: string; requires?: EnvironmentKey[] }) {
 	dotenv.config({ path: await findClosestEnv({ cwd }) });
 
 	const { DISCORD_TOKEN: token, DISCORD_PUBLIC_KEY: publicKey, DISCORD_CLIENT_ID: clientId } = process.env;
+	const env = { token, publicKey, clientId };
 
-	if (!token || !publicKey || !clientId) {
+	let missing: string[] = [];
+
+	if (requires) {
+		missing = requires.filter((key) => !env[key]);
+	} else {
+		missing = Object.keys(env).filter((key) => !env[key as EnvironmentKey]);
+	}
+
+	if (missing.length) {
 		throw new UserError(
-			`Missing ${!token ? 'DISCORD_TOKEN' : ''} ${!publicKey ? 'DISCORD_PUBLIC_KEY' : ''} ${
-				!clientId ? 'DISCORD_CLIENT_ID' : ''
-			} environment variables`,
+			`Missing environment variables: ${missing.join(
+				', ',
+			)}. Please add them to your .env file or set them in your environment.`,
 		);
 	}
 
-	return {
-		token,
-		publicKey,
-		clientId,
-	};
+	for (const key of Object.keys(env) as EnvironmentKey[]) {
+		if (!env[key]) {
+			env[key] = Math.random().toString(36).substring(7);
+		}
+	}
+
+	return env as { token: string; publicKey: string; clientId: string };
 }
 
 export const ProjectTools = {

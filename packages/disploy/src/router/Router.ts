@@ -14,8 +14,8 @@ import { ChatInputInteraction } from '../structs';
 import { MessageContextMenuInteraction } from '../structs/MessageContextMenuInteraction';
 import { UserContextMenuInteraction } from '../structs/UserContextMenuInteraction';
 import { DiscordAPIUtils, RequestorError, RuntimeConstants, Verify, VerifyCFW, VerifyNode } from '../utils';
-import type { BaseRoute } from './BaseRoute';
 import type { ApplicationCommandRoute } from './ApplicationCommandRoute';
+import type { BaseRoute } from './BaseRoute';
 import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
@@ -44,11 +44,11 @@ export class Router extends EventEmitter {
 		return true;
 	}
 
-	public async entry(req: TRequest): Promise<TResponse> {
+	public async entry(req: TRequest, disableVerification = false): Promise<TResponse> {
 		const res = new TResponse();
 
 		try {
-			const handledResult = await this.handle(req, res);
+			const handledResult = await this.handle(req, res, disableVerification);
 			return handledResult;
 		} catch (err: any) {
 			switch (err.constructor) {
@@ -79,8 +79,8 @@ export class Router extends EventEmitter {
 		}
 	}
 
-	private async handle(req: TRequest, res: TResponse) {
-		await this.verifyRequest(req);
+	private async handle(req: TRequest, res: TResponse, disableVerification = false): Promise<TResponse> {
+		!disableVerification && (await this.verifyRequest(req));
 
 		if (req.body.type === 1) {
 			this.app.logger.debug('Received a ping request, responding back!');
