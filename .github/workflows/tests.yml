@@ -55,3 +55,6 @@ jobs:
 
       - name: Benchmark
         run: yarn benchmark
+        env:
+          DISCORD_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
