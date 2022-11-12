@@ -51,7 +51,7 @@ jobs:
         run: yarn --immutable
 
       - name: Build dependencies
-        run: yarn build
+        run: yarn build --filter=!@disploy/docs
 
       - name: Benchmark
         run: yarn benchmark
