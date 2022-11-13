@@ -1,5 +1,4 @@
 import {ModalActionRowComponent} from "./ModalActionRowComponent";
-import type {App} from "../client";
 import {ComponentType, TextInputStyle} from "discord-api-types/v10";
 
 export class TextInputComponent extends ModalActionRowComponent {
@@ -28,8 +27,8 @@ export class TextInputComponent extends ModalActionRowComponent {
         return this;
     }
 
-    constructor(app: App) {
-        super(app);
+    constructor() {
+        super();
         this.type = ComponentType.TextInput;
     }
 }
