@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-import * as fs from 'node:fs/promises';
 import { DisployConfig, readConfig } from './disployConf';
 import { UserError } from './UserError';
 let config: DisployConfig | undefined;
@@ -13,27 +11,9 @@ async function resolveProject({ cwd }: { cwd: string }) {
 	return config;
 }
 
-async function findClosestEnv(opts: { cwd: string }) {
-	let cwd = opts.cwd;
-
-	while (cwd !== '/') {
-		const envPath = `${cwd}/.env`;
-		try {
-			await fs.access(envPath);
-			return envPath;
-		} catch (e) {
-			cwd = cwd.substring(0, cwd.lastIndexOf('/'));
-		}
-	}
-
-	return undefined;
-}
-
 export type EnvironmentKey = 'token' | 'publicKey' | 'clientId';
 
-async function resolveEnvironment({ cwd, requires }: { cwd: string; requires?: EnvironmentKey[] }) {
-	dotenv.config({ path: await findClosestEnv({ cwd }) });
-
+async function resolveEnvironment({ requires }: { requires?: EnvironmentKey[] } = {}) {
 	const { DISCORD_TOKEN: token, DISCORD_PUBLIC_KEY: publicKey, DISCORD_CLIENT_ID: clientId } = process.env;
 	const env = { token, publicKey, clientId };
 

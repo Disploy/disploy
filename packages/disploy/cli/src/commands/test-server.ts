@@ -25,7 +25,6 @@ export const TestServerCommand: CommandModule = {
 		});
 
 		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment({
-			cwd: process.cwd(),
 			requires: ['clientId', 'token'],
 		});
 
