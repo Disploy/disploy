@@ -13,11 +13,11 @@ export class ModalSubmitInteraction extends BaseInteraction {
         this.customId = raw.data.custom_id;
         this.components = raw.data.components.map(
             rawActionRow => {
-                return new ActionRow(app)
+                return new ActionRow()
                     .setComponents(
                         rawActionRow.components.map(
                             rawModalSubmitComponent => {
-                                return new ModalSubmitComponent(app, rawModalSubmitComponent)
+                                return new ModalSubmitComponent(rawModalSubmitComponent)
                             }
                         )
                     )

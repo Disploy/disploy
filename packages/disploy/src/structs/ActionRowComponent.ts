@@ -1,8 +1,6 @@
-import { Base } from "./Base";
-import type { App } from "../client";
 import type { ComponentType } from "discord-api-types/v10";
 
-export class ActionRowComponent extends Base {
+export class ActionRowComponent {
     public customId?: string;
     public type?: ComponentType;
 
@@ -11,7 +9,5 @@ export class ActionRowComponent extends Base {
         return this;
     }
 
-    constructor(app: App){
-        super(app);
-    }
+    constructor(){}
 }

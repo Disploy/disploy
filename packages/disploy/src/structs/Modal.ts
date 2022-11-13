@@ -1,8 +1,6 @@
-import type { App } from "../client";
-import { Base } from "./Base";
 import type { ActionRow } from "./ActionRow";
 
-export class Modal extends Base {
+export class Modal {
     public customId?: string;
     public title?: string;
     public components: ActionRow[] = [];
@@ -31,7 +29,5 @@ export class Modal extends Base {
         return JSON.stringify(this);
     }
 
-    constructor(app: App) {
-        super(app);
-    }
+    constructor() {}
 }

@@ -1,5 +1,4 @@
 import {ActionRowComponent} from "./ActionRowComponent";
-import type {App} from "../client";
 
 export class ModalActionRowComponent extends ActionRowComponent {
     public required?: boolean;
@@ -21,7 +20,7 @@ export class ModalActionRowComponent extends ActionRowComponent {
         return this;
     }
 
-    constructor(app: App) {
-        super(app);
+    constructor() {
+        super();
     }
 }
