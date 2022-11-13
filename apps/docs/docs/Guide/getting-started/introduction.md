@@ -11,7 +11,7 @@ You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone
 
 :::
 
-Disploy is a framework for building Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
+Disploy is a framework for building HTTP Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
 ## It's as easy as 1, 2, 3, 4
 
