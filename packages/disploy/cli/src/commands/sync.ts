@@ -16,9 +16,7 @@ export const SyncCommand: CommandModule = {
 	builder,
 	command: 'sync',
 	async handler() {
-		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment({
-			cwd: process.cwd(),
-		});
+		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment();
 
 		const input = await inquirer.prompt([
 			{
