@@ -10,6 +10,7 @@ import { RouterEvents } from '../router';
 import { BaseInteraction } from './BaseInteraction';
 import { GuildMember } from './GuildMember';
 import { User } from './User';
+import type { Modal } from './Modal';
 
 export class CommandInteraction extends BaseInteraction {
 	/**
