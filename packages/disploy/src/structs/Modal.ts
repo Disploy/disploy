@@ -27,6 +27,10 @@ export class Modal extends Base {
         return this;
     }
 
+    toJSON(){
+        return JSON.stringify(this);
+    }
+
     constructor(app: App) {
         super(app);
     }
