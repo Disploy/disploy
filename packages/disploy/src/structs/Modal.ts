@@ -22,7 +22,7 @@ export class Modal extends Base {
         return this;
     }
 
-    addComponents(components: Array<ActionRow>){
+    addComponents(components: ActionRow[]){
         this.components.push(...components);
         return this;
     }
