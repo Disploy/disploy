@@ -26,9 +26,7 @@ export const DevCommand: CommandModule = {
 			cwd: process.cwd(),
 		});
 
-		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment({
-			cwd: process.cwd(),
-		});
+		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment();
 
 		const watcher = watch(root, { recursive: true });
 		let timeout: NodeJS.Timeout | null = null;
