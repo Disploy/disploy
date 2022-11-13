@@ -17,7 +17,7 @@ export class Modal extends Base {
         return this;
     }
 
-    setComponents(components: Array<ActionRow>){
+    setComponents(components: ActionRow[]){
         this.components = components;
         return this;
     }
