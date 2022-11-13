@@ -7,6 +7,9 @@ const __dirname = dirname(__filename);
 
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	cwd: join(__dirname, '..', 'apps', 'example'),
+	env: {
+		...process.env,
+	},
 });
 
 server.stdout.on('data', (data) => {
