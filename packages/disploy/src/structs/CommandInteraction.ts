@@ -53,10 +53,10 @@ export class CommandInteraction extends BaseInteraction {
 		});
 	}
 
-	public showModal(payload: APIInteractionResponseCallbackData) {
+	public showModal(modal: Modal) {
 		return void this.app.router.emit(RouterEvents.Respond(this.id), {
 			type: InteractionResponseType.Modal,
-			data: payload,
+			data: modal.toJSON(),
 		});
 	}
 

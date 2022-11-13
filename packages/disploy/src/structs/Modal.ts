@@ -15,12 +15,12 @@ export class Modal {
         return this;
     }
 
-    setComponents(components: Array<ActionRow>){
+    setComponents(components: ActionRow[]){
         this.components = components;
         return this;
     }
 
-    addComponents(components: Array<ActionRow>){
+    addComponents(components: ActionRow[]){
         this.components.push(...components);
         return this;
     }
