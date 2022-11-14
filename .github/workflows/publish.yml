@@ -1,0 +1,50 @@
+name: Publish Development Build
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+jobs:
+  npm:
+    name: npm
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package: 'disploy'
+            folder: 'disploy'
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+    if: github.repository_owner == 'Disploy'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install node.js v18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn --immutable
+
+      - name: Build dependencies
+        run: yarn build
+
+      - name: Publish package
+        run: |
+          yarn workspace ${{ matrix.package }} release --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
+          cd packages/${{ matrix.folder }} && npm publish --tag dev || true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

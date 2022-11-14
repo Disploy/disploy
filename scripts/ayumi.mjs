@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
-const Packages = ['packages/disploy', 'packages/create-disploy-app'];
+const Packages = ['packages/disploy'];
 const ShortGitHash = execSync('git rev-parse --short HEAD').toString().trim();
 
 async function run(script) {
