@@ -24,7 +24,7 @@ export default {
     },
 
     async modalSubmit(interaction: ModalSubmitInteraction) {
-        const favNumComp: ModalActionRowComponent = interaction.components[0]?.get("favNum") as TextInputComponent;
+        const favNumComp: TextInputComponent = interaction.components[0]?.get("favNum") as TextInputComponent;
         const favNum: string = favNumComp?.getValue();
         interaction.reply({
             content: `Nice favorite number: ${favNum ?? "10"}.`
