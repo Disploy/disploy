@@ -86,10 +86,16 @@ export class Guild extends Base {
 	 */
 	public members!: StructureManager<GuildMember>;
 
+	/**
+	 * 	The NSFW level for this guild.
+	 */
+	public nsfwLevel!: number;
+
 	public constructor(app: App, raw: APIGuild) {
 		super(app);
-		this.channels = new ChannelManager(app, this.id);
 		this.patch(raw);
+		console.log(raw);
+		this.channels = new ChannelManager(app, this.id);
 	}
 
 	private patch(raw: APIGuild): this {
@@ -123,6 +129,8 @@ export class Guild extends Base {
 		if ('approximate_presence_count' in raw) {
 			this.approximatePresenceCount = raw.approximate_presence_count;
 		}
+
+		this.nsfwLevel = raw.nsfw_level;
 
 		return this;
 	}
