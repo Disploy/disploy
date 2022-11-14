@@ -1,23 +1,19 @@
 import { ApplicationCommandOptionType } from 'discord-api-types/v10';
-import { Command, type ChatInputInteraction } from 'disploy';
+import type { ChatInputInteraction, Command } from 'disploy';
 
-export default class PingCommand extends Command {
-	public constructor() {
-		super({
+export default {
+	name: 'member',
+	description: 'fetch a member in a guild!',
+	options: [
+		{
 			name: 'member',
-			description: 'fetch a member in a guild!',
-			options: [
-				{
-					name: 'member',
-					description: 'the user id to fetch as a member',
-					type: ApplicationCommandOptionType.String,
-					required: true,
-				},
-			],
-		});
-	}
+			description: 'the user id to fetch as a member',
+			type: ApplicationCommandOptionType.String,
+			required: true,
+		},
+	],
 
-	override async slashRun(interaction: ChatInputInteraction) {
+	async run(interaction: ChatInputInteraction) {
 		interaction.deferReply();
 
 		try {
@@ -47,5 +43,5 @@ export default class PingCommand extends Command {
 				content: ['```js', err.stack ?? err.message, '```'].join('\n'),
 			});
 		}
-	}
-}
+	},
+} satisfies Command;

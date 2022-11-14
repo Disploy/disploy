@@ -1,22 +1,20 @@
 import { ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v10';
-import { Command, type ChatInputInteraction } from 'disploy';
-export default class ChannelCommand extends Command {
-	public constructor() {
-		super({
-			name: 'channel',
-			description: 'fetch a channel!',
-			options: [
-				{
-					name: 'channel',
-					description: 'the channel id to fetch',
-					type: ApplicationCommandOptionType.String,
-					required: true,
-				},
-			],
-		});
-	}
+import type { Command } from 'disploy';
 
-	override async slashRun(interaction: ChatInputInteraction) {
+
+export default {
+	name: 'channel',
+	description: 'fetch a channel!',
+	options: [
+		{
+			name: 'channel',
+			description: 'the channel id to fetch',
+			type: ApplicationCommandOptionType.String,
+			required: true,
+		},
+	],
+	
+	async run(interaction) {
 		interaction.deferReply();
 
 		try {
@@ -43,5 +41,6 @@ export default class ChannelCommand extends Command {
 				content: ['```js', err.stack ?? err.message, '```'].join('\n'),
 			});
 		}
+	
 	}
-}
+} satisfies Command;

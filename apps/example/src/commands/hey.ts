@@ -7,6 +7,12 @@ export default {
 	async run(interaction) {
 		interaction.deferReply();
 
+		if (!interaction.guild) {
+			return void interaction.editReply({
+				content: "You must use this in a guild."
+			})
+		}
+
 		const guild = await interaction.guild.fetch();
 
 		return void interaction.editReply({
