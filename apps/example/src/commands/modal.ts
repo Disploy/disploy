@@ -1,6 +1,6 @@
-import type {Command} from 'disploy';
-import {ActionRow, Modal, ModalSubmitInteraction, TextInputComponent} from "disploy/src";
+import type { Command, Modal, ActionRow, TextInputComponent, ModalSubmitInteraction } from 'disploy';
 import {TextInputStyle} from "discord-api-types/v10";
+import {ModalActionRowComponent} from "disploy/src";
 
 export default {
     name: 'modal',
@@ -25,9 +25,10 @@ export default {
     },
 
     async modalSubmit(interaction: ModalSubmitInteraction) {
-        const favNum = interaction.components[0].get("favNum").getValue();
+        const favNumComp: ModalActionRowComponent = interaction.components[0]?.get("favNum");
+        const favNum: string = favNumComp?.getValue();
         interaction.reply({
-            content: `Nice favorite number: ${favNum}.`,
+            content: `Nice favorite number: ${favNum ?? "10"}.`,
             ephemeral: true
         });
     }
