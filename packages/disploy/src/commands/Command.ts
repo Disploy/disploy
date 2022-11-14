@@ -9,7 +9,7 @@ export interface ApplicationCommand {
 	name: string;
 	type?: ApplicationCommandType;
 	run(interaction: CommandInteraction): void | Promise<void>;
-	modalSubmit(interaction: ModalSubmitInteraction): void | Promise<void>;
+	modalSubmit?(interaction: ModalSubmitInteraction): void | Promise<void>;
 }
 
 export interface ChatInputCommand extends ApplicationCommand {
