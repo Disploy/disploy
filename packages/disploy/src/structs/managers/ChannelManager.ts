@@ -21,7 +21,7 @@ export class ChannelManager extends Base {
 	public async fetch(id: string): Promise<DiscordChannel> {
 		const raw = await this.app.rest.get<RESTGetAPIChannelResult>(Routes.channel(id));
 
-		if ('guild_id' in raw && raw.guild_id !== this.guildId) {
+		if (this.guildId !== undefined && 'guild_id' in raw && raw.guild_id !== this.guildId) {
 			throw new Error(`Channel is not in the guild (${this.guildId})`);
 		}
 
