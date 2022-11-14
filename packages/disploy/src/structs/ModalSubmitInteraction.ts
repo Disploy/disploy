@@ -3,8 +3,8 @@ import type { APIModalSubmitInteraction } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { ActionRow } from './ActionRow';
 import { ModalSubmitComponent } from './ModalSubmitComponent';
-import {APIInteractionResponseCallbackData, InteractionResponseType} from "discord-api-types/v10";
-import {RouterEvents} from "../router";
+import { APIInteractionResponseCallbackData, InteractionResponseType } from 'discord-api-types/v10';
+import { RouterEvents } from '../router';
 
 export class ModalSubmitInteraction extends BaseInteraction {
 	public customId: string;

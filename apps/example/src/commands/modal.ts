@@ -1,5 +1,5 @@
-import { Command, Modal, ActionRow, ModalSubmitInteraction, ModalSubmitComponent } from 'disploy';
-import { TextInputStyle } from "discord-api-types/v10";
+import { Command, Modal, ActionRow, ModalSubmitInteraction, TextInputComponent, ModalSubmitComponent } from 'disploy';
+import { TextInputStyle } from 'discord-api-types/v10';
 
 export default {
     name: 'modal',
