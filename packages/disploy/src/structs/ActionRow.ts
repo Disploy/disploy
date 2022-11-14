@@ -15,6 +15,10 @@ export class ActionRow {
         return this;
     }
 
+    public get(customId: string){
+        return this.components.filter(component => component.customId === customId)[0];
+    }
+
     public constructor(components?: ActionRowComponent[]) {
         this.type = ComponentType.ActionRow;
         this.components = components ?? [];
