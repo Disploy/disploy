@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node  --no-warnings
 
 import dotenv from 'dotenv';
 import path from 'node:path';
@@ -15,12 +15,6 @@ import { TestServerCommand } from './commands/test-server';
 
 	const handler = yargs(hideBin(process.argv));
 
-	commands.forEach((command) => {
-		handler.command(command);
-	});
-
-	handler.demandCommand(1).parse();
-
 	const globalOptions = await handler.options({
 		envFile: {
 			type: 'string',
@@ -31,4 +25,10 @@ import { TestServerCommand } from './commands/test-server';
 	}).argv;
 
 	dotenv.config({ path: globalOptions.envFile });
+
+	commands.forEach((command) => {
+		handler.command(command);
+	});
+
+	handler.demandCommand(1).parse();
 })();
