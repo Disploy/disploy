@@ -10,7 +10,7 @@ import { RouterEvents } from '../router';
 import { BaseInteraction } from './BaseInteraction';
 import { GuildMember } from './GuildMember';
 import { User } from './User';
-import type { Modal } from './Modal';
+import { Modal } from './Modal';
 
 export class CommandInteraction extends BaseInteraction {
 	/**
@@ -54,10 +54,13 @@ export class CommandInteraction extends BaseInteraction {
 		});
 	}
 
-	public showModal(modal: Modal) {
+	public showModal(modal: DiscordPayload<Modal>) {
+		if (modal instanceof Modal) {
+			modal = modal.toJSON();
+		}
 		return void this.app.router.emit(RouterEvents.Respond(this.id), {
 			type: InteractionResponseType.Modal,
-			data: modal.toJSON(),
+			data: modal,
 		});
 	}
 
@@ -67,3 +70,5 @@ export class CommandInteraction extends BaseInteraction {
 		});
 	}
 }
+
+export type DiscordPayload<T> = T | unknown;
