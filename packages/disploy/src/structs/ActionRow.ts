@@ -15,8 +15,8 @@ export class ActionRow {
         return this;
     }
 
-    public constructor() {
+    public constructor(components: ActionRowComponent[]) {
         this.type = ComponentType.ActionRow;
-        this.components = [];
+        this.components = components ?? [];
     }
 }
