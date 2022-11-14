@@ -29,5 +29,15 @@ export class Modal {
         return JSON.stringify(this);
     }
 
-    constructor() {}
+    constructor(raw?: RawModalBuilder) {
+        this.title = raw?.title ?? undefined;
+        this.customId = raw?.customId ?? undefined;
+        this.components = raw?.components ?? [];
+    }
+}
+
+class RawModalBuilder {
+    title?: string;
+    customId?: string;
+    components?: ActionRow[];
 }
