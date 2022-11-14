@@ -24,11 +24,10 @@ export default {
     },
 
     async modalSubmit(interaction: ModalSubmitInteraction) {
-        const favNumComp: ModalActionRowComponent = interaction.components[0]?.get("favNum") as ModalActionRowComponent;
+        const favNumComp: ModalActionRowComponent = interaction.components[0]?.get("favNum") as TextInputComponent;
         const favNum: string = favNumComp?.getValue();
         interaction.reply({
-            content: `Nice favorite number: ${favNum ?? "10"}.`,
-            ephemeral: true
+            content: `Nice favorite number: ${favNum ?? "10"}.`
         });
     }
 } satisfies Command;
