@@ -20,7 +20,16 @@ export class ModalActionRowComponent extends ActionRowComponent {
         return this;
     }
 
-    constructor() {
+    constructor(raw?: RawModalActionComponent) {
         super();
+        this.required = raw?.required ?? undefined;
+        this.value = raw?.value ?? undefined;
+        this.placeholder = raw?.placeholder ?? undefined;
     }
+}
+
+class RawModalActionComponent {
+    required?: boolean;
+    value?: string;
+    placeholder?: string;
 }
