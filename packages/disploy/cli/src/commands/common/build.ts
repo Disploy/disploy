@@ -4,6 +4,7 @@ import ora from 'ora';
 import { Compile } from '../../lib/compiler';
 import type { DisployConfig } from '../../lib/disployConf';
 import { ProjectTools } from '../../lib/ProjectTools';
+
 export async function BuildApp({
 	skipPrebuild = false,
 	overrideTarget,
