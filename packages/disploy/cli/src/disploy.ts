@@ -14,12 +14,6 @@ import { SyncCommand } from './commands/sync';
 
 	const handler = yargs(hideBin(process.argv));
 
-	commands.forEach((command) => {
-		handler.command(command);
-	});
-
-	handler.demandCommand(1).parse();
-
 	const globalOptions = await handler.options({
 		envFile: {
 			type: 'string',
@@ -30,4 +24,10 @@ import { SyncCommand } from './commands/sync';
 	}).argv;
 
 	dotenv.config({ path: globalOptions.envFile });
+
+	commands.forEach((command) => {
+		handler.command(command);
+	});
+
+	handler.demandCommand(1).parse();
 })();
