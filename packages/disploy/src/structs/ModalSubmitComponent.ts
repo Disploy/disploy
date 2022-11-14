@@ -4,6 +4,10 @@ import type { ModalSubmitComponent as APIModalSubmitComponent } from "discord-ap
 export class ModalSubmitComponent extends ActionRowComponent {
     public value: string;
 
+    public getValue(){
+        return this.value;
+    }
+
     public constructor(raw: APIModalSubmitComponent){
         super();
         this.type = raw.type;
