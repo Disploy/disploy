@@ -8,7 +8,7 @@ export class ModalSubmitInteraction extends BaseInteraction {
     public customId: string;
     public components: ActionRow[];
 
-    constructor(app: App, raw: APIModalSubmitInteraction){
+    public constructor(app: App, raw: APIModalSubmitInteraction){
         super(app, raw);
         this.customId = raw.data.custom_id;
         this.components = raw.data.components.map(

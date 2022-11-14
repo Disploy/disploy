@@ -5,31 +5,31 @@ export class Modal {
     public title?: string;
     public components: ActionRow[] = [];
 
-    setCustomId(id: string){
+    public setCustomId(id: string){
         this.customId = id;
         return this;
     }
 
-    setTitle(title: string){
+    public setTitle(title: string){
         this.title = title;
         return this;
     }
 
-    setComponents(components: ActionRow[]){
+    public setComponents(components: ActionRow[]){
         this.components = components;
         return this;
     }
 
-    addComponents(components: ActionRow[]){
+    public addComponents(components: ActionRow[]){
         this.components.push(...components);
         return this;
     }
 
-    toJSON(){
+    public toJSON(){
         return JSON.stringify(this);
     }
 
-    constructor(raw?: RawModalBuilder) {
+    public constructor(raw?: RawModalBuilder) {
         this.title = raw?.title ?? undefined;
         this.customId = raw?.customId ?? undefined;
         this.components = raw?.components ?? [];

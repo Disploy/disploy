@@ -7,27 +7,27 @@ export class TextInputComponent extends ModalActionRowComponent {
     public minLength?: number;
     public maxLength?: number;
 
-    setStyle(style: TextInputStyle){
+    public setStyle(style: TextInputStyle){
         this.style = style;
         return this;
     }
 
-    setLabel(label: string){
+    public setLabel(label: string){
         this.label = label;
         return this;
     }
 
-    setMinLength(length: number){
+    public setMinLength(length: number){
         this.minLength = length;
         return this;
     }
 
-    setMaxLength(length: number){
+    public setMaxLength(length: number){
         this.maxLength = length;
         return this;
     }
 
-    constructor(raw?: RawTextInputComponent) {
+    public constructor(raw?: RawTextInputComponent) {
         super();
         this.type = ComponentType.TextInput;
         this.style = raw?.style ?? undefined;

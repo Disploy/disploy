@@ -5,22 +5,22 @@ export class ModalActionRowComponent extends ActionRowComponent {
     public value?: string;
     public placeholder?: string;
 
-    setRequired(required: boolean){
+    public setRequired(required: boolean){
         this.required = required;
         return this;
     }
 
-    setValue(value: string){
+    public setValue(value: string){
         this.value = value;
         return this;
     }
 
-    setPlaceholder(placeholder: string){
+    public setPlaceholder(placeholder: string){
         this.placeholder = placeholder;
         return this;
     }
 
-    constructor(raw?: RawModalActionComponent) {
+    public constructor(raw?: RawModalActionComponent) {
         super();
         this.required = raw?.required ?? undefined;
         this.value = raw?.value ?? undefined;

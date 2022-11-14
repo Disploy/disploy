@@ -4,10 +4,10 @@ export class ActionRowComponent {
     public customId?: string;
     public type?: ComponentType;
 
-    setCustomId(id: string){
+    public setCustomId(id: string){
         this.customId = id;
         return this;
     }
 
-    constructor(){}
+    public constructor(){}
 }
