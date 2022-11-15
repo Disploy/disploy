@@ -54,11 +54,7 @@ const publicKey = Deno.env.get('DISCORD_PUBLIC_KEY');
 <TabItem value="Node" label="Node">
 
 ```js
-const { clientId, token, publicKey } = {
-	clientId: process.env.DISCORD_CLIENT_ID,
-	token: process.env.DISCORD_TOKEN,
-	publicKey: process.env.DISCORD_PUBLIC_KEY,
-};
+const { clientId, token, publicKey } = process.env;
 ```
 
 </TabItem>
