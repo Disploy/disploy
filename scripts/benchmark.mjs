@@ -14,8 +14,8 @@ const getEnv = (name) => {
 };
 
 const Environment = {
-	DISCORD_TOKEN: getEnv(DISCORD_TOKEN) ?? '_pull_request_mode_',
-	DISCORD_CLIENT_ID: getEnv(DISCORD_CLIENT_ID) ?? '0',
+	DISCORD_TOKEN: getEnv('DISCORD_TOKEN') ?? '_pull_request_mode_',
+	DISCORD_CLIENT_ID: getEnv('DISCORD_CLIENT_ID') ?? '0',
 };
 
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
