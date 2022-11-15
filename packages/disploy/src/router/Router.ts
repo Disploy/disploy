@@ -14,19 +14,21 @@ import { ChatInputInteraction } from '../structs';
 import { MessageContextMenuInteraction } from '../structs/MessageContextMenuInteraction';
 import { UserContextMenuInteraction } from '../structs/UserContextMenuInteraction';
 import { DiscordAPIUtils, RequestorError, RuntimeConstants, Verify, VerifyCFW, VerifyNode } from '../utils';
-import type { BaseRoute } from './BaseRoute';
 import type { ApplicationCommandRoute } from './ApplicationCommandRoute';
+import type { BaseRoute } from './BaseRoute';
 import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
 	private routes: BaseRoute[] = [];
-	private verifier!: Verify;
+	private verifier: Verify | null = null;
 	private app!: App;
 
 	public constructor(app: App) {
 		super();
 		this.app = app;
-		this.verifier = RuntimeConstants.isNode ? new VerifyNode(this.app) : new VerifyCFW(this.app);
+		if (this.app.publicKey) {
+			this.verifier = RuntimeConstants.isNode ? new VerifyNode(this.app.publicKey) : new VerifyCFW(this.app.publicKey);
+		}
 	}
 
 	public addRoute(route: BaseRoute) {
@@ -34,6 +36,11 @@ export class Router extends EventEmitter {
 	}
 
 	private async verifyRequest(req: TRequest) {
+		if (!this.verifier) {
+			this.app.logger.warn('No public key provided, skipping verification.');
+			return true;
+		}
+
 		const signature = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
 
@@ -79,7 +86,7 @@ export class Router extends EventEmitter {
 		}
 	}
 
-	private async handle(req: TRequest, res: TResponse) {
+	private async handle(req: TRequest, res: TResponse): Promise<TResponse> {
 		await this.verifyRequest(req);
 
 		if (req.body.type === 1) {

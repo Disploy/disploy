@@ -14,7 +14,7 @@ export class VerifyNode extends Verify {
 			return this.nacl!.sign.detached.verify(
 				Buffer.from(timestamp + body),
 				Buffer.from(signature, 'hex'),
-				Buffer.from(this.app.publicKey, 'hex'),
+				Buffer.from(this.publicKey, 'hex'),
 			);
 		} catch {
 			return false;
