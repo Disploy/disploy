@@ -9,7 +9,7 @@ import TabItem from '@theme/TabItem';
 
 We can call `syncCommands` on our `CommandManager` attached to our `App` instance to deploy our commands to Discord.
 
-```ts
+```js
 import { app } from './main.mjs';
 
 console.log(`Deploying ${app.commands.getCommands().size} commands...`);
