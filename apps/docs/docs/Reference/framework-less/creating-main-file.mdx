@@ -1,0 +1,100 @@
+---
+sidebar_position: 3
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Creating the main file
+
+Firstly open your code editor and create a new file called `main.mjs` in a folder named "src" of your project. This is where we'll be writing our bot's code.
+
+<Tabs>
+
+<TabItem value="Deno" label="Deno">
+
+```js
+import { App } from 'disploy';
+import { config as loadEnv } from 'std/dotenv/mod.ts';
+import commands from './commands/commands.mjs';
+
+await loadEnv({
+	export: true,
+});
+```
+
+</TabItem>
+
+<TabItem value="Node" label="Node">
+
+```js
+import 'dotenv/config';
+import { App } from 'disploy';
+import commands from './commands/commands.mjs';
+```
+
+</TabItem>
+
+</Tabs>
+
+We start by importing the `App` class from Disploy. We also import the `loadEnv` function from `std/dotenv/mod.ts` (Deno) or `dotenv` (Node.js). This function will load our environment variables from a `.env` file.
+
+<Tabs>
+
+<TabItem value="Deno" label="Deno">
+
+```js
+const clientId = Deno.env.get('DISCORD_CLIENT_ID');
+const token = Deno.env.get('DISCORD_TOKEN');
+const publicKey = Deno.env.get('DISCORD_PUBLIC_KEY');
+```
+
+</TabItem>
+
+<TabItem value="Node" label="Node">
+
+```js
+const clientId = process.env.DISCORD_CLIENT_ID;
+const token = process.env.DISCORD_TOKEN;
+const publicKey = process.env.DISCORD_PUBLIC_KEY;
+```
+
+</TabItem>
+
+</Tabs>
+
+```js
+if (!clientId || !token || !publicKey) {
+	throw new Error('Missing environment variables');
+}
+```
+
+We then create a new instance of the `App` class and export it so we can use it in other files. We then call the `start` method on the `app` instance and pass in our client ID, token and public key.
+
+```js
+export const app = new App({
+	logger: {
+		debug: true,
+	},
+});
+
+app.start({
+	clientId,
+	token,
+	publicKey,
+});
+```
+
+We then loop through our commands and register them with the `app.commands.registerCommand` method. We also set the `debug` option to `true` in the `logger` option of the `App` class. This helps us debug our bot.
+
+```js {7-9}
+export const app = new App({
+	logger: {
+		debug: true,
+	},
+});
+
+for (const command of commands) {
+	app.commands.registerCommand(command);
+}
+```
