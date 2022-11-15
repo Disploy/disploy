@@ -54,7 +54,7 @@ jobs:
         run: yarn build --filter=!@disploy/docs
 
       - name: Benchmark
-        run: | 
-        export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
-        export DISCORD_CLIENT_ID=${{ secrets.CLIENT_ID }}
-        yarn benchmark
+        run: |
+          export DISCORD_TOKEN=${{ secrets.DISCORD_TOKEN }}
+          export DISCORD_CLIENT_ID=${{ secrets.CLIENT_ID }}
+          yarn benchmark
