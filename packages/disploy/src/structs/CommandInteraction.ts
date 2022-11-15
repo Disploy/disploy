@@ -10,6 +10,7 @@ import { RouterEvents } from '../router';
 import { BaseInteraction } from './BaseInteraction';
 import { GuildMember } from './GuildMember';
 import { User } from './User';
+import { Modal } from './Modal';
 
 export class CommandInteraction extends BaseInteraction {
 	/**
@@ -53,9 +54,21 @@ export class CommandInteraction extends BaseInteraction {
 		});
 	}
 
+	public showModal(modal: DiscordPayload<Modal>) {
+		if (modal instanceof Modal) {
+			modal = modal.toJSON();
+		}
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.Modal,
+			data: modal,
+		});
+	}
+
 	public async editReply(payload: APIInteractionResponseCallbackData) {
 		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
 			...payload,
 		});
 	}
 }
+
+export type DiscordPayload<T> = T | unknown;

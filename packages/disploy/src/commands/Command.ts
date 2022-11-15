@@ -3,11 +3,13 @@ import type { ChatInputInteraction } from '../structs';
 import type { CommandInteraction } from '../structs/CommandInteraction';
 import type { MessageContextMenuInteraction } from '../structs/MessageContextMenuInteraction';
 import type { UserContextMenuInteraction } from '../structs/UserContextMenuInteraction';
+import type { ModalSubmitInteraction } from '../structs';
 
 export interface ApplicationCommand {
 	name: string;
 	type?: ApplicationCommandType;
 	run(interaction: CommandInteraction): void | Promise<void>;
+	modalSubmit?(interaction: ModalSubmitInteraction): void | Promise<void>;
 }
 
 export interface ChatInputCommand extends ApplicationCommand {
