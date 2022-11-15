@@ -18,7 +18,7 @@ Here's a quick comparison to help you decide which repository might be the best 
 
 ### [`disploy`]
 
-The core of Disploy, written in TypeScript. This package is responsible for the core functionality of Disploy, think of it as the "engine" of Disploy. If you come from a web development background, this is the equivalent of the React library, but it also includes a framework that would be the equivalent of Next.js. This package is the most important package in the Disploy ecosystem, and is the one that is most likely to be used by the majority of users.
+The core of Disploy, written in TypeScript. This package is responsible for the core functionality of Disploy; think of it as the "engine" of Disploy. If you come from a web development background, this is the equivalent of the React library, but it also includes a framework that would be the equivalent of Next.js. This package is the most important package in the Disploy ecosystem and is the one that is most likely to be used by the majority of users.
 
 ### [`disploy/cli`]
 
