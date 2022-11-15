@@ -44,11 +44,9 @@ We start by importing the `App` class from Disploy. We also import the `loadEnv`
 <TabItem value="Deno" label="Deno">
 
 ```js
-const { clientId, token, publicKey } = {
-	clientId: Deno.env.get('DISCORD_CLIENT_ID'),
-	token: Deno.env.get('DISCORD_TOKEN'),
-	publicKey: Deno.env.get('DISCORD_PUBLIC_KEY'),
-};
+const clientId = Deno.env.get('DISCORD_CLIENT_ID');
+const token = Deno.env.get('DISCORD_TOKEN');
+const publicKey = Deno.env.get('DISCORD_PUBLIC_KEY');
 ```
 
 </TabItem>
