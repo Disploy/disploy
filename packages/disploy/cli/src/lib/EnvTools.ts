@@ -31,6 +31,7 @@ export async function batchGetEnvVars(
 				if (typeof err === 'object' && err['name'] === 'EnvGetError') {
 					errors.push(err as EnvGetError);
 				}
+				return null;
 			}
 		}),
 	);
