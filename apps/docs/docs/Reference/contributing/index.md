@@ -5,7 +5,7 @@ We respect and appreciate all contributions, no matter how large or small.
 
 ## Projects
 
-The Disploy ecosystem includes a number of repositories within the [Disploy](https://github.com/Disploy) organisation.
+The Disploy ecosystem includes a number of repositories within the [Disploy organisation](https://github.com/Disploy).
 
 When it comes to contributions, repositories vary in scope, use different programming languages, and have varying levels of difficulty.
 
