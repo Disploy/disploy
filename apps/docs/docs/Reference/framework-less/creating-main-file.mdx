@@ -61,15 +61,13 @@ const { clientId, token, publicKey } = process.env;
 
 </Tabs>
 
-We then create a new instance of the `App` class and export it so we can use it in other files. We then call the `start` method on the `app` instance and pass in our client ID, token and public key.
-
 ```js
 if (!clientId || !token || !publicKey) {
 	throw new Error('Missing environment variables');
 }
 ```
 
-We then loop through our commands and register them with the `app.commands.registerCommand` method. We also set the `debug` option to `true` in the `logger` option of the `App` class. This helps us debug our bot.
+We then create a new instance of the `App` class and export it so we can use it in other files. We then call the `start` method on the `app` instance and pass in our client ID, token and public key.
 
 ```js
 export const app = new App({
@@ -83,7 +81,11 @@ app.start({
 	token,
 	publicKey,
 });
+```
 
+We then loop through our commands and register them with the `app.commands.registerCommand` method. We also set the `debug` option to `true` in the `logger` option of the `App` class. This helps us debug our bot.
+
+```js
 for (const command of commands) {
 	app.commands.registerCommand(command);
 }
