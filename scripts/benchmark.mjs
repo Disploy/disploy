@@ -21,6 +21,7 @@ const Environment = {
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	cwd: join(__dirname, '..', 'apps', 'example'),
 	env: {
+		...process.env,
 		...Environment,
 	},
 });
