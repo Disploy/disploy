@@ -1,4 +1,3 @@
-import { watch } from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
 import type { Argv, CommandModule } from 'yargs';
@@ -18,41 +17,6 @@ export const TestServerCommand: CommandModule = {
 	command: 'test-server',
 	async handler() {
 		const devServerPort = 5002;
-		let ready = false;
-
-		const { root } = await ProjectTools.resolveProject({
-			cwd: process.cwd(),
-		});
-
-		const { clientId, token } = await ProjectTools.resolveEnvironment(false);
-
-		const watcher = watch(root, { recursive: true });
-		let timeout: NodeJS.Timeout | null = null;
-
-		const devAction = async () => {
-			const spinner = ora('Found change! Building project').start();
-			const entry = await BuildApp({
-				skipPrebuild: true,
-				overrideTarget: { type: 'standalone' },
-				entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
-			});
-
-			const app = await import(path.join(process.cwd(), entry));
-
-			setApp(app.default, {
-				clientId: clientId,
-				publicKey: null,
-				token: token,
-			});
-
-			if (!ready) {
-				ready = true;
-				logger.info(`Server Ready!`);
-				logger.info(`URI: http://localhost:${devServerPort}/interactions`);
-			}
-
-			spinner.succeed();
-		};
 
 		logger.warn(
 			[
@@ -61,15 +25,28 @@ export const TestServerCommand: CommandModule = {
 				"For example, if you're using typescript, you should run `tsc -w` alongside disploy's dev command.",
 			].join('\n'),
 		);
-		devAction();
 
-		watcher.on('change', () => {
-			if (timeout) clearTimeout(timeout);
+		const { clientId, token } = await ProjectTools.resolveEnvironment(false);
 
-			timeout = setTimeout(() => {
-				devAction();
-			}, 1000);
+		const spinner = ora('Found change! Building project').start();
+		const entry = await BuildApp({
+			skipPrebuild: true,
+			overrideTarget: { type: 'standalone' },
+			entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 		});
+
+		const app = await import(path.join(process.cwd(), entry));
+
+		setApp(app.default, {
+			clientId: clientId,
+			publicKey: null,
+			token: token,
+		});
+
+		logger.info(`Server Ready!`);
+		logger.info(`URI: http://localhost:${devServerPort}/interactions`);
+
+		spinner.succeed();
 
 		createServer(devServerPort);
 	},
