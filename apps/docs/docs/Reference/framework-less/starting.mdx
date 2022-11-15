@@ -1,0 +1,123 @@
+---
+sidebar_position: 5
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Starting our bot
+
+The `Router` class attached to our `App` instance is the main entry point for our bot. It is responsible for handling all incoming interactions and dispatching them to the appropriate handlers. We will be using the `Router` class to be an entry point for our bot.
+
+Our goal is to transform whatever request type we receive from our implementation of a web server to a `TRequest` object. This object will be passed to the `Router` class to be handled and will fulfill a Promise that we will return to our web server.
+
+<Tabs>
+
+<TabItem value="Deno" label="Deno">
+
+```js
+// src/server.mjs
+import { serve } from 'https://deno.land/std@0.155.0/http/server.ts';
+import { app } from './main.mjs';
+
+const handler = async (req) => {
+	if (req.method !== 'POST') {
+		return new Response('Method not allowed', { status: 405 });
+	}
+
+	const randId = Math.random().toString(36).substring(7);
+
+	const reqHeaders = {};
+	for (const [key, value] of req.headers) {
+		reqHeaders[key] = value;
+	}
+	const tReq = {
+		body: await req.json(),
+		headers: reqHeaders,
+		_request: req,
+		randId,
+	};
+
+	const payload = await app.router.entry(tReq);
+	const { status, headers, body } = payload.serialized;
+	return new Response(JSON.stringify(body), {
+		status,
+		headers: (() => {
+			const headersObj = {
+				'content-type': 'application/json',
+			};
+			for (const [key, value] of Object.entries(headers)) {
+				if (typeof value === 'string') {
+					headersObj[key] = value;
+				}
+				if (Array.isArray(value)) {
+					headersObj[key] = value.join(',');
+				}
+			}
+			return headersObj;
+		})(),
+	});
+};
+
+serve(handler);
+```
+
+We can now run our bot by running the following command:
+
+```bash
+deno run --allow-read --allow-env --allow-net src/server.mjs
+```
+
+</TabItem>
+
+<TabItem value="Node" label="Node">
+
+```js
+// src/server.mjs
+import bodyParser from 'body-parser';
+import express from 'express';
+import { app } from './main.mjs';
+
+const server = express();
+server.use(bodyParser.json());
+
+server.post('/interactions', async (req, res) => {
+	const tReq: TRequest = {
+		body: req.body,
+		headers: req.headers,
+		_request: req,
+	};
+
+	const payload = await app.router.entry(tReq);
+	const { status, headers, body } = payload.serialized;
+
+	return void res.status(status).set(headers).send(body);
+});
+
+server.listen(8000);
+```
+
+We can now run our bot by running the following command:
+
+```bash
+node src/server.js
+```
+
+</TabItem>
+
+</Tabs>
+
+## Exposing our bot to the internet
+
+Now that we have our bot running, we need to expose it to the internet. We will be using [ngrok](https://ngrok.com/) to do this. You can download it from [here](https://ngrok.com/download).
+
+Once you have downloaded ngrok, you can run the following command to expose your bot to the internet:
+
+```bash
+ngrok http 8000
+```
+
+Once ngrok is running, you should do the following:
+
+1. Visit https://discord.com/developers/applications/your_bot_id/information
+2. Set INTERACTIONS ENDPOINT URL to https://xxxx-xx-xxx-xxx-xx.ngrok.io/interactions
