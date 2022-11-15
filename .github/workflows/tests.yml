@@ -37,8 +37,7 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -57,3 +56,6 @@ jobs:
 
       - name: Benchmark
         run: yarn benchmark
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
