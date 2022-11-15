@@ -23,7 +23,6 @@ const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 		...process.env,
 		...Environment,
 	},
-	stdio: 'inherit',
 });
 
 server.on('error', (error) => {

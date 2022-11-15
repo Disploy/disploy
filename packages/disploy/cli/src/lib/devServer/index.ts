@@ -34,6 +34,7 @@ export function createServer(port: number) {
 export async function setApp(
 	newApp: DisployStandaloneBundle,
 	options: { clientId: string; publicKey: string | null; token: string },
+	skipSync = false,
 ) {
 	const firstTime = !app;
 
@@ -44,6 +45,8 @@ export async function setApp(
 		token: options.token,
 		commands: newApp.commands,
 	});
+
+	if (skipSync) return;
 
 	if (firstTime) {
 		remoteCommands.push(...(await app.commands.getRegisteredCommands()).map((c) => c.name));

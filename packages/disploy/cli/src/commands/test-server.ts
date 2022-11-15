@@ -37,11 +37,15 @@ export const TestServerCommand: CommandModule = {
 
 		const app = await import(path.join(process.cwd(), entry));
 
-		setApp(app.default, {
-			clientId: clientId,
-			publicKey: null,
-			token: token,
-		});
+		setApp(
+			app.default,
+			{
+				clientId: clientId,
+				publicKey: null,
+				token: token,
+			},
+			true,
+		);
 
 		logger.info(`Server Ready!`);
 		logger.info(`URI: http://localhost:${devServerPort}/interactions`);
