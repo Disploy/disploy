@@ -41,7 +41,7 @@ server.on('error', (error) => {
 
 server.stdout.on('data', (data) => {
 	if (data.includes('Server Ready!')) {
-		const args = ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'];
+		const args = ['disbench', 'internal', 'benchmark', '-d', '-u', 'http://localhost:5002/interactions'];
 
 		if (Environment.GITHUB_REF) {
 			args.push('-g');
