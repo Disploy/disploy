@@ -55,7 +55,7 @@ jobs:
         run: yarn build --filter=!@disploy/docs
 
       - name: Benchmark
-        run: yarn benchmark
+        run: node scripts/benchmark.mjs
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
