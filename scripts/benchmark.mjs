@@ -38,8 +38,9 @@ server.stdout.on('data', (data) => {
 			stdio: 'inherit',
 		});
 
-		benchmark.on('close', () => {
+		benchmark.on('exit', () => {
 			server.kill();
+			process.exit(0);
 		});
 	}
 });
