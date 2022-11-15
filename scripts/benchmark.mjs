@@ -2,8 +2,6 @@ import { spawn } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
-console.log(process.env);
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -26,7 +24,6 @@ const Environment = {
 	DISCORD_TOKEN: getEnv('DISCORD_TOKEN') ?? '_token_',
 	DISCORD_CLIENT_ID: getEnv('DISCORD_CLIENT_ID') ?? '0',
 	GITHUB_TOKEN: getEnv('GITHUB_TOKEN'),
-	GITHUB_ACTIONS: getEnv('GITHUB_ACTIONS'),
 	GITHUB_REF: getEnv('GITHUB_REF'),
 };
 
@@ -46,9 +43,7 @@ server.stdout.on('data', (data) => {
 	if (data.includes('Server Ready!')) {
 		const args = ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'];
 
-		if (Environment.GITHUB_ACTION && Environment.GITHUB_REF) {
-			console.log('running in github actions');
-
+		if (Environment.GITHUB_REF) {
 			args.push('-g');
 			args.push(`Disploy/disploy#${parsePullRequestId(Environment.GITHUB_REF)}`);
 		}
