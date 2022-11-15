@@ -89,10 +89,3 @@ for (const command of commands) {
 }
 ```
 
-## Breaking down the code
-
-We start by importing the `App` class from Disploy. We also import the `loadEnv` function from `std/dotenv/mod.ts` (Deno) or `dotenv` (Node.js). This function will load our environment variables from a `.env` file.
-
-We then create a new instance of the `App` class and export it so we can use it in other files. We then call the `start` method on the `app` instance and pass in our client ID, token and public key.
-
-We then loop through our commands and register them with the `app.commands.registerCommand` method. We also set the `debug` option to `true` in the `logger` option of the `App` class. This helps us debug our bot.
