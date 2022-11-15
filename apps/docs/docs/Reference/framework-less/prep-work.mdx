@@ -1,0 +1,68 @@
+---
+sidebar_position: 2
+---
+
+# Preparations
+
+:::info
+
+We expect you to already have a working installation of Deno 1.28+ or Node.js 18+
+
+:::
+
+## Setting up your project
+
+<Tabs>
+
+<TabItem value="Deno" label="Deno">
+
+Start by creating a `deno.json` file in your project directory:
+
+```json
+{
+	"importMap": "import_map.json"
+}
+```
+
+Then create an `import_map.json` file in the same directory:
+
+```json
+{
+	"imports": {
+		"disploy": "npm:disploy@dev",
+		"std/": "https://deno.land/std@0.164.0/",
+		"fmt/": "https://deno.land/std@0.164.0/fmt/"
+	}
+}
+```
+
+This will allow you to import Disploy from the `disploy` module.
+We are also importing the standard library from Deno's official repository.
+
+</TabItem>
+
+<TabItem value="Node" label="Node">
+
+You can initialize a Node.js project with the following command:
+
+```bash
+npm init -y
+# or
+yarn init -y
+# or
+pnpm init -y
+```
+
+Then install Disploy, dotenv and express since we will be using them in this guide:
+
+```bash
+npm install disploy dotenv express
+# or
+yarn add disploy dotenv express
+# or
+pnpm add disploy dotenv express
+```
+
+</TabItem>
+
+</Tabs>
