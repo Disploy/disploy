@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+console.log(process.env['CLIENT_ID'] ?? 'No client id');
+
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	cwd: join(__dirname, '..', 'apps', 'example'),
 	env: {
