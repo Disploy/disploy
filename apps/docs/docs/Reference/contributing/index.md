@@ -28,4 +28,4 @@ This package is not a "real package" as it lives in a folder of the [`deploy`] p
 [`disploy/cli`]: https://github.com/Disploy/disploy/tree/main/packages/disploy/cli
 ["entry point"]: https://github.com/Disploy/disploy/tree/main/packages/disploy/cli/assets/code
 [standalone "entry point"]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/standaloneEntry.js
-["entry point" made for cloudflare workers]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/cfWorkerEntry.js
+["entry point" made for Cloudflare Workers]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/cfWorkerEntry.js
