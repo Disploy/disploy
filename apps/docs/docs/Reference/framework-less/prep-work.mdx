@@ -12,6 +12,8 @@ We expect you to already have a working installation of Deno 1.28+ or Node.js 18
 
 ## Setting up your project
 
+### Dependencies
+
 <Tabs>
 
 <TabItem value="Deno" label="Deno">
@@ -66,3 +68,18 @@ pnpm add disploy dotenv express
 </TabItem>
 
 </Tabs>
+
+### Creating a `.env`
+
+Create a `.env` file in your project directory and add the following content:
+
+```env
+DISCORD_CLIENT_ID="Your Discord bot's client id"
+DISCORD_TOKEN="Your Discord bot's token"
+DISCORD_PUBLIC_KEY="Your Discord's bot's public key"
+```
+
+You can find all of these values in your [Discord Developer Portal](https://discord.com/developers/applications).
+
+![Public Key and Client ID](https://cdn.discordapp.com/attachments/1038456602610651196/1042198788653195306/Screenshot_2022-11-16_at_9.05.23_am.png)
+![Bot Token](https://cdn.discordapp.com/attachments/1038456602610651196/1042198948938530977/Screenshot_2022-11-16_at_9.06.01_am.png)
