@@ -9,7 +9,7 @@ import type { AppOptions } from './AppOptions';
 import { Rest } from './Rest';
 
 export class App {
-	public publicKey!: string;
+	public publicKey!: string | null;
 	public clientId!: string;
 	public router!: Router;
 	public token!: string;
@@ -38,7 +38,7 @@ export class App {
 		token,
 		commands,
 	}: {
-		publicKey: string;
+		publicKey: string | null;
 		clientId: string;
 		token: string;
 		commands?: Command[];

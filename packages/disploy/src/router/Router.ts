@@ -20,13 +20,15 @@ import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
 	private routes: BaseRoute[] = [];
-	private verifier!: Verify;
+	private verifier: Verify | null = null;
 	private app!: App;
 
 	public constructor(app: App) {
 		super();
 		this.app = app;
-		this.verifier = RuntimeConstants.isNode ? new VerifyNode(this.app) : new VerifyCFW(this.app);
+		if (this.app.publicKey) {
+			this.verifier = RuntimeConstants.isNode ? new VerifyNode(this.app.publicKey) : new VerifyCFW(this.app.publicKey);
+		}
 	}
 
 	public addRoute(route: BaseRoute) {
@@ -34,6 +36,11 @@ export class Router extends EventEmitter {
 	}
 
 	private async verifyRequest(req: TRequest) {
+		if (!this.verifier) {
+			this.app.logger.warn('No public key provided, skipping verification.');
+			return true;
+		}
+
 		const signature = req.headers['x-signature-ed25519'] as string;
 		const timestamp = req.headers['x-signature-timestamp'] as string;
 
@@ -44,11 +51,11 @@ export class Router extends EventEmitter {
 		return true;
 	}
 
-	public async entry(req: TRequest, disableVerification = false): Promise<TResponse> {
+	public async entry(req: TRequest): Promise<TResponse> {
 		const res = new TResponse();
 
 		try {
-			const handledResult = await this.handle(req, res, disableVerification);
+			const handledResult = await this.handle(req, res);
 			return handledResult;
 		} catch (err: any) {
 			switch (err.constructor) {
@@ -79,8 +86,8 @@ export class Router extends EventEmitter {
 		}
 	}
 
-	private async handle(req: TRequest, res: TResponse, disableVerification = false): Promise<TResponse> {
-		!disableVerification && (await this.verifyRequest(req));
+	private async handle(req: TRequest, res: TResponse): Promise<TResponse> {
+		await this.verifyRequest(req);
 
 		if (req.body.type === 1) {
 			this.app.logger.debug('Received a ping request, responding back!');

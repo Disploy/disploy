@@ -5,7 +5,6 @@ import type { DisployStandaloneBundle } from '../../types';
 import { logger } from '../../utils/logger';
 
 let app: App | null = null;
-let DisableVerification = false;
 const remoteCommands: string[] = [];
 
 const server = express();
@@ -22,20 +21,19 @@ server.post('/interactions', async (req, res) => {
 		_request: req,
 	};
 
-	const payload = await app.router.entry(tReq, DisableVerification);
+	const payload = await app.router.entry(tReq);
 	const { status, headers, body } = payload.serialized;
 
 	return void res.status(status).set(headers).send(body);
 });
 
-export function createServer(port: number, disableVerification = false) {
-	DisableVerification = disableVerification;
+export function createServer(port: number) {
 	server.listen(port);
 }
 
 export async function setApp(
 	newApp: DisployStandaloneBundle,
-	options: { clientId: string; publicKey: string; token: string },
+	options: { clientId: string; publicKey: string | null; token: string },
 ) {
 	const firstTime = !app;
 
