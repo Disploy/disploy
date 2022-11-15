@@ -68,6 +68,35 @@ We can now run our bot by running the following command:
 deno run --allow-read --allow-env --allow-net src/server.mjs
 ```
 
+<details>
+  <summary> Using <code>deno.json</code> tasks </summary>
+
+```json {4-7}
+{
+	{
+	"importMap": "import_map.json",
+	"tasks": {
+		"start": "deno run --allow-read --allow-env --allow-net src/server.mjs",
+		"deploy": "deno run --allow-read --allow-env src/deploy.mjs"
+		}
+	}
+}
+```
+
+You can now run your bot by running the following command:
+
+```bash
+deno task start
+```
+
+Or to deploy commands:
+
+```bash
+deno task deploy
+```
+
+</details>
+
 </TabItem>
 
 <TabItem value="Node" label="Node">
@@ -102,6 +131,34 @@ We can now run our bot by running the following command:
 ```bash
 node src/server.js
 ```
+
+<details>
+  <summary> Using <code>package.json</code> scripts </summary>
+
+```json {3-6}
+{
+	...
+	"scripts": {
+		"start": "node src/server.mjs",
+		"deploy": "node src/deploy.mjs"
+	}
+	...
+}
+```
+
+You can now run your bot by running the following command:
+
+```bash
+npm run start
+```
+
+Or to deploy commands:
+
+```bash
+npm run deploy
+```
+
+</details>
 
 </TabItem>
 
