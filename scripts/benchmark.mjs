@@ -8,14 +8,24 @@ const __dirname = dirname(__filename);
 const getEnv = (name) => {
 	const value = process.env[name];
 	if (value === '' || value === undefined) {
-		return null;
+		return undefined;
 	}
 	return value;
+};
+
+const parsePullRequestId = (githubRef) => {
+	const result = /refs\/pull\/(\d+)\/merge/g.exec(githubRef);
+	if (!result) throw new Error('Reference not found.');
+	const [, pullRequestId] = result;
+	return pullRequestId;
 };
 
 const Environment = {
 	DISCORD_TOKEN: getEnv('DISCORD_TOKEN') ?? '_token_',
 	DISCORD_CLIENT_ID: getEnv('DISCORD_CLIENT_ID') ?? '0',
+	GITHUB_TOKEN: getEnv('GITHUB_TOKEN'),
+	GITHUB_ACTIONS: getEnv('GITHUB_ACTIONS'),
+	GITHUB_REF: getEnv('GITHUB_REF'),
 };
 
 const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
@@ -31,9 +41,17 @@ server.on('error', (error) => {
 });
 
 server.stdout.on('data', (data) => {
-	console.log(`server: ${data}`);
 	if (data.includes('Server Ready!')) {
-		const benchmark = spawn('yarn', ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'], {
+		const args = ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'];
+
+		if (Environment.GITHUB_ACTION && Environment.GITHUB_REF) {
+			console.log('running in github actions');
+
+			args.push('-g');
+			args.push(`Disploy/disploy#${parsePullRequestId(Environment.GITHUB_REF)}`);
+		}
+
+		const benchmark = spawn('yarn', args, {
 			cwd: join(__dirname, '..', 'apps', 'example'),
 			stdio: 'inherit',
 		});

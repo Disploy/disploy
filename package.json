@@ -17,7 +17,7 @@
 		"benchmark": "node scripts/benchmark.mjs"
 	},
 	"devDependencies": {
-		"disbench": "^1.1.6",
+		"disbench": "^1.2.0",
 		"eslint-config-custom": "*",
 		"prettier": "latest",
 		"tsup": "^6.3.0",
