@@ -4165,10 +4165,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-disbench@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/disbench/-/disbench-1.2.0.tgz#60bb601a76130bfa98feb72bb1dcaecfcc3e17e9"
-  integrity sha512-p5lz/BlOJrMHrFWctnDsX/NXhpS39DQ52Z5C3mlJCIZ73PSFscHtJ6b0Y82G5oZts137YM9p9+W1l6QvzhYuEg==
+disbench@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/disbench/-/disbench-1.2.1.tgz#eae0f97e41bbd3b1d47421daa06ab1fc92e886a4"
+  integrity sha512-AG5/uVIOCPkmqH217q66s6o0Zt0K1nBc5beqURu7Oexo7Lfr+xYOZcz0iHF6mJylAqtVf+w0G/Q/c0jS/fioBg==
 
 discord-api-types@^0.37.14:
   version "0.37.14"
