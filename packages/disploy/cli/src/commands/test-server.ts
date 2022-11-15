@@ -24,9 +24,7 @@ export const TestServerCommand: CommandModule = {
 			cwd: process.cwd(),
 		});
 
-		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment({
-			requires: ['clientId', 'token'],
-		});
+		const { clientId, token } = await ProjectTools.resolveEnvironment(false);
 
 		const watcher = watch(root, { recursive: true });
 		let timeout: NodeJS.Timeout | null = null;
@@ -42,9 +40,9 @@ export const TestServerCommand: CommandModule = {
 			const app = await import(path.join(process.cwd(), entry));
 
 			setApp(app.default, {
-				clientId,
-				publicKey,
-				token,
+				clientId: clientId,
+				publicKey: null,
+				token: token,
 			});
 
 			if (!ready) {
@@ -73,6 +71,6 @@ export const TestServerCommand: CommandModule = {
 			}, 1000);
 		});
 
-		createServer(devServerPort, true);
+		createServer(devServerPort);
 	},
 };

@@ -1,5 +1,5 @@
 import { DisployConfig, readConfig } from './disployConf';
-import { UserError } from './UserError';
+import { batchGetEnvVars } from './EnvTools';
 let config: DisployConfig | undefined;
 
 async function resolveProject({ cwd }: { cwd: string }) {
@@ -11,35 +11,29 @@ async function resolveProject({ cwd }: { cwd: string }) {
 	return config;
 }
 
-export type EnvironmentKey = 'token' | 'publicKey' | 'clientId';
+async function resolveEnvironment(publicKeyRequired = true): Promise<{
+	token: string;
+	publicKey: string | null;
+	clientId: string;
+}> {
+	const { DISCORD_TOKEN, DISCORD_PUBLIC_KEY, DISCORD_CLIENT_ID } = await batchGetEnvVars([
+		{
+			key: 'DISCORD_TOKEN',
+		},
+		{
+			key: 'DISCORD_PUBLIC_KEY',
+			required: publicKeyRequired,
+		},
+		{
+			key: 'DISCORD_CLIENT_ID',
+		},
+	]);
 
-async function resolveEnvironment({ requires }: { requires?: EnvironmentKey[] } = {}) {
-	const { DISCORD_TOKEN: token, DISCORD_PUBLIC_KEY: publicKey, DISCORD_CLIENT_ID: clientId } = process.env;
-	const env = { token, publicKey, clientId };
-
-	let missing: string[] = [];
-
-	if (requires) {
-		missing = requires.filter((key) => !env[key]);
-	} else {
-		missing = Object.keys(env).filter((key) => !env[key as EnvironmentKey]);
-	}
-
-	if (missing.length) {
-		throw new UserError(
-			`Missing environment variables: ${missing.join(
-				', ',
-			)}. Please add them to your .env file or set them in your environment.`,
-		);
-	}
-
-	for (const key of Object.keys(env) as EnvironmentKey[]) {
-		if (!env[key]) {
-			env[key] = Math.random().toString(36).substring(7);
-		}
-	}
-
-	return env as { token: string; publicKey: string; clientId: string };
+	return {
+		token: DISCORD_TOKEN!,
+		publicKey: DISCORD_PUBLIC_KEY,
+		clientId: DISCORD_CLIENT_ID!,
+	};
 }
 
 export const ProjectTools = {
