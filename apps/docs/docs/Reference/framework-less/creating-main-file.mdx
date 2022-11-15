@@ -87,7 +87,13 @@ app.start({
 
 We then loop through our commands and register them with the `app.commands.registerCommand` method. We also set the `debug` option to `true` in the `logger` option of the `App` class. This helps us debug our bot.
 
-```js
+```js {7-9}
+export const app = new App({
+	logger: {
+		debug: true,
+	},
+});
+
 for (const command of commands) {
 	app.commands.registerCommand(command);
 }
