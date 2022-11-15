@@ -2,6 +2,8 @@ import { spawn } from 'child_process';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
+console.log(process.env);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
