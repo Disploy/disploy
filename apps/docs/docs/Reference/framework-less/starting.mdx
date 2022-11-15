@@ -20,45 +20,58 @@ Our goal is to transform whatever request type we receive from our implementatio
 import { serve } from 'https://deno.land/std@0.155.0/http/server.ts';
 import { app } from './main.mjs';
 
+// The handler function will be called every time a request is made to our server
 const handler = async (req) => {
+	// Ignore any requests that aren't POST
 	if (req.method !== 'POST') {
 		return new Response('Method not allowed', { status: 405 });
 	}
 
-	const randId = Math.random().toString(36).substring(7);
-
+	// Loop over headers and transform them to a record
 	const reqHeaders = {};
 	for (const [key, value] of req.headers) {
 		reqHeaders[key] = value;
 	}
+
+	// Create a TRequest object
 	const tReq = {
 		body: await req.json(),
 		headers: reqHeaders,
 		_request: req,
-		randId,
 	};
 
+	// Handle the request using Disploy's router
 	const payload = await app.router.entry(tReq);
 	const { status, headers, body } = payload.serialized;
+
+	// Create a Response object to return to Discord
 	return new Response(JSON.stringify(body), {
+		// Set the HTTP status code
 		status,
+		// Set the HTTP headers
 		headers: (() => {
+			// Create an object to hold the headers
 			const headersObj = {
 				'content-type': 'application/json',
 			};
+			// Loop over the headers passed in as an argument
 			for (const [key, value] of Object.entries(headers)) {
+				// If the value is a string, add it to the headers object
 				if (typeof value === 'string') {
 					headersObj[key] = value;
 				}
+				// If the value is an array, join the array into a string with commas between each element
 				if (Array.isArray(value)) {
 					headersObj[key] = value.join(',');
 				}
 			}
+			// Return the headers object
 			return headersObj;
 		})(),
 	});
 };
 
+// Create a server
 serve(handler);
 ```
 
@@ -107,22 +120,30 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import { app } from './main.mjs';
 
+// Create an Express app
 const server = express();
+
+// Enable JSON body parsing
 server.use(bodyParser.json());
 
+// Create a route for our bot
 server.post('/interactions', async (req, res) => {
+	// Create a TRequest object
 	const tReq: TRequest = {
 		body: req.body,
 		headers: req.headers,
 		_request: req,
 	};
 
+	// Handle the request using Disploy's router
 	const payload = await app.router.entry(tReq);
 	const { status, headers, body } = payload.serialized;
 
+	// Return the response to Discord
 	return void res.status(status).set(headers).send(body);
 });
 
+// Start the server
 server.listen(8000);
 ```
 
