@@ -25,6 +25,11 @@ const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	},
 });
 
+server.on('error', (error) => {
+	console.error(error);
+	process.exit(1);
+});
+
 server.stdout.on('data', (data) => {
 	console.log(`server: ${data}`);
 	if (data.includes('Server Ready!')) {
