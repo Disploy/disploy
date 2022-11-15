@@ -1,18 +1,18 @@
 name: Tests
 
 on:
-  push:
   pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 jobs:
-  tests:
-    name: Tests
+  benchmark:
+    name: Benchmark
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,7 +27,12 @@ jobs:
         run: yarn --immutable
 
       - name: Build dependencies
-        run: yarn build
+        run: yarn build --filter=!@disploy/docs
 
-      - name: Type-check
-        run: yarn type-check
+      - name: Benchmark
+        run: node scripts/benchmark.mjs
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REF: ${{ github.ref }}
