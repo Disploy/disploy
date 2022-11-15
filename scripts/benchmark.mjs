@@ -1,5 +1,5 @@
 import { spawn } from 'child_process';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,21 +26,21 @@ const server = spawn('yarn', ['workspace', '@disploy/example', 'test-server'], {
 	stdio: 'inherit',
 });
 
-server.on('error', (error) => {
-	console.error(error);
-	process.exit(1);
-});
+// server.on('error', (error) => {
+// 	console.error(error);
+// 	process.exit(1);
+// });
 
-server.stdout.on('data', (data) => {
-	console.log(`server: ${data}`);
-	if (data.includes('Server Ready!')) {
-		const benchmark = spawn('yarn', ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'], {
-			cwd: join(__dirname, '..', 'apps', 'example'),
-			stdio: 'inherit',
-		});
+// server.stdout.on('data', (data) => {
+// 	console.log(`server: ${data}`);
+// 	if (data.includes('Server Ready!')) {
+// 		const benchmark = spawn('yarn', ['disbench', 'internal', 'benchmark', '-u', 'http://localhost:5002/interactions'], {
+// 			cwd: join(__dirname, '..', 'apps', 'example'),
+// 			stdio: 'inherit',
+// 		});
 
-		benchmark.on('close', () => {
-			server.kill();
-		});
-	}
-});
+// 		benchmark.on('close', () => {
+// 			server.kill();
+// 		});
+// 	}
+// });
