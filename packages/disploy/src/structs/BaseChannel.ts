@@ -3,7 +3,7 @@ import type { App } from '../client';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 
-export class BaseChannel extends Base {
+export abstract class BaseChannel extends Base {
 	/**
 	 * The ID of the channel.
 	 */
@@ -17,7 +17,7 @@ export class BaseChannel extends Base {
 	/**
 	 * The type of the channel.
 	 */
-	public type!: ChannelType;
+	public abstract type: ChannelType;
 
 	public constructor(app: App, raw: APIChannel) {
 		super(app);

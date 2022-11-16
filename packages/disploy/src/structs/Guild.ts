@@ -2,9 +2,9 @@ import { APIGuild, Routes, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
-import { BaseChannel } from './BaseChannel';
 import { GuildBan } from './GuildBan';
 import { GuildMember } from './GuildMember';
+import { GuildVoiceChannel } from './GuildVoiceChannel';
 import { ChannelManager, StructureManager } from './managers';
 import { ToBeFetched } from './ToBeFetched';
 
@@ -27,7 +27,7 @@ export class Guild extends Base {
 	/**
 	 * The AFK channel of the guild.
 	 */
-	public afkChannel!: ToBeFetched<BaseChannel> | null;
+	public afkChannel!: ToBeFetched<GuildVoiceChannel> | null;
 
 	/**
 	 * The AFK channel's ID of the guild.
@@ -103,7 +103,7 @@ export class Guild extends Base {
 		this.name = raw.name;
 
 		this.afkChannel = raw.afk_channel_id
-			? new ToBeFetched(this.app, BaseChannel, () => this.app.rest.get(`/channels/${raw.afk_channel_id}`))
+			? new ToBeFetched(this.app, GuildVoiceChannel, () => this.app.rest.get(`/channels/${raw.afk_channel_id}`))
 			: null;
 		this.afkChannelId = raw.afk_channel_id;
 		this.afkTimeout = raw.afk_timeout;

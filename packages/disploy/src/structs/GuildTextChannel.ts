@@ -16,7 +16,7 @@ export class GuildTextChannel extends BaseChannel {
 	/**
 	 * The type of the channel.
 	 */
-	public declare type: ChannelType.GuildText;
+	public type: ChannelType.GuildText = ChannelType.GuildText;
 
 	public constructor(app: App, raw: APIGuildChannel<ChannelType.GuildText>) {
 		super(app, raw);
