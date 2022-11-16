@@ -94,7 +94,6 @@ export class Guild extends Base {
 	public constructor(app: App, raw: APIGuild) {
 		super(app);
 		this.patch(raw);
-		console.log(raw);
 		this.channels = new ChannelManager(app, this.id);
 	}
 
