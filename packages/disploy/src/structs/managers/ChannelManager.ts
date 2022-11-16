@@ -31,7 +31,10 @@ export class ChannelManager extends Base {
 			case ChannelType.GuildVoice:
 				return new GuildVoiceChannel(this.app, raw);
 			default:
-				throw new Error(`Unknown channel type: ${raw.type}`);
+				this.app.logger.error(`Unknown channel type: ${raw.type}`);
+				return {
+					type: null,
+				} as unknown as DiscordChannel;
 		}
 	}
 }
