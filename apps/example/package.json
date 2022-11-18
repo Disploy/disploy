@@ -19,6 +19,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.3",
+		"disploy": "*",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",
 		"rimraf": "^3.0.2",

@@ -1,9 +1,9 @@
-import { APIChannel, Routes, Snowflake } from 'discord-api-types/v10';
+import { APIChannel, ChannelType, Routes, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 
-export class Channel extends Base {
+export abstract class BaseChannel extends Base {
 	/**
 	 * The ID of the channel.
 	 */
@@ -13,6 +13,11 @@ export class Channel extends Base {
 	 * Timestamp of when the channel was created.
 	 */
 	public createdTimestamp!: number;
+
+	/**
+	 * The type of the channel.
+	 */
+	public abstract type: ChannelType;
 
 	public constructor(app: App, raw: APIChannel) {
 		super(app);
@@ -33,6 +38,6 @@ export class Channel extends Base {
 	 * @example interaction.reply(`You chose ${interaction.channel}`); // => You chose #general
 	 */
 	public override toString() {
-		return `<#${this.id}>`;
+		return this.id;
 	}
 }

@@ -7,10 +7,16 @@ export default {
 	async run(interaction) {
 		interaction.deferReply();
 
-		await new Promise((resolve) => setTimeout(resolve, 2000));
+		if (!interaction.guild) {
+			return void interaction.editReply({
+				content: "You must use this in a guild."
+			})
+		}
+
+		const guild = await interaction.guild.fetch();
 
 		return void interaction.editReply({
-			content: `Just wanted to say hey!`,
+			content: `Hello the people of ${guild.name}!`,
 		});
 	}
 } satisfies Command;
