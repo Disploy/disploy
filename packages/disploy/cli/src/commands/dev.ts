@@ -6,6 +6,7 @@ import ora from 'ora';
 import type { Argv, CommandModule } from 'yargs';
 import { createServer, setApp } from '../lib/devServer';
 import { ProjectTools } from '../lib/ProjectTools';
+import { runShellCommand } from '../lib/shell';
 import { F } from '../lib/StringFormatters';
 import { logger } from '../utils/logger';
 import { BuildApp } from './common/build';
@@ -22,9 +23,21 @@ export const DevCommand: CommandModule = {
 	async handler() {
 		const devServerPort = 5002;
 
-		const { root } = await ProjectTools.resolveProject({
+		const {
+			root,
+			prebuild,
+			watcher: devScript,
+		} = await ProjectTools.resolveProject({
 			cwd: process.cwd(),
 		});
+
+		if (prebuild) {
+			await runShellCommand(prebuild);
+		}
+
+		if (devScript) {
+			runShellCommand(devScript);
+		}
 
 		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment();
 

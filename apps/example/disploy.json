@@ -1,5 +1,6 @@
 {
 	"prebuild": "yarn run build",
+	"watcher": "touch hello-world",
 	"root": "dist",
 	"target": {
 		"type": "cloudflare",
