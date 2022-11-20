@@ -1,9 +1,9 @@
-import { spawn } from 'child_process';
 import * as color from 'colorette';
 import ora from 'ora';
 import { Compile } from '../../lib/compiler';
 import type { DisployConfig } from '../../lib/disployConf';
 import { ProjectTools } from '../../lib/ProjectTools';
+import { runShellCommand } from '../../lib/shell';
 
 export async function BuildApp({
 	skipPrebuild = false,
@@ -26,18 +26,7 @@ export async function BuildApp({
 
 	if (prebuild && !skipPrebuild) {
 		spinner = ora('Running prebuild script').start();
-		await new Promise<void>((resolve, reject) => {
-			spawn(prebuild.split(' ')[0]!, prebuild.split(' ').slice(1), {
-				cwd: process.cwd(),
-				stdio: 'ignore',
-			}).on('exit', (code) => {
-				if (code === 0) {
-					resolve();
-				} else {
-					reject();
-				}
-			});
-		});
+		await runShellCommand(prebuild);
 		spinner.succeed();
 	}
 

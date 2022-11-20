@@ -1,5 +1,5 @@
 import { DisployConfig, readConfig } from './disployConf';
-import { UserError } from './UserError';
+import { batchGetEnvVars } from './EnvTools';
 let config: DisployConfig | undefined;
 
 async function resolveProject({ cwd }: { cwd: string }) {
@@ -11,23 +11,28 @@ async function resolveProject({ cwd }: { cwd: string }) {
 	return config;
 }
 
-export type EnvironmentKey = 'token' | 'publicKey' | 'clientId';
-
-async function resolveEnvironment() {
-	const { DISCORD_TOKEN: token, DISCORD_PUBLIC_KEY: publicKey, DISCORD_CLIENT_ID: clientId } = process.env;
-
-	if (!token || !publicKey || !clientId) {
-		throw new UserError(
-			`Missing ${!token ? 'DISCORD_TOKEN' : ''} ${!publicKey ? 'DISCORD_PUBLIC_KEY' : ''} ${
-				!clientId ? 'DISCORD_CLIENT_ID' : ''
-			} environment variables`,
-		);
-	}
+async function resolveEnvironment(publicKeyRequired = true): Promise<{
+	token: string;
+	publicKey: string | null;
+	clientId: string;
+}> {
+	const { DISCORD_TOKEN, DISCORD_PUBLIC_KEY, DISCORD_CLIENT_ID } = await batchGetEnvVars([
+		{
+			key: 'DISCORD_TOKEN',
+		},
+		{
+			key: 'DISCORD_PUBLIC_KEY',
+			required: publicKeyRequired,
+		},
+		{
+			key: 'DISCORD_CLIENT_ID',
+		},
+	]);
 
 	return {
-		token,
-		publicKey,
-		clientId,
+		token: DISCORD_TOKEN!,
+		publicKey: DISCORD_PUBLIC_KEY,
+		clientId: DISCORD_CLIENT_ID!,
 	};
 }
 

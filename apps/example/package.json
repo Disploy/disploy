@@ -10,7 +10,8 @@
 		"build": "rimraf dist && tsc",
 		"type-check": "tsc --noEmit",
 		"dev": "tsc -w",
-		"serve": "disploy dev"
+		"serve": "disploy dev",
+		"test-server": "node ../../packages/disploy/dist/cli/src/disploy.mjs test-server"
 	},
 	"dependencies": {
 		"discord-api-types": "^0.37.17",
@@ -18,6 +19,7 @@
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.3",
+		"disploy": "*",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "*",
 		"rimraf": "^3.0.2",

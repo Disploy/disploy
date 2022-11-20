@@ -5,7 +5,7 @@ export class VerifyCFW extends Verify {
 
 	private PublicKey = crypto.subtle.importKey(
 		'raw',
-		this.hex2bin(this.app.publicKey),
+		this.hex2bin(this.publicKey),
 		{
 			name: 'NODE-ED25519',
 			namedCurve: 'NODE-ED25519',

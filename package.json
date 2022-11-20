@@ -13,9 +13,11 @@
 		"lint": "turbo run lint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"publish": "node scripts/ayumi.mjs publish",
-		"publish:dev": "node scripts/ayumi.mjs publish -d"
+		"publish:dev": "node scripts/ayumi.mjs publish -d",
+		"benchmark": "node scripts/benchmark.mjs"
 	},
 	"devDependencies": {
+		"disbench": "^1.2.2",
 		"eslint-config-custom": "*",
 		"prettier": "latest",
 		"tsup": "^6.3.0",

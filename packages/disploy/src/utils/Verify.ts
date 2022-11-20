@@ -1,7 +1,5 @@
-import type { App } from '../client';
-
 export class Verify {
-	public constructor(public app: App) {}
+	public constructor(public publicKey: string) {}
 
 	async verify(
 		// @ts-expect-error Not used var
