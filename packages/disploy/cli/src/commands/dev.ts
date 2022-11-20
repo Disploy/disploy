@@ -6,6 +6,7 @@ import ora from 'ora';
 import type { Argv, CommandModule } from 'yargs';
 import { createServer, setApp } from '../lib/devServer';
 import { ProjectTools } from '../lib/ProjectTools';
+import { runShellCommand } from '../lib/shell';
 import { F } from '../lib/StringFormatters';
 import { logger } from '../utils/logger';
 import { BuildApp } from './common/build';
@@ -13,18 +14,35 @@ import { BuildApp } from './common/build';
 export const aliases: string[] = [];
 export const desc: string = 'Enter development mode';
 
-export const builder = (yargs: Argv) => yargs.options({});
+export const builder = (yargs: Argv) =>
+	yargs.options('ignore-watcher-output', {
+		alias: 'iwo',
+		default: false,
+		type: 'boolean',
+	});
 
-export const DevCommand: CommandModule = {
+export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean }> = {
 	aliases,
 	builder,
 	command: 'dev',
-	async handler() {
+	async handler(opts) {
 		const devServerPort = 5002;
 
-		const { root } = await ProjectTools.resolveProject({
+		const {
+			root,
+			prebuild,
+			watcher: devScript,
+		} = await ProjectTools.resolveProject({
 			cwd: process.cwd(),
 		});
+
+		if (prebuild) {
+			await runShellCommand(prebuild);
+		}
+
+		if (devScript) {
+			runShellCommand(devScript, opts.ignoreWatcherOutput ? 'ignore' : 'inherit');
+		}
 
 		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment();
 
@@ -33,21 +51,26 @@ export const DevCommand: CommandModule = {
 
 		const devAction = async () => {
 			const spinner = ora('Found change! Building project').start();
-			const entry = await BuildApp({
-				skipPrebuild: true,
-				overrideTarget: { type: 'standalone' },
-				entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
-			});
 
-			const app = await import(path.join(process.cwd(), entry));
+			try {
+				const entry = await BuildApp({
+					skipPrebuild: true,
+					overrideTarget: { type: 'standalone' },
+					entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
+				});
 
-			setApp(app.default, {
-				clientId,
-				publicKey,
-				token,
-			});
+				const app = await import(path.join(process.cwd(), entry));
 
-			spinner.succeed();
+				setApp(app.default, {
+					clientId,
+					publicKey,
+					token,
+				});
+
+				spinner.succeed();
+			} catch (e) {
+				spinner.fail(String(e));
+			}
 		};
 
 		logger.warn(
@@ -57,6 +80,7 @@ export const DevCommand: CommandModule = {
 				"For example, if you're using typescript, you should run `tsc -w` alongside disploy's dev command.",
 			].join('\n'),
 		);
+
 		devAction();
 
 		watcher.on('change', () => {

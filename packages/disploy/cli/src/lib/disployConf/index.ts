@@ -5,6 +5,7 @@ import { UserError } from '../UserError';
 
 const disployConfigSchema = z.object({
 	prebuild: z.string().optional(),
+	watcher: z.string().optional(),
 	root: z.string(),
 	target: z.union([
 		z.object({
