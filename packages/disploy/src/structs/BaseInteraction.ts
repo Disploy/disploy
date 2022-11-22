@@ -1,10 +1,9 @@
-import type { APIInteraction, Snowflake } from 'discord-api-types/v10';
+import { APIInteraction, Routes, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { Guild } from './Guild';
 import { ToBeFetched } from './ToBeFetched';
-
 
 export class BaseInteraction extends Base {
 	/**
@@ -32,6 +31,8 @@ export class BaseInteraction extends Base {
 		this.id = raw.id;
 		this.token = raw.token;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
-		this.guild = raw.guild_id ? new ToBeFetched(this.app, Guild, () => app.rest.get(`/guilds/${raw.guild_id}`)) : null;
+		this.guild = raw.guild_id
+			? new ToBeFetched(this.app, Guild, raw.guild_id, (id) => app.rest.get(Routes.guild(id)))
+			: null;
 	}
 }
