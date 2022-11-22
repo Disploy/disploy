@@ -37,7 +37,7 @@ export class CommandInteraction extends BaseInteraction {
 		this.commandId = raw.data.id;
 		this.commandName = raw.data.name;
 		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
-		this.user = raw.member ? (raw.member.user ? new User(this.app, raw.member.user) : null) : null;
+		this.user = raw.user ? new User(this.app, raw.user) : raw.member?.user ? new User(this.app, raw.member.user) : null;
 	}
 
 	public deferReply() {
