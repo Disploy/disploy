@@ -35,4 +35,13 @@ export class User extends Base {
 		this.username = raw.username;
 		this.discriminator = raw.discriminator;
 	}
+
+	/**
+	 * Returns a string that represents the User object as a mention.
+	 * @returns A string that represents the User object as a mention.
+	 * @example interaction.reply(`Hey ${interaction.user}`); // => Hey @tristan
+	 */
+	public override toString() {
+		return `<@${this.id}>`;
+	}
 }
