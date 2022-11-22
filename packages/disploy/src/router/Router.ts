@@ -113,28 +113,36 @@ export class Router extends EventEmitter {
 
 		switch (route.type) {
 			case InteractionType.ApplicationCommand: {
-				const chatInputRoute: ApplicationCommandRoute = route as ApplicationCommandRoute;
+				const chatInputRoute = route as ApplicationCommandRoute;
 				const interaction = req.body as APIApplicationCommandInteraction;
 				const user = DiscordAPIUtils.resolveUserFromInteraction(interaction);
-
-				this.app.logger.info(
-					`Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
-				);
 
 				let promise: Promise<unknown>;
 
 				switch (interaction.data.type) {
 					case ApplicationCommandType.ChatInput:
+						this.app.logger.info(
+							`Chat input command "/${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
+						);
+
 						promise = chatInputRoute.chatInputRun(
 							new ChatInputInteraction(this.app, interaction as APIChatInputApplicationCommandInteraction),
 						);
 						break;
 					case ApplicationCommandType.Message:
+						this.app.logger.info(
+							`Message context command "${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
+						);
+
 						promise = chatInputRoute.chatInputRun(
 							new MessageContextMenuInteraction(this.app, interaction as APIMessageApplicationCommandInteraction),
 						);
 						break;
 					case ApplicationCommandType.User:
+						this.app.logger.info(
+							`User context command "${chatInputRoute.name}" executed by ${user?.username} (${user?.id})`,
+						);
+
 						promise = chatInputRoute.chatInputRun(
 							new UserContextMenuInteraction(this.app, interaction as APIUserApplicationCommandInteraction),
 						);
