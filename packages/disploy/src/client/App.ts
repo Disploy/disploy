@@ -61,7 +61,7 @@ export class App {
 		this.channels = new ChannelManager(this);
 
 		// Misc
-		this.user = new ToBeFetched(this, User, () => this.rest.get(Routes.user(this.clientId)));
+		this.user = new ToBeFetched(this, User, this.clientId, (id) => this.rest.get(Routes.user(id)));
 
 		// Command Framework
 
