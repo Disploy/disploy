@@ -115,7 +115,7 @@ export class Router extends EventEmitter {
 			case InteractionType.ApplicationCommand: {
 				const chatInputRoute = route as ApplicationCommandRoute;
 				const interaction = req.body as APIApplicationCommandInteraction;
-				const user = DiscordAPIUtils.resolveUserFromInteraction(interaction);
+				const user = DiscordAPIUtils.resolveUserFromInteraction(this.app, interaction);
 
 				let promise: Promise<unknown>;
 
