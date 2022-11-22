@@ -13,7 +13,7 @@ export default {
 				embeds: [
 					{
 						title: 'User',
-						description: `**Username**: ${user.name}\n**Discriminator**: ${user.discriminator}\n**ID**: ${user.id}`,
+						description: `**Username**: ${user.username}\n**Discriminator**: ${user.discriminator}\n**ID**: ${user.id}`,
 					},
 				],
 			});
