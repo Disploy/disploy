@@ -6,7 +6,6 @@ import {
 	Snowflake,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
-import { DiscordAPIUtils } from '../utils';
 import { BaseInteraction } from './BaseInteraction';
 import { GuildMember } from './GuildMember';
 import { PartialGuildMember } from './PartialGuildMember';
@@ -29,11 +28,6 @@ export class UserInteraction extends BaseInteraction {
 	public member!: GuildMember | null;
 
 	/**
-	 * The User who invoked the interaction.
-	 */
-	public user!: User | null;
-
-	/**
 	 * The targeted User's id.
 	 */
 	public targetId!: Snowflake;
@@ -53,7 +47,6 @@ export class UserInteraction extends BaseInteraction {
 		this.commandId = raw.data.id;
 		this.commandName = raw.data.name;
 		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
-		this.user = DiscordAPIUtils.resolveUserFromInteraction(this.app, raw);
 		this.targetId = raw.data.target_id;
 		this.targetMember = raw.data.resolved.members
 			? new PartialGuildMember(
