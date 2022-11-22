@@ -64,7 +64,7 @@ export class UserInteraction extends BaseInteraction {
 		this.targetUser = new User(this.app, raw.data.resolved.users[raw.data.target_id]!);
 	}
 
-	public reply(payload: APIInteractionResponseCallbackData) {
+	public override reply(payload: APIInteractionResponseCallbackData) {
 		return void this.app.router.emit(`${this.id}-respond`, {
 			type: InteractionResponseType.ChannelMessageWithSource,
 			data: payload,

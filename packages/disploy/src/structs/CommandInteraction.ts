@@ -1,12 +1,5 @@
-import {
-	APIApplicationCommandInteraction,
-	APIInteractionResponseCallbackData,
-	InteractionResponseType,
-	Routes,
-	Snowflake,
-} from 'discord-api-types/v10';
+import type { APIApplicationCommandInteraction, Snowflake } from 'discord-api-types/v10';
 import type { App } from '../client';
-import { RouterEvents } from '../router';
 import { BaseInteraction } from './BaseInteraction';
 import { GuildMember } from './GuildMember';
 import { User } from './User';
@@ -38,24 +31,5 @@ export class CommandInteraction extends BaseInteraction {
 		this.commandName = raw.data.name;
 		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
 		this.user = raw.user ? new User(this.app, raw.user) : raw.member?.user ? new User(this.app, raw.member.user) : null;
-	}
-
-	public deferReply() {
-		return void this.app.router.emit(RouterEvents.Respond(this.id), {
-			type: InteractionResponseType.DeferredChannelMessageWithSource,
-		});
-	}
-
-	public reply(payload: APIInteractionResponseCallbackData) {
-		return void this.app.router.emit(RouterEvents.Respond(this.id), {
-			type: InteractionResponseType.ChannelMessageWithSource,
-			data: payload,
-		});
-	}
-
-	public async editReply(payload: APIInteractionResponseCallbackData) {
-		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
-			...payload,
-		});
 	}
 }

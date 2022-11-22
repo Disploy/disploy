@@ -1,5 +1,12 @@
-import { APIInteraction, Routes, Snowflake } from 'discord-api-types/v10';
+import {
+	APIInteraction,
+	APIInteractionResponseCallbackData,
+	InteractionResponseType,
+	Routes,
+	Snowflake,
+} from 'discord-api-types/v10';
 import type { App } from '../client';
+import { RouterEvents } from '../router';
 import { SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { Guild } from './Guild';
@@ -34,5 +41,24 @@ export class BaseInteraction extends Base {
 		this.guild = raw.guild_id
 			? new ToBeFetched(this.app, Guild, raw.guild_id, (id) => app.rest.get(Routes.guild(id)))
 			: null;
+	}
+
+	public deferReply() {
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.DeferredChannelMessageWithSource,
+		});
+	}
+
+	public reply(payload: APIInteractionResponseCallbackData) {
+		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+			type: InteractionResponseType.ChannelMessageWithSource,
+			data: payload,
+		});
+	}
+
+	public async editReply(payload: APIInteractionResponseCallbackData) {
+		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
+			...payload,
+		});
 	}
 }
