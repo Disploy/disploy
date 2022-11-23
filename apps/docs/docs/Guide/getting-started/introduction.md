@@ -6,7 +6,7 @@ sidebar_position: 1
 
 :::warning
 
-We're still in development, and packages are published to NPM every 12 hours to the `@dev` tag. You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone/1) to see what features are planned for the first release and their current status.
+We're still in development, and packages are published to npm every 12 hours to the `@dev` tag. You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone/1) to see what features are planned for the first release and their current status.
 
 :::
 
