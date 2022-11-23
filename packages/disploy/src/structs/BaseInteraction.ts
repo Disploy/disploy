@@ -10,6 +10,7 @@ import { RouterEvents } from '../router';
 import { DiscordAPIUtils, SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { Guild } from './Guild';
+import { GuildMember } from './GuildMember';
 import { ToBeFetched } from './ToBeFetched';
 import type { User } from './User';
 
@@ -30,9 +31,14 @@ export class BaseInteraction extends Base {
 	public token!: string;
 
 	/**
-	 * The User that triggered the interaction.
+	 * The User that invoked the interaction.
 	 */
 	public user: User;
+
+	/**
+	 * The GuildMember who invoked the interaction.
+	 */
+	public member!: GuildMember | null;
 
 	/**
 	 * The guild of the interaction.
@@ -45,6 +51,7 @@ export class BaseInteraction extends Base {
 		this.token = raw.token;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
 		this.user = DiscordAPIUtils.resolveUserFromInteraction(app, raw);
+		this.member = raw.member ? new GuildMember(this.app, raw.member) : null;
 		this.guild = raw.guild_id
 			? new ToBeFetched(this.app, Guild, raw.guild_id, (id) => app.rest.get(Routes.guild(id)))
 			: null;
