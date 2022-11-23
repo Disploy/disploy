@@ -17,7 +17,6 @@ export class VerifyCFW extends Verify {
 	);
 
 	private hex2bin(hex: string) {
-		console.log(hex);
 		const buf = new Uint8Array(Math.ceil(hex.length / 2));
 		for (var i = 0; i < buf.length; i++) {
 			buf[i] = parseInt(hex.substr(i * 2, 2), 16);
