@@ -4,7 +4,7 @@ import type { User } from '../structs';
 export class RouteParams {
 	private params: Record<string, string> = {};
 
-	public constructor(private app: App, template: string, data: string) {
+	public constructor(private app: App | null, template: string, data: string) {
 		const templateParts = template.split('-');
 		const dataParts = data.split('-');
 
@@ -40,6 +40,10 @@ export class RouteParams {
 	 * @throws If the User cannot be found or the parameter is not a valid user ID
 	 */
 	public async getUserParam(name: string): Promise<User> {
+		if (!this.app) {
+			throw new Error('Cannot get user param without an app');
+		}
+
 		const id = this.getParam(name);
 
 		return this.app.users.fetch(id);

@@ -32,6 +32,7 @@
 	"homepage": "https://disploy.dev",
 	"scripts": {
 		"build": "node scripts/architect.mjs build",
+		"test": "jest",
 		"dev": "node scripts/architect.mjs build -w",
 		"type-check": "tsc --noEmit && cd cli && tsc --noEmit",
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix",
