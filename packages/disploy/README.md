@@ -162,19 +162,20 @@ export default {
 
 ```ts
 // Example message component handler - handlers/ping.ts
-import type { ButtonHandler } from 'disploy';
+import type { ButtonHandler } from "disploy";
 
 export default {
 	customId: 'ping-:userId',
 
 	async run(interaction) {
+		const originalUser = await interaction.params.getUserParam('userId'); // This fetches a user structure from the interaction's params, it would be better to use getParam in this use case, but we're showcasing the getUserParam method here.
+		const clicker = interaction.user;
+
 		return void interaction.reply({
-			content: `hello world!!!!!!!! (clicked by ${interaction.user}) [made by <@${interaction.params.getParam(
-				'userId',
-			)}>]`,
+			content: `hello world!!!!!!!! (clicked by ${clicker}) [made by ${originalUser}]`,
 		});
 	},
-}  satisfies ButtonHandler;
+} satisfies ButtonHandler;
 ```
 
 ```bash
