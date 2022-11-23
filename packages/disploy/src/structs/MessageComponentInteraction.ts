@@ -17,6 +17,6 @@ export class MessageComponentInteraction extends BaseInteraction {
 	public constructor(app: App, raw: APIMessageComponentInteraction, params?: RouteParams) {
 		super(app, raw);
 		this.customId = raw.data.custom_id;
-		this.params = params || new RouteParams('', '');
+		this.params = params || new RouteParams(this.app, '', '');
 	}
 }
