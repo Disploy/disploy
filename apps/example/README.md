@@ -1,9 +1,19 @@
 # `@disploy/example`
 
-Common code for our example bot.
+This is an example Discord bot made with Disploy to test the library.
 
-## Implementations
+## Usage
 
-- [Express](https://github.com/Disploy/disploy/blob/main/apps/express-example/src/bot.ts)
-- [Next.js](https://github.com/Disploy/disploy/blob/main/apps/next-example/pages/api/interactions.ts)
-- [Cloudflare worker](https://github.com/Disploy/disploy/blob/main/apps/cf-example)
+You should be already running `yarn dev` in the root of the repository (live transpile typescript), then you can deploy this bot to a Cloudflare Worker with:
+
+```bash
+yarn disploy deploy
+```
+
+or just run a local dev server with an ngrok tunnel:
+
+```bash
+yarn disploy dev
+```
+
+Commands will be automatically registered when running `yarn disploy dev`, but you'll need to manually register them when deploying to a Cloudflare Worker (`yarn disploy sync`).
