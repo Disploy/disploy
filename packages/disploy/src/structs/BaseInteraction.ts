@@ -32,7 +32,7 @@ export class BaseInteraction extends Base {
 	/**
 	 * The User that triggered the interaction.
 	 */
-	public user: User | null;
+	public user: User;
 
 	/**
 	 * The guild of the interaction.

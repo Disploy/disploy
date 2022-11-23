@@ -7,12 +7,20 @@ import { User } from '../structs';
  * @param raw The raw interaction data.
  * @returns The user structure from Disploy, if it exists.
  */
-function resolveUserFromInteraction(app: App, raw: APIInteraction): User | null {
+function resolveUserFromInteraction(app: App, raw: APIInteraction): User {
+	let attemptedUser: User | null;
+
 	if (raw.member) {
-		return raw.member.user ? new User(app, raw.member.user) : null;
+		attemptedUser = raw.member.user ? new User(app, raw.member.user) : null;
 	} else {
-		return raw.user ? new User(app, raw.user) : null;
+		attemptedUser = raw.user ? new User(app, raw.user) : null;
 	}
+
+	if (!attemptedUser) {
+		throw new Error('Could not resolve user from interaction.');
+	}
+
+	return attemptedUser;
 }
 
 export const DiscordAPIUtils = {
