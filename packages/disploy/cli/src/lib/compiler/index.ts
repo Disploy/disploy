@@ -7,6 +7,7 @@ import { CompilerAssets } from './assets';
 import { parseCommands } from './commands';
 import { TempDir } from './constants';
 import { copyDir } from './copyDir';
+import { parseHandlers } from './handlers';
 
 function parseTarget(target: DisployConfig['target']) {
 	switch (target.type) {
@@ -37,6 +38,7 @@ export async function Compile({
 	copyDir(root, workbenchDir);
 
 	await parseCommands(workbenchDir);
+	await parseHandlers(workbenchDir);
 	const entry = parseTarget(target);
 
 	await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[entry]());

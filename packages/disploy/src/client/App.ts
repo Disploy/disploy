@@ -1,6 +1,7 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
 import { Routes } from 'discord-api-types/v10';
 import { Command, CommandManager } from '../commands';
+import { MessageComponentHandler, MessageComponentManager } from '../message-components';
 import { Router } from '../router';
 import { ChannelManager, Guild, StructureManager, User } from '../structs';
 import { ToBeFetched } from '../structs/ToBeFetched';
@@ -16,6 +17,7 @@ export class App {
 	public rest!: Rest;
 	public logger!: Logger;
 	public commands!: CommandManager;
+	public handlers!: MessageComponentManager;
 
 	// Structure Managers
 	public users!: StructureManager<User>;
@@ -26,6 +28,7 @@ export class App {
 	public user!: ToBeFetched<User>;
 
 	private _commandBuffer: Command[] = [];
+	private _handlerBuffer: MessageComponentHandler[] = [];
 
 	public constructor(options?: AppOptions) {
 		this.logger = new Logger({
@@ -33,6 +36,25 @@ export class App {
 		});
 
 		this._commandBuffer = options?.commands ?? [];
+		this._handlerBuffer = options?.handlers ?? [];
+	}
+
+	private _loadCommands(commands: Command[] | undefined) {
+		const toLoad = [...this._commandBuffer, ...(commands ?? [])];
+
+		for (const handler of toLoad) {
+			this.commands.registerCommand(handler);
+			this.logger.debug(`Registered command ${handler.name}`);
+		}
+	}
+
+	private _loadHandlers(handlers: MessageComponentHandler[] | undefined) {
+		const toLoad = [...this._handlerBuffer, ...(handlers ?? [])];
+
+		for (const handler of toLoad) {
+			this.handlers.registerHandler(handler);
+			this.logger.debug(`Registered handler ${handler.customId}`);
+		}
 	}
 
 	public start({
@@ -40,11 +62,13 @@ export class App {
 		clientId,
 		token,
 		commands,
+		handlers,
 	}: {
 		publicKey: string | null;
 		clientId: string;
 		token: string;
 		commands?: Command[];
+		handlers?: MessageComponentHandler[];
 	}): void {
 		// Required environment variables
 		this.publicKey = publicKey;
@@ -66,18 +90,10 @@ export class App {
 		// Command Framework
 
 		this.commands = new CommandManager(this);
+		this.handlers = new MessageComponentManager(this);
 
-		this._commandBuffer.forEach((command) => {
-			this.commands.registerCommand(command);
-			this.logger.debug(`Registered command ${command.name} from buffer`);
-		});
-
-		this._commandBuffer = [];
-
-		commands?.forEach((command) => {
-			this.commands.registerCommand(command);
-			this.logger.debug(`Registered command ${command.name} from start()`);
-		});
+		this._loadCommands(commands);
+		this._loadHandlers(handlers);
 
 		this.logger.debug('App initialized.', {
 			publicKey: this.publicKey,
