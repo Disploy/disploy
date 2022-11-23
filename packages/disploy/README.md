@@ -17,7 +17,7 @@
 
 </div>
 
-> **Warning**: We're still in development, and packages are published to NPM every 12 hours to the `@dev` tag.
+> **Warning**: We're still in development, and packages are published to npm every 12 hours to the `@dev` tag. You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone/1) to see what features are planned for the first release and their current status.
 
 Disploy is a library for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
