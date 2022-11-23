@@ -4,7 +4,7 @@ This is an example Discord bot made with Disploy to test the library.
 
 ## Usage
 
-You should be already running `yarn dev` in the root of the repository (live transpile typescript), then you can deploy this bot to a Cloudflare Worker with:
+You should be already running `yarn dev` in the root of the repository (live transpile TypeScript), then you can deploy this bot to a Cloudflare Worker with:
 
 ```bash
 yarn disploy deploy
