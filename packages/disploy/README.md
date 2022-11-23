@@ -38,9 +38,9 @@ The API entry point
 ```ts
 // Entrypoint - pages/api/interactions.ts
 import { createNextAdapter } from 'disploy';
-import { App } from '../../lib/main';
+import { ExampleApp } from '../../lib/main';
 
-export default createNextAdapter(SafecordApp);
+export default createNextAdapter(ExampleApp);
 ```
 
 > **Note**: An "adapter" is a function that transforms requests from your server implementation of choice and creates a [`TRequest`](https://disploy.dev/docs/Documentation/disploy/interfaces/TRequest) that's fed into `App#router#entry` which returns a [`Promise<TResponse>`](https://disploy.dev/docs/Documentation/disploy/classes/TResponse) which your adapter should transform and return to Discord.
