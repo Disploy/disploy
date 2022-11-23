@@ -1,11 +1,11 @@
 import type { ButtonHandler } from 'disploy';
 
 export default {
-	customId: 'ping-:userId',
+	customId: 'ping',
 
 	async run(interaction) {
 		return void interaction.reply({
-			content: `hello world!!!!!!!! (clicked by ${interaction.user}) [made by <@${interaction.params.getParam('userId')}>]`,
+			content: `hello world!!!!!!!! (clicked by ${interaction.user})`,
 		})
 	}
 

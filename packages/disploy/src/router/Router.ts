@@ -21,6 +21,7 @@ import { DiscordAPIUtils, RequestorError, RuntimeConstants, Verify, VerifyCFW, V
 import type { ApplicationCommandRoute } from './ApplicationCommandRoute';
 import type { BaseRoute } from './BaseRoute';
 import type { MessageComponentRoute } from './MessageComponentRoute';
+import { RouteParams } from './RouteParams';
 import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
@@ -90,7 +91,10 @@ export class Router extends EventEmitter {
 				return this.routes.find(
 					(route) =>
 						route.type === InteractionType.MessageComponent &&
-						(route as MessageComponentRoute).customId === (payload as APIMessageComponentInteraction).data.custom_id,
+						RouteParams.matchTemplate(
+							(route as MessageComponentRoute).customId,
+							(payload as APIMessageComponentInteraction).data.custom_id,
+						),
 				);
 
 			default:
@@ -168,6 +172,7 @@ export class Router extends EventEmitter {
 				const componentRoute = route as MessageComponentRoute;
 				const interaction = req.body as APIMessageComponentInteraction;
 				const user = DiscordAPIUtils.resolveUserFromInteraction(this.app, interaction);
+				const params = new RouteParams(componentRoute.customId, interaction.data.custom_id);
 
 				let promise: Promise<unknown>;
 
@@ -178,7 +183,7 @@ export class Router extends EventEmitter {
 						);
 
 						promise = componentRoute.buttonRun(
-							new ButtonInteraction(this.app, interaction as APIMessageComponentButtonInteraction),
+							new ButtonInteraction(this.app, interaction as APIMessageComponentButtonInteraction, params),
 						);
 						break;
 					}

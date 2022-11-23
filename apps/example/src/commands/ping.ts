@@ -15,7 +15,16 @@ export default {
 							type: 2,
 							label: 'Click me!',
 							style: 1,
-							custom_id: 'ping',
+							custom_id: `ping-${interaction.user.id}`,
+						},
+						{
+							type: 2,
+							label: 'i have no params',
+							style: 2,
+							emoji: {
+								name: "🫢"
+							},
+							custom_id: `ping`,
 						},
 					],
 				},
