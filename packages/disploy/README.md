@@ -29,7 +29,7 @@ Disploy features a [library](#library) and an opinionated [framework](#framework
 
 > Disploy does not come included with a "server", that's up to you to implement. We have a [guide](https://disploy.dev/docs/Reference/framework-less/) showcasing you how to do so with Express (Node.js) and Deno's inbuilt server.
 
-In this readme, we have supplied you with a more slimmed-down guide on usage with Next.js as your server.
+This is a slimmed-down guide to using Disploy with Next.js as your server.
 
 ### Usage with Next.js
 
