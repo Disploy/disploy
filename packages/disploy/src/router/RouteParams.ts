@@ -1,7 +1,10 @@
+import type { App } from '../client';
+import type { User } from '../structs';
+
 export class RouteParams {
 	private params: Record<string, string> = {};
 
-	public constructor(template: string, data: string) {
+	public constructor(private app: App, template: string, data: string) {
 		const templateParts = template.split('-');
 		const dataParts = data.split('-');
 
@@ -15,6 +18,11 @@ export class RouteParams {
 		}
 	}
 
+	/**
+	 * Get a parameter from the route.
+	 * @param name The name of the parameter
+	 * @returns A string representation of the parameter
+	 */
 	public getParam(name: string): string {
 		const param = this.params[name];
 
@@ -23,6 +31,18 @@ export class RouteParams {
 		}
 
 		return param;
+	}
+
+	/**
+	 * Get a user from the route parameters.
+	 * @param name The name of the parameter
+	 * @returns A User structure if the parameter is a valid user ID
+	 * @throws If the User cannot be found or the parameter is not a valid user ID
+	 */
+	public async getUserParam(name: string): Promise<User> {
+		const id = this.getParam(name);
+
+		return this.app.users.fetch(id);
 	}
 
 	/**
