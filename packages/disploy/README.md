@@ -73,7 +73,7 @@ ExampleApp.start({
 });
 
 for (const command of commands) {
-	SafecordApp.commands.registerCommand(command);
+	ExampleApp.commands.registerCommand(command);
 }
 ```
 
