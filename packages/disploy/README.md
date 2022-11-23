@@ -43,7 +43,7 @@ import { App } from '../../lib/main';
 export default createNextAdapter(SafecordApp);
 ```
 
-> **Note**: An "adapter" is a function that transforms requests from your server implementation of choice and creates a `TRequest` that's fed into `App#router#entry` which returns a `Promise<TResponse>` which your adapter should transform and return to Discord.
+> **Note**: An "adapter" is a function that transforms requests from your server implementation of choice and creates a [`TRequest`](https://disploy.dev/docs/Documentation/disploy/interfaces/TRequest) that's fed into `App#router#entry` which returns a [`Promise<TResponse>`](https://disploy.dev/docs/Documentation/disploy/classes/TResponse) which your adapter should transform and return to Discord.
 
 Setting up the Disploy App
 
