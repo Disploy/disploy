@@ -60,13 +60,13 @@ if (!clientId || !token || !publicKey) {
 	throw new Error('Missing environment variables');
 }
 
-export const SafecordApp = new App({
+export const ExampleApp = new App({
 	logger: {
 		debug: true,
 	},
 });
 
-SafecordApp.start({
+ExampleApp.start({
 	clientId,
 	token,
 	publicKey,
