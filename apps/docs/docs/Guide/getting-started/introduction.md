@@ -10,6 +10,6 @@ We're still in development, and packages are published to npm every 12 hours to 
 
 :::
 
-Disploy is a library for building HTTP interaction based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots. You can learn more on our GitHub [readme](https://github.com/Disploy/disploy#readme).
+Disploy is a library for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots. You can learn more on our GitHub [README](https://github.com/Disploy/disploy#readme).
 
 This guide will walk you through the basics of Disploy, we recommend reading it from top to bottom. If you have any questions, feel free to ask in our [Discord server](https://discord.gg/E3z8MDnTWn).
