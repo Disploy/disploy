@@ -19,21 +19,21 @@
 
 > **Warning**: We're still in development, and packages are published to NPM every 12 hours to the `@dev` tag.
 
-Disploy is a library for building HTTP interaction based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
+Disploy is a library for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
 # Features
 
-Disploy features a [library](#library) and an opinionated [framework](#framework) with a tooling inspired from Next.js.
+Disploy features a [library](#library) and an opinionated [framework](#framework) with tooling inspired by Next.js.
 
 ## Library
 
 > Disploy does not come included with a "server", that's up to you to implement. We have a [guide](https://disploy.dev/docs/Reference/framework-less/) showcasing you how to do so with Express (Node.js) and Deno's inbuilt server.
 
-In this readme we have supplied you with a more slimmed down guide on usage with Next.js as your server.
+In this readme, we have supplied you with a more slimmed-down guide on usage with Next.js as your server.
 
 ### Usage with Next.js
 
-The API entrypoint
+The API entry point
 
 ```ts
 // Entrypoint - pages/api/interactions.ts
@@ -109,7 +109,7 @@ export default Ping;
 
 ## Framework
 
-Disploy comes inbuilt with a CLI that can bundle your bot based of a file system structure. Inspired by Next.js.
+Disploy comes inbuilt with a CLI that can bundle your bot based on a file system structure. Inspired by Next.js.
 
 Use the "TypeScript Framework" boilerplate from [`create-disploy-app`](https://github.com/Disploy/create-disploy-app).
 
@@ -185,7 +185,7 @@ disploy dev # test your bot locally with hot-reloading and tunneling
 disploy deploy # deploy your bot to Cloudflare Workers
 ```
 
-The CLI bundles your app by taking in commands and message components and turning them into a single bundle. It accomplishes this by transforming your default exports into an array, creating an App instance and attaching an adapter for your specified target.
+The CLI bundles your app by taking in commands and message components and turning them into a single bundle. It accomplishes this by transforming your default exports into an array, creating an App instance, and attaching an adapter for your specified target.
 
 ## Planned Features
 
