@@ -12,21 +12,23 @@ export class ChatInputInteractionOptions extends Base {
 		super(app);
 	}
 
-	private getValue<T extends APIApplicationCommandInteractionDataOption>(key: string) {
+	private getValue<T extends APIApplicationCommandInteractionDataOption>(key: string, nullable = false) {
 		const value = this.interaction.raw.data.options?.find((option) => option.name === key) as T | undefined;
 
-		if (!value) {
+		if (!value && !nullable) {
 			throw new Error(`Option "${key}" not found.`);
 		}
 
 		return value;
 	}
 
-	public getString(key: string) {
-		return this.getValue<APIApplicationCommandInteractionDataStringOption>(key).value;
+	public getString(key: string): string;
+	public getString(key: string, nullable = false): string | undefined {
+		return this.getValue<APIApplicationCommandInteractionDataStringOption>(key, nullable)?.value;
 	}
 
-	public getNumber(key: string) {
-		return this.getValue<APIApplicationCommandInteractionDataNumberOption>(key).value;
+	public getNumber(key: string): number;
+	public getNumber(key: string, nullable = false): number | undefined {
+		return this.getValue<APIApplicationCommandInteractionDataNumberOption>(key, nullable)?.value;
 	}
 }
