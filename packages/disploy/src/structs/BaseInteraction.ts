@@ -2,6 +2,7 @@ import {
 	APIInteraction,
 	APIInteractionResponseCallbackData,
 	InteractionResponseType,
+	MessageFlags,
 	Routes,
 	Snowflake,
 } from 'discord-api-types/v10';
@@ -57,9 +58,12 @@ export class BaseInteraction extends Base {
 			: null;
 	}
 
-	public deferReply() {
+	public deferReply(ephemeral = false) {
 		return void this.app.router.emit(RouterEvents.Respond(this.id), {
 			type: InteractionResponseType.DeferredChannelMessageWithSource,
+			data: {
+				flags: ephemeral ? MessageFlags.Ephemeral : undefined,
+			},
 		});
 	}
 
