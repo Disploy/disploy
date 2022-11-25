@@ -12,7 +12,7 @@ export class ChatInputInteractionOptions extends Base {
 		super(app);
 	}
 
-	private getValue<T extends APIApplicationCommandInteractionDataOption>(key: string, nullable = false) {
+	private getValue<T extends APIApplicationCommandInteractionDataOption>(key: string, nullable: boolean) {
 		const value = this.interaction.raw.data.options?.find((option) => option.name === key) as T | undefined;
 
 		if (!value && !nullable) {
@@ -23,11 +23,13 @@ export class ChatInputInteractionOptions extends Base {
 	}
 
 	public getString(key: string): string;
+	public getString(key: string, nullable?: boolean): string | undefined;
 	public getString(key: string, nullable = false): string | undefined {
 		return this.getValue<APIApplicationCommandInteractionDataStringOption>(key, nullable)?.value;
 	}
 
 	public getNumber(key: string): number;
+	public getNumber(key: string, nullable?: boolean): number | undefined;
 	public getNumber(key: string, nullable = false): number | undefined {
 		return this.getValue<APIApplicationCommandInteractionDataNumberOption>(key, nullable)?.value;
 	}
