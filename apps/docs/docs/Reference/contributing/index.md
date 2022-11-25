@@ -11,21 +11,26 @@ When it comes to contributions, repositories vary in scope, use different progra
 
 Here's a quick comparison to help you decide which repository might be the best to start contributing to (and/or is of interest to you):
 
-<!-- | Repository                                                                       | Scope | Language   | Difficulty |
-| -------------------------------------------------------------------------------- | ----- | ---------- | ---------- |
-| [disploy](https://github.com/Disploy/disploy/tree/main/packages/disploy)         | Core  | TypeScript | Easy       |
-| [disploy/cli](https://github.com/Disploy/disploy/tree/main/packages/disploy/cli) | CLI   | TypeScript | Hard       | -->
+| Repository      | Scope | Language   | Difficulty |
+| --------------- | ----- | ---------- | ---------- |
+| [`disploy`]     | Core  | TypeScript | Easy       |
+| [`disploy/cli`] | CLI   | TypeScript | Hard       |
 
 ### [`disploy`]
 
-The core of Disploy, written in TypeScript. This package is responsible for the core functionality of Disploy; think of it as the "engine" of Disploy. If you come from a web development background, this is the equivalent of the React library, but it also includes a framework that would be the equivalent of Next.js. This package is the most important package in the Disploy ecosystem and is the one that is most likely to be used by the majority of users.
+The core of Disploy, written in TypeScript. This package is responsible for the core functionality of Disploy; think of it as the "engine" of Disploy. It is not a server, the user of the library must implement their own idea of a server. This allows Disploy to be used in a variety of different environments, such as Node.js, Deno, and edge function platforms like Cloudflare Workers.
 
 ### [`disploy/cli`]
 
-This package is not a "real package" as it lives in a folder of the [`deploy`] package since it interfaces with the core and wouldn't make sense to be a separate package. This package is responsible for the [CLI](https://en.wikipedia.org/wiki/Command-line_interface) of Disploy; it's written in TypeScript and is the package used to run the `disploy` command in your terminal. The main purpose of this package is to bundle bots made with Disploy into a single ["entry point"] that can be either imported with a [standalone "entry point"] or deployed straight to Cloudflare Workers with a ["entry point" made for Cloudflare Workers]. It's completely [optional](/docs/Reference/framework-less/) to use this package, but we highly recommend it since it makes it easier to deploy your bots.
+This package is not a "real package" as it lives in a folder of the [`disploy`] package since it interfaces with [`disploy`] it self and wouldn't make sense to be a separate package due to version mismatches. This package is what makes the "CLI Framework" of Disploy; it's written in TypeScript and is the package used to run the `disploy` command in your terminal. The main purpose of this package is to take in commands, handlers and more and transform them into a single ["entry point"] that can be either imported with a [standalone "entry point"] or deployed straight to Cloudflare Workers with a ["entry point" made for Cloudflare Workers]. It's completely [optional](/docs/Reference/framework-less/) to use this package, it's just a convenience package to make it easier to create simple but powerful bots.
+
+### [`create-disploy-app`]
+
+todo
 
 [`disploy`]: https://github.com/Disploy/disploy/tree/main/packages/disploy
 [`disploy/cli`]: https://github.com/Disploy/disploy/tree/main/packages/disploy/cli
 ["entry point"]: https://github.com/Disploy/disploy/tree/main/packages/disploy/cli/assets/code
 [standalone "entry point"]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/standaloneEntry.js
-["entry point" made for Cloudflare Workers]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/cfWorkerEntry.js
+["entry point" made for cloudflare workers]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/cfWorkerEntry.js
+[`create-disploy-app`]: https://github.com/Disploy/create-disploy-app
