@@ -1,4 +1,4 @@
-name: Tests
+name: Checks
 
 on:
   push:
@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   type-check:
-    name: Type Check
+    name: TypeScript Type Check
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -32,7 +32,7 @@ jobs:
       - name: Type-check
         run: yarn type-check
   tests:
-    name: Run tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}

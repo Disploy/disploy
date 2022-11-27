@@ -17,8 +17,9 @@
 			"outputs": []
 		},
 		"dev": {
-			"dependsOn": ["$NODE_ENV"],
-			"cache": false
+			"dependsOn": [],
+			"cache": false,
+			"env": ["NODE_ENV"]
 		}
 	}
 }

@@ -8,6 +8,5 @@
     "frontend-base.json",
     "nextjs.json",
     "react-library.json"
-  ],
-  "devDependencies": {}
+  ]
 }
