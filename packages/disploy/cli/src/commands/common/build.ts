@@ -29,9 +29,9 @@ export async function BuildApp({
 		spinner = ora('Running prebuild script').start();
 		try {
 			await runShellCommand(prebuild);
-		} catch {
+		} catch (err: any) {
 			spinner.fail();
-			throw new UserError('Prebuild script failed');
+			throw new UserError(`Prebuild script failed because ${err?.message || 'of an unknown error'}.`);
 		}
 		spinner.succeed();
 	}
