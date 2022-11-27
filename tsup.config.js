@@ -16,6 +16,7 @@ export function createTsupConfig({
 	dts = true,
 	sourcemap = true,
 	esbuildPlugins = [],
+	outDir = 'dist',
 } = {}) {
 	return defineConfig({
 		entry,
@@ -33,5 +34,6 @@ export function createTsupConfig({
 		dts,
 		sourcemap,
 		esbuildPlugins,
+		outDir,
 	});
 }
