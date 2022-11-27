@@ -1,8 +1,6 @@
 {
 	"name": "@disploy/example",
 	"version": "0.0.0",
-	"disploy:main": "dist/index.js",
-	"disploy:prebuild": "yarn build",
 	"main": "./dist/index.js",
 	"source": "./src/index.ts",
 	"types": "./dist/index.d.ts",
