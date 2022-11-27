@@ -1,6 +1,5 @@
 {
 	"prebuild": "yarn run build",
-	"watcher": "yarn run dev",
 	"root": "dist",
 	"target": {
 		"type": "cloudflare",

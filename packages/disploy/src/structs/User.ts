@@ -5,16 +5,27 @@ import { Base } from './Base';
 export class User extends Base {
 	/**
 	 * The ID of the user.
+	 * @example '97470053615673344'
 	 */
 	public id!: Snowflake;
 
 	/**
-	 * The name of the user.
+	 * The username of the user.
+	 * @example 'Disploy'
 	 */
-	public name!: string;
+	public username!: string;
+
+	/**
+	 * The tag of the user.
+	 * @example 'tristan#0005'
+	 */
+	public get tag(): `${string}#${string}` {
+		return `${this.username}#${this.discriminator}`;
+	}
 
 	/**
 	 * The discriminator of the user.
+	 * @example '0005'
 	 */
 	public discriminator!: string;
 	/**
@@ -24,7 +35,16 @@ export class User extends Base {
 	public constructor(app: App, raw: APIUser) {
 		super(app, raw);
 		this.id = raw.id;
-		this.name = raw.username;
+		this.username = raw.username;
 		this.discriminator = raw.discriminator;
+	}
+
+	/**
+	 * Returns a string that represents the User object as a mention.
+	 * @returns A string that represents the User object as a mention.
+	 * @example interaction.reply(`Hey ${interaction.user}`); // => Hey @tristan
+	 */
+	public override toString() {
+		return `<@${this.id}>`;
 	}
 }

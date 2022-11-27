@@ -30,7 +30,11 @@ export default {
 
 			return void interaction.editReply({
 				content: [
-					`**User:** ${member.user.name}#${member.user.discriminator}`,
+					`**Tag**: ${member.user.tag}`,
+					`**ID**: ${member.user.id}`,
+					`**Username:** ${member.user.username}`,
+					`**Discriminator**: ${member.user.discriminator}`,
+					`**Nickname**: ${member.nickname ?? 'None'}`,
 					`**Deafened:** ${member.deaf ? 'yes' : 'no'}`,
 					`**Muted:** ${member.mute ? 'yes' : 'no'}`,
 					`**Nickname:** ${member.nickname ?? 'none'}`,

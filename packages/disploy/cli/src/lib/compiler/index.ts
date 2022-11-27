@@ -1,12 +1,14 @@
 import { mkdir, rm, writeFile } from 'fs/promises';
 import { rollup } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
+import { logger } from '../../utils/logger';
 import type { DisployConfig } from '../disployConf';
 import { UserError } from '../UserError';
 import { CompilerAssets } from './assets';
 import { parseCommands } from './commands';
 import { TempDir } from './constants';
 import { copyDir } from './copyDir';
+import { parseHandlers } from './handlers';
 
 function parseTarget(target: DisployConfig['target']) {
 	switch (target.type) {
@@ -37,6 +39,7 @@ export async function Compile({
 	copyDir(root, workbenchDir);
 
 	await parseCommands(workbenchDir);
+	await parseHandlers(workbenchDir);
 	const entry = parseTarget(target);
 
 	await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[entry]());
@@ -52,6 +55,10 @@ export async function Compile({
 			}),
 		],
 		external: ['disploy'],
+		onwarn: (warning) => {
+			if (warning.code === 'UNRESOLVED_IMPORT') return;
+			logger.warn(warning.message);
+		},
 	});
 
 	await bundle.write({

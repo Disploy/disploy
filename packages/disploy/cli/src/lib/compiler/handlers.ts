@@ -3,8 +3,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { CompilerAssets } from './assets';
 
-export async function parseCommands(workbench: string) {
-	const commandsDir = path.join(workbench, 'commands');
+export async function parseHandlers(workbench: string) {
+	const commandsDir = path.join(workbench, 'handlers');
 
 	const commandsFiles = await new Promise<string[]>((resolve, reject) => {
 		glob(`${commandsDir}/**/*.js`, async (err, files) => {
@@ -41,12 +41,12 @@ export async function parseCommands(workbench: string) {
 	);
 
 	const commandArray = CompilerAssets.array({
-		name: 'Commands',
+		name: 'Handlers',
 		imports: commandsFiles
-			.map((file) => `import {${path.basename(file, '.js')}} from "./commands/${path.basename(file, '.js')}";`)
+			.map((file) => `import {${path.basename(file, '.js')}} from "./handlers/${path.basename(file, '.js')}";`)
 			.join('\n'),
 		array: commandsFiles.map((file) => `${path.basename(file, '.js')}`).join(',\n'),
 	});
 
-	await writeFile(path.join(workbench, 'commands.js'), commandArray);
+	await writeFile(path.join(workbench, 'handlers.js'), commandArray);
 }

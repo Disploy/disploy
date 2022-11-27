@@ -7,7 +7,11 @@
 		},
 		"type-check": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**", ".next/**", "build/**"]
+			"outputs": []
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"outputs": []
 		},
 		"lint": {
 			"outputs": []

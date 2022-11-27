@@ -1,5 +1,6 @@
 import { App } from 'disploy';
 import { Commands } from './commands';
+import { Handlers } from './handlers';
 
 function createCloudflareAdapter(app) {
 	return async function (req, randId) {
@@ -40,7 +41,7 @@ function createCloudflareAdapter(app) {
 
 export default {
 	async fetch(request, env, ctx) {
-		const app = new App({ commands: Commands });
+		const app = new App({ commands: Commands, handlers: Handlers });
 		app.start({
 			publicKey: env.PUBLIC_KEY,
 			clientId: env.CLIENT_ID,
