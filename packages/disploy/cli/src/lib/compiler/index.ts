@@ -1,4 +1,5 @@
 import { mkdir, rm, writeFile } from 'fs/promises';
+import path from 'node:path';
 import { rollup } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
 import { logger } from '../../utils/logger';
@@ -33,7 +34,7 @@ export async function Compile({
 	await rm(TempDir, { recursive: true, force: true });
 	await mkdir(TempDir, { recursive: true });
 
-	const workbenchDir = `${TempDir}/workbench`;
+	const workbenchDir = path.join(TempDir, 'workbench');
 
 	await mkdir(workbenchDir, { recursive: true });
 	copyDir(root, workbenchDir);
@@ -41,11 +42,12 @@ export async function Compile({
 	await parseCommands(workbenchDir);
 	await parseHandlers(workbenchDir);
 	const entry = parseTarget(target);
+	const input = path.join(workbenchDir, 'entry.js');
 
-	await writeFile(`${workbenchDir}/entry.js`, CompilerAssets[entry]());
+	await writeFile(input, CompilerAssets[entry]());
 
 	const bundle = await rollup({
-		input: `${workbenchDir}/entry.js`,
+		input: input,
 		plugins: [
 			// @ts-ignore - Plugin types mismatch
 
@@ -61,12 +63,14 @@ export async function Compile({
 		},
 	});
 
+	const output = path.join(TempDir, entryFileName);
+
 	await bundle.write({
-		file: `${TempDir}/${entryFileName}`,
+		file: output,
 		format: 'es',
 	});
 
 	await rm(workbenchDir, { recursive: true, force: true });
 
-	return `${TempDir}/${entryFileName}`;
+	return output;
 }

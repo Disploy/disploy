@@ -7,7 +7,7 @@ export async function parseCommands(workbench: string) {
 	const commandsDir = path.join(workbench, 'commands');
 
 	const commandsFiles = await new Promise<string[]>((resolve, reject) => {
-		glob(`${commandsDir}/**/*.js`, async (err, files) => {
+		glob(`${commandsDir.replaceAll('\\', '/')}/**/*.js`, async (err, files) => {
 			if (err) {
 				reject(err);
 			} else {
