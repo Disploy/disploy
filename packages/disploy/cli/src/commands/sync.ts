@@ -42,7 +42,9 @@ export const SyncCommand: CommandModule = {
 			entryFileName: `entry.mjs`,
 		});
 
-		const { app, commands }: DisployStandaloneBundle = (await import(path.join(process.cwd(), entry))).default;
+		const { app, commands }: DisployStandaloneBundle = (
+			await import(await import.meta.resolve!(path.join(process.cwd(), entry)))
+		).default;
 
 		app.start({
 			clientId: clientId,
