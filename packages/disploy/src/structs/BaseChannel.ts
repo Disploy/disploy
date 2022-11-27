@@ -18,9 +18,12 @@ export abstract class BaseChannel extends Base {
 	 * The type of the channel.
 	 */
 	public abstract type: ChannelType;
-
+	/**
+	 * The raw data of the channel.
+	 */
+	declare public raw: APIChannel;
 	public constructor(app: App, raw: APIChannel) {
-		super(app);
+		super(app, raw);
 		this.id = raw.id;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
 	}

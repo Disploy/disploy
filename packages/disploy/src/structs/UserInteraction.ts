@@ -47,7 +47,7 @@ export class UserInteraction extends BaseInteraction {
 	 */
 	public targetUser!: User | null;
 
-	public constructor(app: App, public raw: APIUserApplicationCommandInteraction) {
+	public constructor(app: App, public override raw: APIUserApplicationCommandInteraction) {
 		super(app, raw);
 		this.commandId = raw.data.id;
 		this.commandName = raw.data.name;

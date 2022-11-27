@@ -160,9 +160,12 @@ export class Message extends Base {
 	 * The stickers in this message.
 	 */
 	public readonly stickerItems: APIStickerItem[];
-
+	/**
+	 * The raw data of the message.
+	 */
+	declare public raw: APIMessage;
 	public constructor(app: App, raw: APIMessage) {
-		super(app);
+		super(app, raw);
 		this.id = raw.id;
 		this.content = raw.content;
 		this.channelId = raw.channel_id;

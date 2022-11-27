@@ -17,9 +17,12 @@ export class User extends Base {
 	 * The discriminator of the user.
 	 */
 	public discriminator!: string;
-
+	/**
+	 * The raw data of the user.
+	 */
+	declare public raw: APIUser
 	public constructor(app: App, raw: APIUser) {
-		super(app);
+		super(app, raw);
 		this.id = raw.id;
 		this.name = raw.username;
 		this.discriminator = raw.discriminator;

@@ -19,9 +19,12 @@ export class GuildBan extends Base {
 	 * The reason for this ban.
 	 */
 	public reason!: string | null;
-
+	/**
+	 * The raw data of the ban.
+	 */
+	 declare public raw: APIBan;
 	public constructor(app: App, { raw, guild }: { raw: APIBan; guild: Guild }) {
-		super(app);
+		super(app, raw);
 		this.guild = guild;
 		this.user = new User(app, raw.user);
 		this.reason = raw.reason;

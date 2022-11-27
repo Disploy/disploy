@@ -26,9 +26,12 @@ export class BaseInteraction extends Base {
 	 * The guild of the interaction.
 	 */
 	public guild!: ToBeFetched<Guild> | null;
-
+	/**
+	 * The raw data of the interaction.
+	 */
+	 declare public raw: APIInteraction;
 	public constructor(app: App, raw: APIInteraction) {
-		super(app);
+		super(app, raw);
 		this.id = raw.id;
 		this.token = raw.token;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);

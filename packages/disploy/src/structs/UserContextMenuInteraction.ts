@@ -9,7 +9,7 @@ export class UserContextMenuInteraction extends ContextMenuInteraction {
 	 */
 	public readonly targetUser: User;
 
-	public constructor(app: App, raw: APIUserApplicationCommandInteraction) {
+	public constructor(app: App, public override raw: APIUserApplicationCommandInteraction) {
 		super(app, raw);
 
 		const resolvedUser = raw.data.resolved.users[this.targetId]!;

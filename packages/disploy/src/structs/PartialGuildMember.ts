@@ -37,13 +37,16 @@ export class PartialGuildMember extends Base {
 	 * Timestamp of when the time out will be removed; until then, they cannot interact with the guild.
 	 */
 	public communicationDisabledUntil!: boolean | null;
-
-	public constructor(app: App, raw: APIGuildMember | APIInteractionDataResolvedGuildMember) {
-		super(app);
+	/**
+	 * The raw data of the member.
+	 */
+	declare public raw: APIGuildMember;
+	public constructor(app: App, raw: Partial<APIGuildMember | APIInteractionDataResolvedGuildMember>) {
+		super(app, raw);
 		this.nickname = raw.nick ?? null;
 		this.avatar = raw.avatar ?? null;
-		this.roles = raw.roles;
-		this.joinedAt = raw.joined_at;
+		this.roles = raw.roles ?? [];
+		this.joinedAt = raw.joined_at!;
 		this.premiumSince = raw.premium_since ?? null;
 		this.pending = raw.pending ?? null;
 		this.communicationDisabledUntil = Boolean(raw.communication_disabled_until) ?? null;

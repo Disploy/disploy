@@ -90,9 +90,12 @@ export class Guild extends Base {
 	 * 	The NSFW level for this guild.
 	 */
 	public nsfwLevel!: number;
-
+	/**
+	 * The raw data of the guild.
+	 */
+	declare public raw: APIGuild;
 	public constructor(app: App, raw: APIGuild) {
-		super(app);
+		super(app, raw);
 		this.patch(raw);
 		this.channels = new ChannelManager(app, this.id);
 	}

@@ -14,7 +14,7 @@ export class ChannelManager extends Base {
 	 * @param guildId The ID of the guild to lock the manager to.
 	 */
 	public constructor(app: App, guildId?: string) {
-		super(app);
+		super(app, {});
 		this.guildId = guildId;
 	}
 

@@ -18,10 +18,9 @@ export class GuildMember extends PartialGuildMember {
 	 * Whether the user is muted in voice channels
 	 */
 	public mute!: boolean | null;
-
 	public constructor(app: App, raw: APIGuildMember) {
 		super(app, raw);
-		this.user = new User(this.app, raw.user!);
+		this.user = raw.user instanceof User ? raw.user : new User(this.app, raw.user!);
 		this.deaf = raw.deaf ? Boolean(raw.deaf) : null;
 		this.mute = raw.mute ? Boolean(raw.mute) : null;
 	}

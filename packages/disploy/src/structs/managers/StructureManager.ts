@@ -4,7 +4,7 @@ import { Base } from '../Base';
 
 export class StructureManager<T extends Base> extends Base {
 	public constructor(app: App, private object: NonRuntimeClass<T>, private _fetch: (id: string) => Promise<unknown>) {
-		super(app);
+		super(app, {});
 	}
 
 	public async fetch(id: string): Promise<T> {

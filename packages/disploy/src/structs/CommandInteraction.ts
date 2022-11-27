@@ -31,7 +31,10 @@ export class CommandInteraction extends BaseInteraction {
 	 * The name of the command.
 	 */
 	public commandName: string;
-
+	/**
+	 * The raw data of the interaction.
+	 */
+	declare public raw: APIApplicationCommandInteraction
 	public constructor(app: App, raw: APIApplicationCommandInteraction) {
 		super(app, raw);
 		this.commandId = raw.data.id;

@@ -9,7 +9,7 @@ export class ChatInputInteraction extends CommandInteraction {
 	 */
 	public options: ChatInputInteractionOptions;
 
-	public constructor(app: App, public raw: APIChatInputApplicationCommandInteraction) {
+	public constructor(app: App, public override raw: APIChatInputApplicationCommandInteraction) {
 		super(app, raw);
 		this.options = new ChatInputInteractionOptions(app, this);
 	}

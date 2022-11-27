@@ -8,7 +8,7 @@ export class ContextMenuInteraction extends CommandInteraction {
 	 */
 	public targetId: Snowflake;
 
-	public constructor(app: App, raw: APIContextMenuInteraction) {
+	public constructor(app: App, public override raw: APIContextMenuInteraction) {
 		super(app, raw);
 		this.targetId = raw.data.target_id;
 	}
