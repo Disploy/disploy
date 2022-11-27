@@ -33,5 +33,8 @@ jobs:
       - name: Build dependencies
         run: yarn build
 
+      - name: Reinstall dependencies
+        run: yarn --immutable
+
       - name: Build the example bot
         run: yarn workspace @disploy/example disploy build
