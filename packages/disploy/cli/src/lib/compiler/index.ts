@@ -1,6 +1,7 @@
 import { mkdir, rm, writeFile } from 'fs/promises';
 import { rollup } from 'rollup';
 import esbuild from 'rollup-plugin-esbuild';
+import { logger } from '../../utils/logger';
 import type { DisployConfig } from '../disployConf';
 import { UserError } from '../UserError';
 import { CompilerAssets } from './assets';
@@ -54,6 +55,10 @@ export async function Compile({
 			}),
 		],
 		external: ['disploy'],
+		onwarn: (warning) => {
+			if (warning.code === 'UNRESOLVED_IMPORT') return;
+			logger.warn(warning.message);
+		},
 	});
 
 	await bundle.write({
