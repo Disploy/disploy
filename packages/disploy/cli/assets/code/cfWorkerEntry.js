@@ -1,6 +1,6 @@
 import { App } from 'disploy';
-import { Commands } from './commands';
-import { Handlers } from './handlers';
+import { Commands } from './Commands';
+import { Handlers } from './Handlers';
 
 function createCloudflareAdapter(app) {
 	return async function (req, randId) {
