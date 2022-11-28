@@ -1,4 +1,4 @@
-#!/usr/bin/env node  --no-warnings --experimental-import-meta-resolve
+#!/usr/bin/env node --no-warnings --experimental-import-meta-resolve
 
 import dotenv from 'dotenv';
 import path from 'node:path';
