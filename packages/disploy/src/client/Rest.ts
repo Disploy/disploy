@@ -26,7 +26,13 @@ export class Rest {
 			throw new Error(`${method} ${path} returned ${res.status} ${res.statusText}`);
 		}
 
-		return res.json();
+		const contentType = res.headers.get('content-type');
+
+		if (contentType && contentType.includes('application/json')) {
+			return res.json();
+		}
+
+		return res.text() as any;
 	}
 
 	public async get<RES>(path: string): Promise<RES> {
