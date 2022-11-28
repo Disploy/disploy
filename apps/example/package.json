@@ -1,8 +1,6 @@
 {
 	"name": "@disploy/example",
 	"version": "0.0.0",
-	"disploy:main": "dist/index.js",
-	"disploy:prebuild": "yarn build",
 	"main": "./dist/index.js",
 	"source": "./src/index.ts",
 	"types": "./dist/index.d.ts",
@@ -11,19 +9,18 @@
 		"type-check": "tsc --noEmit",
 		"dev": "tsc -w",
 		"serve": "disploy dev",
-		"test-server": "node ../../packages/disploy/dist/cli/src/disploy.mjs test-server"
+		"test-server": "disploy test-server"
 	},
 	"dependencies": {
 		"discord-api-types": "^0.37.17",
-		"disploy": "*"
+		"disploy": "workspace:^"
 	},
 	"devDependencies": {
 		"@types/node": "^18.11.3",
-		"disploy": "*",
 		"eslint": "7.32.0",
-		"eslint-config-custom": "*",
+		"eslint-config-custom": "workspace:^",
 		"rimraf": "^3.0.2",
-		"tsconfig": "*",
+		"tsconfig": "workspace:^",
 		"typescript": "^4.9.2-rc"
 	}
 }

@@ -27,7 +27,7 @@ jobs:
         run: yarn --immutable
 
       - name: Build dependencies
-        run: yarn build --filter=!@disploy/docs
+        run: yarn build --filter=@disploy/example
 
       - name: Benchmark
         run: node scripts/benchmark.mjs

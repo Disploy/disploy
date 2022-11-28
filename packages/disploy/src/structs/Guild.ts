@@ -103,7 +103,7 @@ export class Guild extends Base {
 		this.name = raw.name;
 
 		this.afkChannel = raw.afk_channel_id
-			? new ToBeFetched(this.app, GuildVoiceChannel, () => this.app.rest.get(`/channels/${raw.afk_channel_id}`))
+			? new ToBeFetched(this.app, GuildVoiceChannel, raw.afk_channel_id, (id) => this.app.rest.get(Routes.channel(id)))
 			: null;
 		this.afkChannelId = raw.afk_channel_id;
 		this.afkTimeout = raw.afk_timeout;
@@ -135,6 +135,6 @@ export class Guild extends Base {
 	}
 
 	public async fetch(): Promise<this> {
-		return this.patch(await this.app.rest.get<APIGuild>(`/guilds/${this.id}?with_counts=true`));
+		return this.patch(await this.app.rest.get<APIGuild>(`${Routes.guild(this.id)}?with_counts=true`));
 	}
 }

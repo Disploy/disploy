@@ -1,12 +1,12 @@
 {
-  "extends": "tsconfig/base.json",
-  "include": ["./src"],
-  "compilerOptions": {
-    "outDir": "./dist",
-    "declarationMap": false,
-    "declaration": false,
-    "sourceMap": false,
-    "inlineSources": false
-  },
-  "exclude": ["dist", "build", "node_modules"]
+	"extends": "tsconfig/base.json",
+	"include": ["./src"],
+	"compilerOptions": {
+		"outDir": "./dist",
+		"declarationMap": false,
+		"declaration": false,
+		"sourceMap": false,
+		"inlineSources": false
+	},
+	"exclude": ["dist", "node_modules"]
 }

@@ -35,7 +35,7 @@ export const TestServerCommand: CommandModule = {
 			entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 		});
 
-		const app = await import(path.join(process.cwd(), entry));
+		const app = await import(await import.meta.resolve!(path.join(process.cwd(), entry)));
 
 		setApp(
 			app.default,

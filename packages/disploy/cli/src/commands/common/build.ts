@@ -4,6 +4,7 @@ import { Compile } from '../../lib/compiler';
 import type { DisployConfig } from '../../lib/disployConf';
 import { ProjectTools } from '../../lib/ProjectTools';
 import { runShellCommand } from '../../lib/shell';
+import { UserError } from '../../lib/UserError';
 
 export async function BuildApp({
 	skipPrebuild = false,
@@ -26,7 +27,12 @@ export async function BuildApp({
 
 	if (prebuild && !skipPrebuild) {
 		spinner = ora('Running prebuild script').start();
-		await runShellCommand(prebuild);
+		try {
+			await runShellCommand(prebuild);
+		} catch (err: any) {
+			spinner.fail();
+			throw new UserError(`Prebuild script failed because ${err?.message || 'of an unknown error'}.`);
+		}
 		spinner.succeed();
 	}
 

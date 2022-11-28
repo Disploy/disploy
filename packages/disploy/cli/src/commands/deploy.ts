@@ -10,18 +10,24 @@ import { BuildApp } from './common/build';
 export const aliases: string[] = [];
 export const desc: string = 'Build a project';
 
-export const builder = (yargs: Argv) => yargs.options({});
+export const builder = (yargs: Argv) =>
+	yargs.options('skip-prebuild', {
+		type: 'boolean',
+		alias: 'sp',
+		description: 'Skip the prebuild script',
+		default: false,
+	});
 
-export const DeployCommand: CommandModule = {
+export const DeployCommand: CommandModule<{}, { 'skip-prebuild': boolean }> = {
 	aliases,
 	builder,
 	command: 'deploy',
-	async handler() {
+	async handler(opts) {
 		const conf = await ProjectTools.resolveProject({
 			cwd: process.cwd(),
 		});
 		const entry = await BuildApp({
-			skipPrebuild: true,
+			skipPrebuild: opts.skipPrebuild,
 		});
 
 		switch (conf.target.type) {

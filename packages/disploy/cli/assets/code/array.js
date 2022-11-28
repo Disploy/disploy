@@ -1,5 +1,5 @@
 {{imports}}
 
-export const Commands = [
+export const {{name}} = [
 {{array}}
 ];

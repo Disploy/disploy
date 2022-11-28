@@ -7,14 +7,19 @@
 		},
 		"type-check": {
 			"dependsOn": ["^build"],
-			"outputs": ["dist/**", ".next/**", "build/**"]
+			"outputs": []
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"outputs": []
 		},
 		"lint": {
 			"outputs": []
 		},
 		"dev": {
-			"dependsOn": ["$NODE_ENV"],
-			"cache": false
+			"dependsOn": [],
+			"cache": false,
+			"env": ["NODE_ENV"]
 		}
 	}
 }
