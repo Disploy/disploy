@@ -34,4 +34,4 @@ jobs:
         run: yarn build --filter=@disploy/example
 
       - name: Build the example bot
-        run: yarn workspace @disploy/example disploy build --skip-prebuild
+        run: yarn workspace @disploy/framework-example disploy build --skip-prebuild
