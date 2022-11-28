@@ -11,10 +11,12 @@ When it comes to contributions, repositories vary in scope, use different progra
 
 Here's a quick comparison to help you decide which repository might be the best to start contributing to (and/or is of interest to you):
 
-| Repository      | Scope | Language   | Difficulty |
-| --------------- | ----- | ---------- | ---------- |
-| [`disploy`]     | Core  | TypeScript | Easy       |
-| [`disploy/cli`] | CLI   | TypeScript | Hard       |
+| Repository             | Scope | Language   | Difficulty |
+| ---------------------- | ----- | ---------- | ---------- |
+| [`create-disploy-app`] | CLI   | Go         | Easy       |
+| [`disploy`]            | Core  | TypeScript | Medium     |
+| [`disploy/cli`]        | CLI   | TypeScript | Hard       |
+| [`disbench`]           | CLI   | Go         | Hard       |
 
 ### [`disploy`]
 
@@ -26,7 +28,11 @@ This package is not a "real package" as it lives in a folder of the [`disploy`] 
 
 ### [`create-disploy-app`]
 
-todo
+Create Disploy App is a CLI tool written in Go that helps you create a new Disploy app.
+
+### [`disbench`]
+
+Disbench is a CLI tool written in Go that helps you benchmark Disploy apps.
 
 [`disploy`]: https://github.com/Disploy/disploy/tree/main/packages/disploy
 [`disploy/cli`]: https://github.com/Disploy/disploy/tree/main/packages/disploy/cli
@@ -34,3 +40,4 @@ todo
 [standalone "entry point"]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/standaloneEntry.js
 ["entry point" made for cloudflare workers]: https://github.com/Disploy/disploy/blob/main/packages/disploy/cli/assets/code/cfWorkerEntry.js
 [`create-disploy-app`]: https://github.com/Disploy/create-disploy-app
+[`disbench`]: https://github.com/Disploy/disbench
