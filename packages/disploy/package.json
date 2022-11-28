@@ -56,7 +56,7 @@
 	},
 	"dependencies": {
 		"colorette": "^2.0.19",
-		"discord-api-types": "^0.37.14",
+		"discord-api-types": "^0.37.20",
 		"dotenv": "^16.0.3",
 		"esbuild": "^0.15.12",
 		"eventemitter3": "^4.0.7",
