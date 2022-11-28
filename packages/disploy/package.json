@@ -31,7 +31,7 @@
 	"homepage": "https://disploy.dev",
 	"scripts": {
 		"build": "node scripts/architect.mjs build",
-		"test": "jest",
+		"test": "vitest run",
 		"dev": "node scripts/architect.mjs build -w",
 		"type-check": "tsc --noEmit && cd cli && tsc --noEmit",
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix",
@@ -47,12 +47,12 @@
 		"@types/yargs": "^17.0.11",
 		"eslint": "7.32.0",
 		"eslint-config-custom": "workspace:^",
-		"jest": "^29.3.1",
 		"next": "^12.3.1",
-		"ts-jest": "^29.0.3",
 		"tsconfig": "workspace:^",
 		"tsup": "^6.5.0",
-		"typescript": "^4.5.2"
+		"typescript": "^4.5.2",
+		"vite": "^3.2.4",
+		"vitest": "^0.25.3"
 	},
 	"dependencies": {
 		"colorette": "^2.0.19",
