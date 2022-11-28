@@ -30,7 +30,7 @@ export default {
 
 			return void interaction.editReply({
 				content: [
-					`**Tag**: ${member.user.tag}`,
+					`**Tag**: ${member.user.username}#${member.user.discriminator}`,
 					`**ID**: ${member.user.id}`,
 					`**Username:** ${member.user.username}`,
 					`**Discriminator**: ${member.user.discriminator}`,

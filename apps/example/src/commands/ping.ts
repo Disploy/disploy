@@ -15,7 +15,7 @@ export default {
 							type: 2,
 							label: 'Click me!',
 							style: 1,
-							custom_id: `ping-${interaction.user.id}`,
+							custom_id: `ping-${interaction.user!.id}`,
 						},
 						{
 							type: 2,

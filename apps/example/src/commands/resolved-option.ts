@@ -16,7 +16,7 @@ export default {
 	
 	async run(interaction) {
 		interaction.deferReply();
-        const username = interaction.user?.name ?? "Unknown";
+        const username = interaction.options.getUser("user").username ?? "Unknown";
         interaction.editReply({
             content: `Name: ${username}`
         })

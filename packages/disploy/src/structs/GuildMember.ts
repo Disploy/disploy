@@ -7,7 +7,7 @@ export class GuildMember extends PartialGuildMember {
 	/**
 	 * The User object of the member.
 	 */
-	public user!: User;
+	declare public user: User;
 
 	/**
 	 * Whether the user is deafened in voice channels

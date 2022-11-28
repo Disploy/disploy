@@ -19,7 +19,7 @@ class ExampleClass extends Base {
 	public name: string;
 
 	public constructor(_: null, raw: ExampleData) {
-		super(null!);
+		super(null!, raw);
 		this.id = raw.id;
 		this.name = raw.name;
 	}
