@@ -5,6 +5,7 @@ import type { InternalEventHandler } from '../types';
 import { ChannelCreate } from './ChannelCreate';
 import { ChannelDelete } from './ChannelDelete';
 import { GuildCreate } from './GuildCreate';
+import { GuildDelete } from './GuildDelete';
 import { MessageCreate } from './MessageCreate';
 
 const Events: InternalEventHandler<any>[] = [
@@ -12,6 +13,7 @@ const Events: InternalEventHandler<any>[] = [
 	GuildCreate,
 	ChannelCreate,
 	ChannelDelete,
+	GuildDelete,
 	//
 ];
 

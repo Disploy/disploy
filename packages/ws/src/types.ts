@@ -9,6 +9,8 @@ export interface GatewayEvents {
 	guildCreate: [Guild];
 	channelCreate: [DiscordChannel];
 	channelDelete: [DiscordChannel];
+	// TODO: Implement some sort of caching so that we can emit the guild before deletion
+	guildDelete: [string];
 }
 
 export enum GatewayStatus {
