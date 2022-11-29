@@ -1,18 +1,25 @@
+import type { Logger } from '../utils';
+
 export interface RestConfig {
 	token: string;
 	apiRoot?: string;
+	logger?: Logger;
 }
 
 export class Rest {
 	private _token!: string;
 	private _apiRoot: string = 'https://discord.com/api/v10';
+	private logger: Logger | undefined;
 
 	public constructor(config: RestConfig) {
 		this._token = config.token;
 		this._apiRoot = config.apiRoot || this._apiRoot;
+		this.logger = config.logger;
 	}
 
 	private async _request<T>(method: string, path: string, body?: any): Promise<T> {
+		const now = Date.now();
+
 		const res = await fetch(`${this._apiRoot}${path}`, {
 			method,
 			headers: {
@@ -21,6 +28,8 @@ export class Rest {
 			},
 			body: JSON.stringify(body),
 		});
+
+		this.logger?.debug(`[REST] ${method} ${path} (${res.status}) ${Date.now() - now}ms`);
 
 		if (res.status >= 400) {
 			throw new Error(`${method} ${path} returned ${res.status} ${res.statusText}`);
