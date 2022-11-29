@@ -1,5 +1,5 @@
 {
-	"name": "@disploy/magic",
+	"name": "@disploy/ws",
 	"version": "0.0.0",
 	"license": "Apache-2.0",
 	"main": "./dist/index.js",
@@ -20,7 +20,7 @@
 	"scripts": {
 		"build": "tsup",
 		"dev": "tsup --watch",
-		"type-check": "tsc --noEmit && cd cli && tsc --noEmit",
+		"type-check": "tsc --noEmit",
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix",
 		"release": "cliff-jumper"
 	},

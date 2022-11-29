@@ -1909,7 +1909,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@disploy/example@workspace:apps/example"
   dependencies:
-    "@disploy/magic": "workspace:^"
+    "@disploy/ws": "workspace:^"
     "@types/node": ^18.11.3
     discord-api-types: ^0.37.20
     disploy: "workspace:^"
@@ -1936,9 +1936,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@disploy/magic@workspace:^, @disploy/magic@workspace:packages/magic":
+"@disploy/ws@workspace:^, @disploy/ws@workspace:packages/ws":
   version: 0.0.0-use.local
-  resolution: "@disploy/magic@workspace:packages/magic"
+  resolution: "@disploy/ws@workspace:packages/ws"
   dependencies:
     "@discordjs/ws": ^0.5.0
     "@favware/cliff-jumper": ^1.8.8

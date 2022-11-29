@@ -1,7 +1,6 @@
-import { Gateway } from '@disploy/magic';
+import { Gateway } from '@disploy/ws';
 import { GatewayIntentBits } from 'discord-api-types/v10';
 import { App } from 'disploy';
-import commands from './commands/commands';
 
 const clientId = process.env.DISCORD_CLIENT_ID;
 const token = process.env.DISCORD_TOKEN;
@@ -15,13 +14,6 @@ export const app = new App({
 	logger: {
 		debug: true,
 	},
-	commands,
-});
-
-app.start({
-	clientId,
-	token,
-	publicKey,
 });
 
 export const gateway = new Gateway(app, {
@@ -38,6 +30,12 @@ gateway.on('message', (message) => {
 			});
 			break;
 	}
+});
+
+app.start({
+	clientId,
+	token,
+	publicKey,
 });
 
 gateway.connect();

@@ -25,7 +25,7 @@
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix"
 	},
 	"dependencies": {
-		"@disploy/magic": "workspace:^",
+		"@disploy/ws": "workspace:^",
 		"discord-api-types": "^0.37.20",
 		"disploy": "workspace:^"
 	},
