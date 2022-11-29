@@ -31,7 +31,7 @@ jobs:
         run: yarn --immutable
 
       - name: Build dependencies
-        run: yarn build --filter=@disploy/example
+        run: yarn build --filter=@disploy/framework-example
 
       - name: Build the example bot
         run: yarn workspace @disploy/framework-example disploy build --skip-prebuild
