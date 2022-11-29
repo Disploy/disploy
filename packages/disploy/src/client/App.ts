@@ -76,7 +76,7 @@ export class App {
 		this.token = token;
 
 		// Base Managers
-		this.rest = new Rest({ token: this.token });
+		this.rest = new Rest({ token: this.token, logger: this.logger });
 		this.router = new Router(this);
 
 		// Structure Managers
