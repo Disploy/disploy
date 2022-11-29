@@ -1831,6 +1831,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discordjs/node-pre-gyp@npm:^0.4.5":
+  version: 0.4.5
+  resolution: "@discordjs/node-pre-gyp@npm:0.4.5"
+  dependencies:
+    detect-libc: ^2.0.0
+    https-proxy-agent: ^5.0.0
+    make-dir: ^3.1.0
+    node-fetch: ^2.6.7
+    nopt: ^5.0.0
+    npmlog: ^5.0.1
+    rimraf: ^3.0.2
+    semver: ^7.3.5
+    tar: ^6.1.11
+  bin:
+    node-pre-gyp: bin/node-pre-gyp
+  checksum: 60ba7bfdb9e002ff6ff47086312ca446e97b2dfa695a581a1b49eb94d2c716ad509166d97b66b76096d8fd33b9aaa4bb88dad083980821b7691aa55ebccdb5e4
+  languageName: node
+  linkType: hard
+
+"@discordjs/opus@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@discordjs/opus@npm:0.9.0"
+  dependencies:
+    "@discordjs/node-pre-gyp": ^0.4.5
+    node-addon-api: ^5.0.0
+  checksum: 1bb17efcece86b5d0f025dcb301e87a01c50db3267776b608cc103e3f6fbbb0b0ea4e61dcb5700fbeb27039b50c771db9efc1b7af628b9c2329120f497e1c20e
+  languageName: node
+  linkType: hard
+
 "@discordjs/rest@npm:^1.4.0":
   version: 1.4.0
   resolution: "@discordjs/rest@npm:1.4.0"
@@ -1851,6 +1880,19 @@ __metadata:
   version: 0.1.0
   resolution: "@discordjs/util@npm:0.1.0"
   checksum: 880e15cd761437a21cf17b8a9dab50e7e5418fcc77dc34037c31a52b871fab1b958218ab6218aafd20af8b7a4e658a705d3f257268324773a285d9a06368c1b9
+  languageName: node
+  linkType: hard
+
+"@discordjs/voice@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "@discordjs/voice@npm:0.14.0"
+  dependencies:
+    "@types/ws": ^8.5.3
+    discord-api-types: ^0.37.20
+    prism-media: ^1.3.4
+    tslib: ^2.4.1
+    ws: ^8.11.0
+  checksum: baa68a324f8c7b4a7863a966e7d10a01a4df93aa68800f867e7a6fef016fcd16306ff5a562674884192b0e6538e53e8404d114a7c9781f0637c8e0dea3bca368
   languageName: node
   linkType: hard
 
@@ -1909,14 +1951,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@disploy/example@workspace:apps/example"
   dependencies:
+    "@discordjs/opus": ^0.9.0
+    "@discordjs/voice": ^0.14.0
     "@disploy/ws": "workspace:^"
+    "@types/express": ^4.17.14
+    "@types/glob": ^8.0.0
     "@types/node": ^18.11.3
     discord-api-types: ^0.37.20
     disploy: "workspace:^"
     eslint: 7.32.0
     eslint-config-custom: "workspace:^"
+    express: ^4.18.2
+    glob: ^8.0.3
     rimraf: ^3.0.2
     tsconfig: "workspace:^"
+    tweetnacl: ^1.0.3
     typescript: ^4.5.2
   languageName: unknown
   linkType: soft
@@ -1940,6 +1989,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@disploy/ws@workspace:packages/ws"
   dependencies:
+    "@discordjs/voice": ^0.14.0
     "@discordjs/ws": ^0.5.0
     "@favware/cliff-jumper": ^1.8.8
     "@types/node": ^17.0.12
@@ -4118,7 +4168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abbrev@npm:^1.0.0":
+"abbrev@npm:1, abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
   checksum: a4a97ec07d7ea112c517036882b2ac22f3109b7b19077dc656316d07d308438aac28e4d9746dc4d84bf6b1e75b4a7b0a5f3cb30592419f128ca9a8cee3bcfa17
@@ -4417,6 +4467,16 @@ __metadata:
   version: 2.0.0
   resolution: "aproba@npm:2.0.0"
   checksum: 5615cadcfb45289eea63f8afd064ab656006361020e1735112e346593856f87435e02d8dcc7ff0d11928bc7d425f27bc7c2a84f6c0b35ab0ff659c814c138a24
+  languageName: node
+  linkType: hard
+
+"are-we-there-yet@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "are-we-there-yet@npm:2.0.0"
+  dependencies:
+    delegates: ^1.0.0
+    readable-stream: ^3.6.0
+  checksum: 6c80b4fd04ecee6ba6e737e0b72a4b41bdc64b7d279edfc998678567ff583c8df27e27523bc789f2c99be603ffa9eaa612803da1d886962d2086e7ff6fa90c7c
   languageName: node
   linkType: hard
 
@@ -5465,7 +5525,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color-support@npm:^1.1.3":
+"color-support@npm:^1.1.2, color-support@npm:^1.1.3":
   version: 1.1.3
   resolution: "color-support@npm:1.1.3"
   bin:
@@ -5632,7 +5692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"console-control-strings@npm:^1.1.0":
+"console-control-strings@npm:^1.0.0, console-control-strings@npm:^1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
@@ -6275,6 +6335,13 @@ __metadata:
   dependencies:
     repeat-string: ^1.5.4
   checksum: 34b077521ecd4c6357d32ff7923be644d34aa6f6b7d717d40ec4a9168243eefaea2b512a75a460a6f70c31b0bbc31ff90f820a891803b4ddaf99e9d04d0d389d
+  languageName: node
+  linkType: hard
+
+"detect-libc@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "detect-libc@npm:2.0.1"
+  checksum: ccb05fcabbb555beb544d48080179c18523a343face9ee4e1a86605a8715b4169f94d663c21a03c310ac824592f2ba9a5270218819bb411ad7be578a527593d7
   languageName: node
   linkType: hard
 
@@ -8176,6 +8243,23 @@ eslint-config-turbo@latest:
   version: 1.2.3
   resolution: "functions-have-names@npm:1.2.3"
   checksum: c3f1f5ba20f4e962efb71344ce0a40722163e85bee2101ce25f88214e78182d2d2476aa85ef37950c579eb6cf6ee811c17b3101bb84004bb75655f3e33f3fdb5
+  languageName: node
+  linkType: hard
+
+"gauge@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "gauge@npm:3.0.2"
+  dependencies:
+    aproba: ^1.0.3 || ^2.0.0
+    color-support: ^1.1.2
+    console-control-strings: ^1.0.0
+    has-unicode: ^2.0.1
+    object-assign: ^4.1.1
+    signal-exit: ^3.0.0
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+    wide-align: ^1.1.2
+  checksum: 81296c00c7410cdd48f997800155fbead4f32e4f82109be0719c63edc8560e6579946cc8abd04205297640691ec26d21b578837fd13a4e96288ab4b40b1dc3e9
   languageName: node
   linkType: hard
 
@@ -10901,6 +10985,15 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
+"node-addon-api@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "node-addon-api@npm:5.0.0"
+  dependencies:
+    node-gyp: latest
+  checksum: 7c5e2043ac37f6108784d94ed73a44ae6d3e68eb968de60680922fc6bc3d17fa69448c0feb4e0c9d3f4c74a0324822e566a8340a56916d9d6f23cb3e85620334
+  languageName: node
+  linkType: hard
+
 "node-emoji@npm:^1.10.0":
   version: 1.11.0
   resolution: "node-emoji@npm:1.11.0"
@@ -10910,7 +11003,7 @@ eslint-config-turbo@latest:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
@@ -10962,6 +11055,17 @@ eslint-config-turbo@latest:
   version: 2.0.6
   resolution: "node-releases@npm:2.0.6"
   checksum: e86a926dc9fbb3b41b4c4a89d998afdf140e20a4e8dbe6c0a807f7b2948b42ea97d7fd3ad4868041487b6e9ee98409829c6e4d84a734a4215dff060a7fbeb4bf
+  languageName: node
+  linkType: hard
+
+"nopt@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "nopt@npm:5.0.0"
+  dependencies:
+    abbrev: 1
+  bin:
+    nopt: bin/nopt.js
+  checksum: d35fdec187269503843924e0114c0c6533fb54bbf1620d0f28b4b60ba01712d6687f62565c55cc20a504eff0fbe5c63e22340c3fad549ad40469ffb611b04f2f
   languageName: node
   linkType: hard
 
@@ -11034,6 +11138,18 @@ eslint-config-turbo@latest:
   dependencies:
     path-key: ^3.0.0
   checksum: 5374c0cea4b0bbfdfae62da7bbdf1e1558d338335f4cacf2515c282ff358ff27b2ecb91ffa5330a8b14390ac66a1e146e10700440c1ab868208430f56b5f4d23
+  languageName: node
+  linkType: hard
+
+"npmlog@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "npmlog@npm:5.0.1"
+  dependencies:
+    are-we-there-yet: ^2.0.0
+    console-control-strings: ^1.1.0
+    gauge: ^3.0.0
+    set-blocking: ^2.0.0
+  checksum: 516b2663028761f062d13e8beb3f00069c5664925871a9b57989642ebe09f23ab02145bf3ab88da7866c4e112cafff72401f61a672c7c8a20edc585a7016ef5f
   languageName: node
   linkType: hard
 
@@ -12097,6 +12213,27 @@ prettier@latest:
   version: 1.1.0
   resolution: "pretty-time@npm:1.1.0"
   checksum: a319e7009aadbc6cfedbd8b66861327d3a0c68bd3e8794bf5b86f62b40b01b9479c5a70c76bb368ad454acce52a1216daee460cc825766e2442c04f3a84a02c9
+  languageName: node
+  linkType: hard
+
+"prism-media@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "prism-media@npm:1.3.4"
+  peerDependencies:
+    "@discordjs/opus": ^0.8.0
+    ffmpeg-static: ^5.0.2 || ^4.2.7 || ^3.0.0 || ^2.4.0
+    node-opus: ^0.3.3
+    opusscript: ^0.0.8
+  peerDependenciesMeta:
+    "@discordjs/opus":
+      optional: true
+    ffmpeg-static:
+      optional: true
+    node-opus:
+      optional: true
+    opusscript:
+      optional: true
+  checksum: 703be28c87b4694714a52a0ea84516b19d2e62e510d0f204efc074b044ad93dde00241d4b4741c25aa2e27a00e3b472e60ad0f6c94e88710f0827dc63889373a
   languageName: node
   linkType: hard
 
@@ -13445,7 +13582,7 @@ prettier@latest:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
+"signal-exit@npm:^3.0.0, signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3, signal-exit@npm:^3.0.7":
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: a2f098f247adc367dffc27845853e9959b9e88b01cb301658cfe4194352d8d2bb32e18467c786a7fe15f1d44b233ea35633d076d5e737870b7139949d1ab6318
@@ -15526,7 +15663,7 @@ turbo@latest:
   languageName: node
   linkType: hard
 
-"wide-align@npm:^1.1.5":
+"wide-align@npm:^1.1.2, wide-align@npm:^1.1.5":
   version: 1.1.5
   resolution: "wide-align@npm:1.1.5"
   dependencies:
