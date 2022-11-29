@@ -3,6 +3,7 @@ import type { GatewayDispatchEvents } from 'discord-api-types/v10';
 import type { Gateway } from '../Gateway';
 import type { InternalEventHandler } from '../types';
 import { ChannelCreate } from './ChannelCreate';
+import { ChannelDelete } from './ChannelDelete';
 import { GuildCreate } from './GuildCreate';
 import { MessageCreate } from './MessageCreate';
 
@@ -10,6 +11,7 @@ const Events: InternalEventHandler<any>[] = [
 	MessageCreate,
 	GuildCreate,
 	ChannelCreate,
+	ChannelDelete,
 	//
 ];
 

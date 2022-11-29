@@ -8,6 +8,7 @@ export interface GatewayEvents {
 	messageCreate: [Message];
 	guildCreate: [Guild];
 	channelCreate: [DiscordChannel];
+	channelDelete: [DiscordChannel];
 }
 
 export enum GatewayStatus {
