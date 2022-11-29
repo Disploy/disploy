@@ -1,20 +1,22 @@
 import type { Snowflake } from 'discord-api-types/globals';
-import type {
-	APIChannelMention,
-	APIAttachment,
-	APIEmbed,
-	APIReaction,
-	MessageType,
+import {
 	APIActionRowComponent,
+	APIApplication,
+	APIAttachment,
 	APIChannel,
+	APIChannelMention,
+	APIEmbed,
+	APIMessage,
 	APIMessageActionRowComponent,
 	APIMessageActivity,
+	APIMessageInteraction,
 	APIMessageReference,
+	APIReaction,
 	APIStickerItem,
 	MessageFlags,
-	APIMessage,
-	APIApplication,
-	APIMessageInteraction,
+	MessageType,
+	RESTPostAPIChannelMessageJSONBody,
+	Routes,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { Base } from './Base';
@@ -191,5 +193,15 @@ export class Message extends Base {
 		this.thread = raw.thread;
 		this.components = raw.components ?? [];
 		this.stickerItems = raw.sticker_items ?? [];
+	}
+
+	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>) {
+		return await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, null>(Routes.channelMessages(this.channelId), {
+			...payload,
+			message_reference: {
+				message_id: this.id,
+				channel_id: this.channelId,
+			},
+		});
 	}
 }

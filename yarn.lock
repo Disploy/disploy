@@ -1909,6 +1909,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@disploy/example@workspace:apps/example"
   dependencies:
+    "@disploy/magic": "workspace:^"
+    "@types/node": ^18.11.3
+    discord-api-types: ^0.37.20
+    disploy: "workspace:^"
+    eslint: 7.32.0
+    eslint-config-custom: "workspace:^"
+    rimraf: ^3.0.2
+    tsconfig: "workspace:^"
+    typescript: ^4.5.2
+  languageName: unknown
+  linkType: soft
+
+"@disploy/framework-example@workspace:apps/framework-example":
+  version: 0.0.0-use.local
+  resolution: "@disploy/framework-example@workspace:apps/framework-example"
+  dependencies:
     "@types/node": ^18.11.3
     discord-api-types: ^0.37.20
     disploy: "workspace:^"
@@ -1920,11 +1936,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@disploy/magic@workspace:packages/magic":
+"@disploy/magic@workspace:^, @disploy/magic@workspace:packages/magic":
   version: 0.0.0-use.local
   resolution: "@disploy/magic@workspace:packages/magic"
   dependencies:
     "@discordjs/ws": ^0.5.0
+    "@favware/cliff-jumper": ^1.8.8
     "@types/node": ^17.0.12
     discord-api-types: ^0.37.20
     disploy: "workspace:^"
