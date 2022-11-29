@@ -1,11 +1,13 @@
 import type { GatewayDispatchEvents, GatewayDispatchPayload } from 'discord-api-types/v10';
-import type { App, Guild, Message } from 'disploy';
+import type { App, DiscordChannel, Guild, Message } from 'disploy';
 import type { Gateway } from './Gateway';
 
 export interface GatewayEvents {
+	raw: [unknown];
+
 	messageCreate: [Message];
 	guildCreate: [Guild];
-	raw: [unknown];
+	channelCreate: [DiscordChannel];
 }
 
 export enum GatewayStatus {
