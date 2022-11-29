@@ -1,20 +1,23 @@
 import type { Snowflake } from 'discord-api-types/globals';
-import type {
-	APIChannelMention,
-	APIAttachment,
-	APIEmbed,
-	APIReaction,
-	MessageType,
+import {
 	APIActionRowComponent,
+	APIApplication,
+	APIAttachment,
 	APIChannel,
+	APIChannelMention,
+	APIEmbed,
+	APIMessage,
 	APIMessageActionRowComponent,
 	APIMessageActivity,
+	APIMessageInteraction,
 	APIMessageReference,
+	APIReaction,
 	APIStickerItem,
 	MessageFlags,
-	APIMessage,
-	APIApplication,
-	APIMessageInteraction,
+	MessageType,
+	RESTPatchAPIChannelMessageJSONBody,
+	RESTPostAPIChannelMessageJSONBody,
+	Routes,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { Base } from './Base';
@@ -44,12 +47,12 @@ export class Message extends Base {
 	/**
 	 * The timestamp of when the message was sent.
 	 */
-	public readonly timestamp: string;
+	public readonly timestamp: number;
 
 	/**
 	 * The timestamp of when the message was last edited.
 	 */
-	public readonly editedTimestamp: string | null;
+	public readonly editedTimestamp: number | null;
 
 	/**
 	 * Whether the message is a TTS message.
@@ -167,8 +170,8 @@ export class Message extends Base {
 		this.content = raw.content;
 		this.channelId = raw.channel_id;
 		this.author = new User(this.app, raw.author);
-		this.timestamp = raw.timestamp;
-		this.editedTimestamp = raw.edited_timestamp;
+		this.timestamp = new Date(raw.timestamp).getTime();
+		this.editedTimestamp = raw.edited_timestamp ? new Date(raw.edited_timestamp).getTime() : null;
 		this.tts = raw.tts;
 		this.mentionEveryone = raw.mention_everyone;
 		this.mentions = raw.mentions.map((user) => new User(this.app, user));
@@ -191,5 +194,32 @@ export class Message extends Base {
 		this.thread = raw.thread;
 		this.components = raw.components ?? [];
 		this.stickerItems = raw.sticker_items ?? [];
+	}
+
+	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>) {
+		return new Message(
+			this.app,
+			await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(Routes.channelMessages(this.channelId), {
+				...payload,
+				message_reference: {
+					message_id: this.id,
+					channel_id: this.channelId,
+				},
+			}),
+		);
+	}
+
+	public async delete() {
+		return this.app.rest.delete(Routes.channelMessage(this.channelId, this.id));
+	}
+
+	public async edit(payload: RESTPatchAPIChannelMessageJSONBody) {
+		return new Message(
+			this.app,
+			await this.app.rest.patch<RESTPatchAPIChannelMessageJSONBody, APIMessage>(
+				Routes.channelMessage(this.channelId, this.id),
+				payload,
+			),
+		);
 	}
 }
