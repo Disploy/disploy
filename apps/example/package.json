@@ -21,7 +21,7 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"start": "node ./dist/index.js",
-		"type-check": "tsc --noEmit && cd cli && tsc --noEmit",
+		"type-check": "tsc --noEmit",
 		"lint": "TIMING=1 eslint src/**/*.ts* --fix"
 	},
 	"dependencies": {
