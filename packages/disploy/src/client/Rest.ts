@@ -17,8 +17,6 @@ export class Rest {
 	}
 
 	private async _request<T>(method: string, path: string, body?: any): Promise<T> {
-		console.log(`[REST] ${method} ${path}`);
-
 		const res = await fetch(`${this._apiRoot}${path}`, {
 			method,
 			headers: {
