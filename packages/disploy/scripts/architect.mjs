@@ -28,7 +28,7 @@ yargs(hideBin(process.argv))
 			watch && startWatching();
 
 			try {
-				await run(`yarn tsup ${watch ? '--watch' : ''}`);
+				await run(`yarn tsup${watch ? ' --watch' : ''}`);
 			} catch (e) {
 				process.exit(1);
 			}
