@@ -1,5 +1,5 @@
 import type { GatewayDispatchEvents, GatewayDispatchPayload } from 'discord-api-types/v10';
-import type { App, DiscordChannel, Guild, GuildMember, Message } from 'disploy';
+import type { App, DiscordChannel, Guild, GuildMember, Message, PartialGuildMember } from 'disploy';
 import type { Gateway } from './Gateway';
 
 export interface GatewayEvents {
@@ -12,6 +12,7 @@ export interface GatewayEvents {
 	// TODO: Implement some sort of caching so that we can emit the guild before deletion
 	guildDelete: [string];
 	guildMemberAdd: [GuildMember];
+	guildMemberRemove: [PartialGuildMember];
 }
 
 export enum GatewayStatus {

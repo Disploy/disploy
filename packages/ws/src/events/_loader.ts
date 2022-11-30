@@ -7,6 +7,7 @@ import { ChannelDelete } from './ChannelDelete';
 import { GuildCreate } from './GuildCreate';
 import { GuildDelete } from './GuildDelete';
 import { GuildMemberAdd } from './GuildMemberAdd';
+import { GuildMemberRemove } from './GuildMemberRemove';
 import { MessageCreate } from './MessageCreate';
 
 const Events: InternalEventHandler<any>[] = [
@@ -16,6 +17,7 @@ const Events: InternalEventHandler<any>[] = [
 	ChannelDelete,
 	GuildDelete,
 	GuildMemberAdd,
+	GuildMemberRemove,
 ];
 
 export default function (gateway: Gateway) {

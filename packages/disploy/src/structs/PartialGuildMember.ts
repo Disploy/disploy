@@ -1,4 +1,9 @@
-import type { APIGuildMember, APIInteractionDataResolvedGuildMember, Snowflake } from 'discord-api-types/v10';
+import type {
+	APIGuildMember,
+	APIInteractionDataResolvedGuildMember,
+	GatewayGuildMemberRemoveDispatchData,
+	Snowflake,
+} from 'discord-api-types/v10';
 import type { App } from '../client';
 import { Base } from './Base';
 
@@ -38,14 +43,18 @@ export class PartialGuildMember extends Base {
 	 */
 	public communicationDisabledUntil!: boolean | null;
 
-	public constructor(app: App, raw: APIGuildMember | APIInteractionDataResolvedGuildMember) {
+	public constructor(
+		app: App,
+		raw: APIGuildMember | APIInteractionDataResolvedGuildMember | GatewayGuildMemberRemoveDispatchData,
+	) {
 		super(app);
-		this.nickname = raw.nick ?? null;
-		this.avatar = raw.avatar ?? null;
-		this.roles = raw.roles;
-		this.joinedAt = raw.joined_at;
-		this.premiumSince = raw.premium_since ?? null;
-		this.pending = raw.pending ?? null;
-		this.communicationDisabledUntil = Boolean(raw.communication_disabled_until) ?? null;
+		this.nickname = 'nick' in raw ? raw.nick ?? null : null;
+		this.avatar = 'avatar' in raw ? raw.avatar ?? null : null;
+		this.roles = 'roles' in raw ? raw.roles : [];
+		this.joinedAt = 'joined_at' in raw ? raw.joined_at : '';
+		this.premiumSince = 'premium_since' in raw ? raw.premium_since ?? null : null;
+		this.pending = 'pending' in raw ? raw.pending ?? null : null;
+		this.communicationDisabledUntil =
+			'communication_disabled_until' in raw ? Boolean(raw.communication_disabled_until) ?? null : null;
 	}
 }
