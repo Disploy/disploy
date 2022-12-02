@@ -16,6 +16,8 @@ Next you will need to make the interaction server available to Discord. You can 
 ngrok http 3000
 ```
 
+Set the `INTERACTIONS ENDPOINT URL` to https://xxxx-xx-xxx-xxx-xx.ngrok.io/interaction in the Discord Developer Portal.
+
 ### Required environment variables
 
 - `DISCORD_CLIENT_ID`: The Discord application client ID
