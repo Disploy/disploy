@@ -6245,6 +6245,7 @@ __metadata:
     eventemitter3: ^4.0.7
     express: ^4.18.2
     glob: ^8.0.3
+    import-meta-resolve: ^2.2.0
     inquirer: ^9.1.4
     next: ^12.3.1
     ngrok: ^4.3.3
@@ -8919,6 +8920,13 @@ eslint-config-turbo@latest:
   version: 2.1.0
   resolution: "import-lazy@npm:2.1.0"
   checksum: 05294f3b9dd4971d3a996f0d2f176410fb6745d491d6e73376429189f5c1c3d290548116b2960a7cf3e89c20cdf11431739d1d2d8c54b84061980795010e803a
+  languageName: node
+  linkType: hard
+
+"import-meta-resolve@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "import-meta-resolve@npm:2.2.0"
+  checksum: 35a012c07bdaaed907ad150021b47a4bd8b2c77c88f02a2c5a15a5cb5c146072a94b6633cc528eaccf187bca12196c0fb2ff44a54b3b2a03bcf200511b3f1e50
   languageName: node
   linkType: hard
 

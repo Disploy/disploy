@@ -1,4 +1,5 @@
 import * as color from 'colorette';
+import { resolve } from 'import-meta-resolve';
 import * as ngrok from 'ngrok';
 import { watch } from 'node:fs';
 import path from 'node:path';
@@ -59,7 +60,7 @@ export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean }>
 					entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 				});
 
-				const app = await import(await import.meta.resolve!(path.join(process.cwd(), entry)));
+				const app = await import(await resolve(path.join(process.cwd(), entry), import.meta.url));
 
 				setApp(app.default, {
 					clientId,
