@@ -7,28 +7,31 @@ import { PartialGuildMember } from './PartialGuildMember';
 import { User } from './User';
 
 export class ChatInputInteractionResolvedOptions extends Base {
+	/**
+	* The interaction the resolved options belong to.
+	*/
 	public interaction: ChatInputInteraction;
+	
+	/**
+	* The resolved members.
+	*/
 	public members: Map<Snowflake, PartialGuildMember>;
+	
+	/**
+	* The resolved users.
+	*/
 	public users: Map<Snowflake, User>;
+	
+	/**
+	* The resolved channels.
+	*/
 	public channels: Map<Snowflake, BaseChannel>;
+	
 	constructor(interaction: ChatInputInteraction) {
 		super(interaction.app);
-		/**
-		 * The interaction the resolved options belong to.
-		 */
 		this.interaction = interaction;
-
-		/**
-		 * The resolved members.
-		 */
 		this.members = new Map();
-		/**
-		 * The resolved users.
-		 */
 		this.users = new Map();
-		/**
-		 * The resolved channels.
-		 */
 		this.channels = new Map();
 		if (!interaction.raw.data.resolved) return;
 		const { users, members, channels } = interaction.raw.data.resolved;
