@@ -1,4 +1,5 @@
 import { spawn } from 'node:child_process';
+import * as fs from 'node:fs';
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 import { copyAssets, startWatching } from './copyAssets.mjs';
@@ -28,6 +29,11 @@ yargs(hideBin(process.argv))
 			watch && startWatching();
 
 			try {
+				if (!fs.existsSync('node_modules/.bin/tsup')) {
+					console.log('Could not find tsup. Re-linking...');
+					await run('yarn');
+				}
+
 				await run(`yarn tsup${watch ? ' --watch' : ''}`);
 			} catch (e) {
 				process.exit(1);

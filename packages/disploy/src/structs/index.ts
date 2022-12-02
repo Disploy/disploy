@@ -13,6 +13,7 @@ export * from './managers';
 export * from './Message';
 export * from './MessageComponentInteraction';
 export * from './MessageContextMenuInteraction';
+export * from './PartialChannel';
 export * from './PartialGuildMember';
 export * from './User';
 export * from './UserContextMenuInteraction';
