@@ -16,10 +16,12 @@ import type { PartialGuildMember } from './PartialGuildMember';
 import type { User } from './User';
 
 export class ChatInputInteractionOptions extends Base {
-	public resolved: ChatInputInteractionResolvedOptions;
+	private resolved: ChatInputInteractionResolvedOptions;
+
 	public constructor(app: App, private interaction: ChatInputInteraction) {
 		super(app);
-		this.resolved = new ChatInputInteractionResolvedOptions(this.interaction)
+		console.log(interaction.raw.data);
+		this.resolved = new ChatInputInteractionResolvedOptions(this.interaction);
 	}
 
 	private getValue<T extends APIApplicationCommandInteractionDataOption>(key: string, nullable: boolean) {
@@ -52,7 +54,7 @@ export class ChatInputInteractionOptions extends Base {
 	public getInteger(key: string, nullable = false): number | undefined {
 		return this.getValue<APIApplicationCommandInteractionDataIntegerOption>(key, nullable)?.value;
 	}
-	
+
 	public getBoolean(key: string): boolean;
 	public getBoolean(key: string, nullable: false): boolean;
 	public getBoolean(key: string, nullable: boolean): boolean | undefined;
@@ -64,20 +66,26 @@ export class ChatInputInteractionOptions extends Base {
 	public getUser(key: string, nullable: false): User;
 	public getUser(key: string, nullable: boolean): User | undefined;
 	public getUser(key: string, nullable = false): User | undefined {
-		return this.resolved.users.get(this.getValue<APIApplicationCommandInteractionDataUserOption>(key, nullable)?.value!)!
+		return this.resolved.users.get(
+			this.getValue<APIApplicationCommandInteractionDataUserOption>(key, nullable)?.value!,
+		)!;
 	}
 
 	public getMember(key: string): PartialGuildMember;
 	public getMember(key: string, nullable: false): PartialGuildMember;
 	public getMember(key: string, nullable: boolean): PartialGuildMember | undefined;
 	public getMember(key: string, nullable = false): PartialGuildMember | undefined {
-		return this.resolved.members.get(this.getValue<APIApplicationCommandInteractionDataUserOption>(key, nullable)?.value!)!
+		return this.resolved.members.get(
+			this.getValue<APIApplicationCommandInteractionDataUserOption>(key, nullable)?.value!,
+		)!;
 	}
 
 	public getChannel(key: string): BaseChannel;
 	public getChannel(key: string, nullable: false): BaseChannel;
 	public getChannel(key: string, nullable: boolean): BaseChannel | undefined;
 	public getChannel(key: string, nullable = false): BaseChannel | undefined {
-		return this.resolved.channels.get(this.getValue<APIApplicationCommandInteractionDataChannelOption>(key, nullable)?.value!)!
+		return this.resolved.channels.get(
+			this.getValue<APIApplicationCommandInteractionDataChannelOption>(key, nullable)?.value!,
+		)!;
 	}
 }
