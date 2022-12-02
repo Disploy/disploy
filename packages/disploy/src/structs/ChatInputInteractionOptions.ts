@@ -20,7 +20,6 @@ export class ChatInputInteractionOptions extends Base {
 
 	public constructor(app: App, private interaction: ChatInputInteraction) {
 		super(app);
-		console.log(interaction.raw.data);
 		this.resolved = new ChatInputInteractionResolvedOptions(this.interaction);
 	}
 
