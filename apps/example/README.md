@@ -10,6 +10,12 @@ You should be already running `yarn dev` in the root of the repository (live tra
 yarn workspace @disploy/example start --sync # Sync will register commands with Discord, you should only need to add this flag once, or when you add new commands
 ```
 
+Next you will need to make the interaction server available to Discord. You can do this by using a service like [ngrok](https://ngrok.com/) or [Cloudflare tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/).
+
+```bash
+ngrok http 3000
+```
+
 ### Required environment variables
 
 - `DISCORD_CLIENT_ID`: The Discord application client ID
