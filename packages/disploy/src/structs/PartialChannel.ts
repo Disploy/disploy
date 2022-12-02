@@ -8,7 +8,7 @@ export class PartialChannel extends ChannelMethods {
 	/**
 	 * Timestamp of when the channel was created.
 	 */
-	public createdTimestamp!: number;
+	public createdTimestamp: number;
 
 	/**
 	 * The name of the channel.
