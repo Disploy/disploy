@@ -8,8 +8,8 @@ export default {
 	options: [
 		{
 			name: 'channel',
-			description: 'the channel id to fetch',
-			type: ApplicationCommandOptionType.String,
+			description: 'the channel to fetch',
+			type: ApplicationCommandOptionType.Channel,
 			required: true,
 		},
 	],
@@ -18,10 +18,9 @@ export default {
 		interaction.deferReply();
 
 		try {
-			const channelId = interaction.options.getString('channel');
-			const channel = await interaction.app.channels.fetch(channelId);
+			const channel = interaction.options.getChannel('channel');
 
-			let message = `${channel.name} is `;
+			let message = `${channel} is `;
 
 			switch (channel.type) {
 				case ChannelType.GuildVoice:
