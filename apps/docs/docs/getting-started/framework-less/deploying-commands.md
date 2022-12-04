@@ -2,9 +2,6 @@
 sidebar_position: 5
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Deploying commands
 
 We can call `syncCommands` on our `CommandManager` attached to our `App` instance to deploy our commands to Discord.

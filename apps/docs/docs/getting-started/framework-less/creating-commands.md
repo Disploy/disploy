@@ -2,9 +2,6 @@
 sidebar_position: 4
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 # Creating commands
 
 In the previous page, we mentioned importing `commands` from `./commands/commands.mjs` and recursively loading them. In this page, we'll go over how to actually create that file.
