@@ -1,2 +1,3 @@
 # typedoc
 Documentation/**/*
+!Documentation/_category_.json

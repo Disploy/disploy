@@ -1,13 +1,13 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
+const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 	title: 'Disploy',
-	tagline: 'Disploy is a whole ecosystem of tools to help you create your next Discord HTTP Interaction bot.',
+	tagline: 'Flexible router for building HTTP interaction-based Discord bots with ease.',
 	url: 'https://disploy.dev',
 	baseUrl: '/',
 	onBrokenLinks: 'warn',
@@ -44,6 +44,16 @@ const config = {
 	],
 
 	plugins: [
+		async function tailwind(context, options) {
+			return {
+				name: 'docusaurus-tailwindcss',
+				configurePostCss(postcssOptions) {
+					postcssOptions.plugins.push(require('tailwindcss'));
+					postcssOptions.plugins.push(require('autoprefixer'));
+					return postcssOptions;
+				},
+			};
+		},
 		[
 			'docusaurus-plugin-typedoc',
 
@@ -74,7 +84,7 @@ const config = {
 				items: [
 					{
 						type: 'doc',
-						docId: 'Guide/getting-started/introduction',
+						docId: 'introduction',
 						position: 'left',
 						label: 'Guides',
 					},
@@ -86,7 +96,6 @@ const config = {
 				],
 			},
 			footer: {
-				style: 'dark',
 				links: [
 					{
 						title: 'Community',
@@ -102,7 +111,7 @@ const config = {
 						items: [
 							{
 								label: 'Guides',
-								to: '/docs/Guide/getting-started/introduction',
+								to: '/docs/introduction',
 							},
 							{
 								label: 'GitHub',
