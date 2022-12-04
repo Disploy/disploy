@@ -7,26 +7,26 @@ export default {
 	options: [
 		{
 			name: 'member',
-			description: 'the user id to fetch as a member',
-			type: ApplicationCommandOptionType.String,
+			description: 'the user to fetch as a member',
+			type: ApplicationCommandOptionType.User,
 			required: true,
 		},
 	],
 
 	async run(interaction: ChatInputInteraction) {
 		interaction.deferReply();
-
-		try {
-			const userId = interaction.options.getString('member');
-			const guild = await interaction.guild?.fetch();
-
-			if (!guild) {
+		if (!interaction.guild) {
 				return void interaction.editReply({
 					content: 'run me in a guild!',
 				});
 			}
-
-			const member = await guild.members.fetch(userId);
+			const partialMember = interaction.options.getUser('member');
+			const member = await (await interaction.guild.fetch()).members.fetch(partialMember.id).catch(() => null)
+			if (!member) {
+				return void interaction.editReply({
+					content: 'that user is not in this guild!',
+				});
+			}
 
 			return void interaction.editReply({
 				content: [
@@ -41,11 +41,5 @@ export default {
 					`**Joined At:** ${member.joinedAt}`,
 				].join('\n'),
 			});
-		} catch (error) {
-			const err = error as Error;
-			return void interaction.editReply({
-				content: ['```js', err.stack ?? err.message, '```'].join('\n'),
-			});
-		}
 	},
 } satisfies Command;

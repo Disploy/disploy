@@ -1,4 +1,4 @@
-# `@disploy/example`
+# `@disploy/framework-example`
 
 This is an example Discord bot made with Disploy to test the library.
 

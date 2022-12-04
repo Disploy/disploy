@@ -1,3 +1,4 @@
+import { resolve } from 'import-meta-resolve';
 import path from 'node:path';
 import ora from 'ora';
 import type { Argv, CommandModule } from 'yargs';
@@ -35,7 +36,7 @@ export const TestServerCommand: CommandModule = {
 			entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 		});
 
-		const app = await import(await import.meta.resolve!(path.join(process.cwd(), entry)));
+		const app = await import(await resolve(path.join(process.cwd(), entry), import.meta.url));
 
 		setApp(
 			app.default,

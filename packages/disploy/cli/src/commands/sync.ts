@@ -1,3 +1,4 @@
+import { resolve } from 'import-meta-resolve';
 import inquirer from 'inquirer';
 import path from 'node:path';
 import ora from 'ora';
@@ -43,7 +44,7 @@ export const SyncCommand: CommandModule = {
 		});
 
 		const { app, commands }: DisployStandaloneBundle = (
-			await import(await import.meta.resolve!(path.join(process.cwd(), entry)))
+			await import(await resolve(path.join(process.cwd(), entry), import.meta.url))
 		).default;
 
 		app.start({
