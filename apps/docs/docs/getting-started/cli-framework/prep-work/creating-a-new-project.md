@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # Creating a new project
 
+## Start by running the command:
+
 ```bash
 npx create-disploy-app@latest
 ```
