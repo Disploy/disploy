@@ -4,12 +4,6 @@ sidebar_position: 2
 
 # Creating a new project
 
-:::warning
-
-`create-disploy-app` is not [yet implemented](https://github.com/Disploy/disploy/issues/50).
-
-:::
-
 ```bash
 npx create-disploy-app@latest
 # or
