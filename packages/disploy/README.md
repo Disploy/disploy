@@ -162,7 +162,7 @@ export default {
 
 ```ts
 // Example message component handler - handlers/ping.ts
-import type { ButtonHandler } from "disploy";
+import type { ButtonHandler } from 'disploy';
 
 export default {
 	customId: 'ping-:userId',

@@ -1,7 +1,6 @@
 import { ApplicationCommandOptionType, ChannelType } from 'discord-api-types/v10';
 import type { Command } from 'disploy';
 
-
 export default {
 	name: 'channel',
 	description: 'fetch a channel!',
@@ -13,7 +12,7 @@ export default {
 			required: true,
 		},
 	],
-	
+
 	async run(interaction) {
 		interaction.deferReply();
 
@@ -40,6 +39,5 @@ export default {
 				content: ['```js', err.stack ?? err.message, '```'].join('\n'),
 			});
 		}
-	
-	}
+	},
 } satisfies Command;

@@ -38,10 +38,7 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
 	return (
-		<Layout
-			title="Disploy"
-			description="Flexible router for building HTTP interaction-based Discord bots with ease."
-		>
+		<Layout title="Disploy" description="Flexible router for building HTTP interaction-based Discord bots with ease.">
 			<HomepageHeader />
 		</Layout>
 	);

@@ -22,9 +22,8 @@ export default {
 	async run(interaction) {
 		return void interaction.reply({
 			content: 'hello world!!!!!!!!',
-		})
-	}
-
+		});
+	},
 } satisfies Command;
 ```
 
@@ -56,9 +55,8 @@ export default {
 		return void interaction.editReply({
 			content: `Just wanted to say hey!`,
 		});
-	}
+	},
 } satisfies Command;
-
 ```
 
 </details>
