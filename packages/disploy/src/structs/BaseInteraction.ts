@@ -15,7 +15,7 @@ import { DiscordAPIUtils, SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { Guild } from './Guild';
 import { GuildMember } from './GuildMember';
-import { Message } from './Message';
+import type { Message } from './Message';
 import { ToBeFetched } from './ToBeFetched';
 import type { User } from './User';
 
@@ -107,8 +107,7 @@ export class BaseInteraction extends Base {
 	 * @returns The edited message.
 	 */
 	public async editReply(payload: RESTPatchAPIWebhookWithTokenMessageJSONBody) {
-		return new Message(
-			this.app,
+		return this.app.messages.constructMessage(
 			await this.app.rest.patch<RESTPatchAPIWebhookWithTokenMessageJSONBody, RESTPatchAPIWebhookWithTokenMessageResult>(
 				Routes.webhookMessage(this.app.clientId, this.token),
 				{
@@ -123,8 +122,7 @@ export class BaseInteraction extends Base {
 	 * @returns The message that was sent by the interaction.
 	 */
 	public async fetchReply() {
-		return new Message(
-			this.app,
+		return this.app.messages.constructMessage(
 			await this.app.rest.get<RESTGetAPIWebhookWithTokenMessageResult>(
 				Routes.webhookMessage(this.app.clientId, this.token),
 			),

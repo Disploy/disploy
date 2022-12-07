@@ -3,7 +3,7 @@ import { Routes } from 'discord-api-types/v10';
 import { Command, CommandManager } from '../commands';
 import { MessageComponentHandler, MessageComponentManager } from '../message-components';
 import { Router } from '../router';
-import { ChannelManager, Guild, StructureManager, User } from '../structs';
+import { ChannelManager, Guild, MessageManager, StructureManager, User } from '../structs';
 import { ToBeFetched } from '../structs/ToBeFetched';
 import { Logger } from '../utils';
 import type { AppOptions } from './AppOptions';
@@ -23,6 +23,7 @@ export class App {
 	public users!: StructureManager<User>;
 	public guilds!: StructureManager<Guild>;
 	public channels!: ChannelManager;
+	public messages!: MessageManager;
 
 	// Misc
 	public user!: ToBeFetched<User>;
@@ -83,6 +84,7 @@ export class App {
 		this.guilds = new StructureManager(this, Guild, (id) => this.rest.get(Routes.guild(id)));
 		this.users = new StructureManager(this, User, (id) => this.rest.get(Routes.user(id)));
 		this.channels = new ChannelManager(this);
+		this.messages = new MessageManager(this);
 
 		// Misc
 		this.user = new ToBeFetched(this, User, this.clientId, (id) => this.rest.get(Routes.user(id)));

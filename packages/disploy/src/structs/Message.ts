@@ -189,7 +189,9 @@ export class Message extends Base {
 		this.applicationId = raw.application_id;
 		this.messageReference = raw.message_reference;
 		this.flags = raw.flags;
-		this.referencedMessage = raw.referenced_message ? new Message(this.app, raw.referenced_message) : undefined;
+		this.referencedMessage = raw.referenced_message
+			? this.app.messages.constructMessage(raw.referenced_message)
+			: undefined;
 		this.interaction = raw.interaction;
 		this.thread = raw.thread;
 		this.components = raw.components ?? [];
@@ -197,8 +199,7 @@ export class Message extends Base {
 	}
 
 	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>) {
-		return new Message(
-			this.app,
+		return this.app.messages.constructMessage(
 			await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(Routes.channelMessages(this.channelId), {
 				...payload,
 				message_reference: {
@@ -214,8 +215,7 @@ export class Message extends Base {
 	}
 
 	public async edit(payload: RESTPatchAPIChannelMessageJSONBody) {
-		return new Message(
-			this.app,
+		return this.app.messages.constructMessage(
 			await this.app.rest.patch<RESTPatchAPIChannelMessageJSONBody, APIMessage>(
 				Routes.channelMessage(this.channelId, this.id),
 				payload,

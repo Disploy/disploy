@@ -1,7 +1,7 @@
 import type { APIMessageApplicationCommandInteraction } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { ContextMenuInteraction } from './ContextMenuCommand';
-import { Message } from './Message';
+import type { Message } from './Message';
 
 export class MessageContextMenuInteraction extends ContextMenuInteraction {
 	/**
@@ -13,6 +13,6 @@ export class MessageContextMenuInteraction extends ContextMenuInteraction {
 		super(app, raw);
 
 		const resolvedMessage = raw.data.resolved.messages[this.targetId]!;
-		this.targetMessage = new Message(app, resolvedMessage);
+		this.targetMessage = app.messages.constructMessage(resolvedMessage);
 	}
 }
