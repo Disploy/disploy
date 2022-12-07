@@ -1,4 +1,4 @@
-import type { ButtonHandler } from "disploy";
+import type { ButtonHandler } from 'disploy';
 
 export default {
 	customId: 'ping-:userId',
@@ -9,6 +9,9 @@ export default {
 
 		return void interaction.reply({
 			content: `hello world!!!!!!!! (clicked by ${clicker}) [made by ${originalUser}]`,
+			allowed_mentions: {
+				users: [],
+			},
 		});
 	},
 } satisfies ButtonHandler;
