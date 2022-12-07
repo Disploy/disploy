@@ -198,7 +198,12 @@ export class Message extends Base {
 		this.stickerItems = raw.sticker_items ?? [];
 	}
 
-	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>) {
+	/**
+	 * Replies to the message.
+	 * @param payload The payload to send.
+	 * @returns The created message.
+	 */
+	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>): Promise<Message> {
 		return this.app.messages.constructMessage(
 			await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(Routes.channelMessages(this.channelId), {
 				...payload,
@@ -210,11 +215,21 @@ export class Message extends Base {
 		);
 	}
 
-	public async delete() {
-		return this.app.rest.delete(Routes.channelMessage(this.channelId, this.id));
+	/**
+	 * Deletes the message.
+	 * @throws If the message is not deletable by the logged in application.
+	 */
+	public async delete(): Promise<null> {
+		await this.app.rest.delete(Routes.channelMessage(this.channelId, this.id));
+		return null;
 	}
 
-	public async edit(payload: RESTPatchAPIChannelMessageJSONBody) {
+	/**
+	 * Edits the message.
+	 * @param payload The payload to patch.
+	 * @returns The edited message.
+	 */
+	public async edit(payload: RESTPatchAPIChannelMessageJSONBody): Promise<Message> {
 		return this.app.messages.constructMessage(
 			await this.app.rest.patch<RESTPatchAPIChannelMessageJSONBody, APIMessage>(
 				Routes.channelMessage(this.channelId, this.id),
