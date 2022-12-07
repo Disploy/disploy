@@ -1,8 +1,6 @@
-import {
+import type {
 	APIInteractionDataResolvedGuildMember,
-	APIInteractionResponseCallbackData,
 	APIUserApplicationCommandInteraction,
-	InteractionResponseType,
 	Snowflake,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
@@ -48,12 +46,5 @@ export class UserInteraction extends BaseInteraction {
 			  )
 			: null;
 		this.targetUser = new User(this.app, raw.data.resolved.users[raw.data.target_id]!);
-	}
-
-	public override reply(payload: APIInteractionResponseCallbackData) {
-		return void this.app.router.emit(`${this.id}-respond`, {
-			type: InteractionResponseType.ChannelMessageWithSource,
-			data: payload,
-		});
 	}
 }

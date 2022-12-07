@@ -3,6 +3,9 @@ import {
 	APIInteractionResponseCallbackData,
 	InteractionResponseType,
 	MessageFlags,
+	RESTGetAPIWebhookWithTokenMessageResult,
+	RESTPatchAPIWebhookWithTokenMessageJSONBody,
+	RESTPatchAPIWebhookWithTokenMessageResult,
 	Routes,
 	Snowflake,
 } from 'discord-api-types/v10';
@@ -12,6 +15,7 @@ import { DiscordAPIUtils, SnowflakeUtil } from '../utils';
 import { Base } from './Base';
 import { Guild } from './Guild';
 import { GuildMember } from './GuildMember';
+import { Message } from './Message';
 import { ToBeFetched } from './ToBeFetched';
 import type { User } from './User';
 
@@ -58,25 +62,72 @@ export class BaseInteraction extends Base {
 			: null;
 	}
 
-	public deferReply(ephemeral = false) {
-		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+	/**
+	 * Defers the reply to the interaction.
+	 * @param options The options to defer the reply with.
+	 */
+	public deferReply(options?: { ephemeral?: boolean; fetchReply?: true }): Promise<Message>;
+	public deferReply({ ephemeral = false, fetchReply = false } = {}): Promise<null | Message> {
+		this.app.router.emit(RouterEvents.Respond(this.id), {
 			type: InteractionResponseType.DeferredChannelMessageWithSource,
 			data: {
 				flags: ephemeral ? MessageFlags.Ephemeral : undefined,
 			},
 		});
+
+		if (fetchReply) {
+			return this.fetchReply();
+		}
+
+		return Promise.resolve(null);
 	}
 
-	public reply(payload: APIInteractionResponseCallbackData) {
-		return void this.app.router.emit(RouterEvents.Respond(this.id), {
+	/**
+	 * Send a reply to the interaction.
+	 * @param payload The payload to send the reply with.
+	 * @param fetchReply Whether to fetch the reply that was sent.
+	 */
+	public reply(payload: APIInteractionResponseCallbackData, fetchReply?: true): Promise<Message>;
+	public reply(payload: APIInteractionResponseCallbackData, fetchReply = false): Promise<null | Message> {
+		this.app.router.emit(RouterEvents.Respond(this.id), {
 			type: InteractionResponseType.ChannelMessageWithSource,
 			data: payload,
 		});
+
+		if (fetchReply) {
+			return this.fetchReply();
+		}
+
+		return Promise.resolve(null);
 	}
 
-	public async editReply(payload: APIInteractionResponseCallbackData) {
-		return await this.app.rest.patch(Routes.webhookMessage(this.app.clientId, this.token), {
-			...payload,
-		});
+	/**
+	 * Edit the reply that has been sent by the interaction.
+	 * @param payload The payload to edit the reply with.
+	 * @returns The edited message.
+	 */
+	public async editReply(payload: RESTPatchAPIWebhookWithTokenMessageJSONBody) {
+		return new Message(
+			this.app,
+			await this.app.rest.patch<RESTPatchAPIWebhookWithTokenMessageJSONBody, RESTPatchAPIWebhookWithTokenMessageResult>(
+				Routes.webhookMessage(this.app.clientId, this.token),
+				{
+					...payload,
+				},
+			),
+		);
+	}
+
+	/**
+	 * Fetch the message reply that has been sent by the interaction.
+	 * @returns The message that was sent by the interaction.
+	 */
+	public async fetchReply() {
+		return new Message(
+			this.app,
+			await this.app.rest.get<RESTGetAPIWebhookWithTokenMessageResult>(
+				Routes.webhookMessage(this.app.clientId, this.token),
+			),
+		);
 	}
 }
