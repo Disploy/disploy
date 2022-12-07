@@ -5,8 +5,10 @@ export default {
 	description: 'pong!',
 
 	async run(interaction) {
-		return void interaction.reply({
-			content: 'hello world!!!!!!!!',
+		const reply = await interaction.deferReply({ fetchReply: true });
+
+		return void interaction.editReply({
+			content: `ok (in ${reply.timestamp - interaction.createdTimestamp}ms)`,
 			components: [
 				{
 					type: 1,
@@ -22,14 +24,13 @@ export default {
 							label: 'i have no params',
 							style: 2,
 							emoji: {
-								name: "🫢"
+								name: '🫢',
 							},
 							custom_id: `ping`,
 						},
 					],
 				},
 			],
-		})
-	}
-
+		});
+	},
 } satisfies Command;
