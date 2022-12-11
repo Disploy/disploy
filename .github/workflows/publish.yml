@@ -21,6 +21,8 @@ jobs:
             folder: 'disploy'
           - package: '@disploy/ws'
             folder: 'ws'
+          - package: '@disploy/rest'
+            folder: 'rest'
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
