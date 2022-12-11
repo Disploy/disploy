@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { DefaultRestConfig } from './constants';
+import { DefaultRestConfig } from './Constants';
 import type { RestEvents } from './types';
 
 /**
