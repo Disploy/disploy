@@ -47,6 +47,6 @@ jobs:
       - name: Publish package
         run: |
           yarn workspace ${{ matrix.package }} release --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
-          cd packages/${{ matrix.folder }} && npm publish --tag dev || true
+          cd packages/${{ matrix.folder }} && yarn npm publish --tag dev || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
