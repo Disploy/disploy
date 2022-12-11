@@ -39,5 +39,8 @@
 		"@discordjs/ws": "^0.5.0",
 		"discord-api-types": "^0.37.21",
 		"eventemitter3": "^5.0.0"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }

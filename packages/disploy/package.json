@@ -72,5 +72,8 @@
 		"tweetnacl": "^1.0.3",
 		"yargs": "^17.6.2",
 		"zod": "^3.19.1"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
