@@ -6669,6 +6669,7 @@ __metadata:
     "@types/inquirer": ^9.0.3
     "@types/node": ^18.11.11
     "@types/yargs": ^17.0.16
+    chokidar: ^3.5.3
     colorette: ^2.0.19
     discord-api-types: ^0.37.21
     dotenv: ^16.0.3

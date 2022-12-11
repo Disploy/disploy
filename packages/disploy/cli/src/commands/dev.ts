@@ -1,7 +1,7 @@
+import chokidar from 'chokidar';
 import * as color from 'colorette';
 import { resolve } from 'import-meta-resolve';
 import * as ngrok from 'ngrok';
-import { watch } from 'node:fs';
 import path from 'node:path';
 import ora from 'ora';
 import type { Argv, CommandModule } from 'yargs';
@@ -47,7 +47,7 @@ export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean }>
 
 		const { clientId, publicKey, token } = await ProjectTools.resolveEnvironment();
 
-		const watcher = watch(root, { recursive: true });
+		const watcher = chokidar.watch(root);
 		let timeout: NodeJS.Timeout | null = null;
 
 		const devAction = async () => {

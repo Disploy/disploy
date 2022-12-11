@@ -55,6 +55,7 @@
 	},
 	"dependencies": {
 		"@disploy/rest": "workspace:^",
+		"chokidar": "^3.5.3",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.37.21",
 		"dotenv": "^16.0.3",
