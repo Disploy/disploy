@@ -1,0 +1,24 @@
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+commit_parsers = [
+    { message = "^feat(disploy)", group = "Features" },
+    { message = "^fix(disploy)", group = "Bug Fixes" },
+    { message = "^doc(disploy)", group = "Documentation" },
+    { message = "^perf(disploy)", group = "Performance" },
+    { message = "^refactor(disploy)", group = "Refactor" },
+    { message = "^style(disploy)", group = "Styling" },
+    { message = "^test(disploy)", group = "Testing" },
+]
+protect_breaking_commits = false
+filter_commits = false
+tag_pattern = "v[0-9]*"
+skip_tags = "v0.1.0-beta.1"
+ignore_tags = ""
+date_order = false
+sort_commits = "oldest"
+link_parsers = [
+    { pattern = "#(\\d+)", href = "https://github.com/Disploy/disploy/issues/$1" },
+]
+limit_commits = 42

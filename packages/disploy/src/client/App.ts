@@ -1,4 +1,5 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
+import { Rest } from '@disploy/rest';
 import { Routes } from 'discord-api-types/v10';
 import { Command, CommandManager } from '../commands';
 import { MessageComponentHandler, MessageComponentManager } from '../message-components';
@@ -7,7 +8,6 @@ import { ChannelManager, Guild, MessageManager, StructureManager, User } from '.
 import { ToBeFetched } from '../structs/ToBeFetched';
 import { Logger } from '../utils';
 import type { AppOptions } from './AppOptions';
-import { Rest } from './Rest';
 
 export class App {
 	public publicKey!: string | null;
@@ -31,7 +31,7 @@ export class App {
 	private _commandBuffer: Command[] = [];
 	private _handlerBuffer: MessageComponentHandler[] = [];
 
-	public constructor(options?: AppOptions) {
+	public constructor(private options?: AppOptions) {
 		this.logger = new Logger({
 			debug: options?.logger?.debug ? true : false,
 		});
@@ -77,7 +77,8 @@ export class App {
 		this.token = token;
 
 		// Base Managers
-		this.rest = new Rest({ token: this.token, logger: this.logger });
+		this.rest = new Rest({ token: this.token, ...this.options?.rest });
+		this.rest.on('debug', (message) => this.logger.debug(message));
 		this.router = new Router(this);
 
 		// Structure Managers

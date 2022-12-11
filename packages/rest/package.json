@@ -1,0 +1,39 @@
+{
+	"name": "@disploy/rest",
+	"version": "0.0.0",
+	"license": "Apache-2.0",
+	"main": "./dist/index.js",
+	"source": "./src/index.ts",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"files": [
+		"dist"
+	],
+	"contributors": [
+		"Tristan Camejo <contact@tristancamejo.com>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Disploy/disploy.git"
+	},
+	"homepage": "https://disploy.dev",
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"type-check": "tsc --noEmit",
+		"lint": "TIMING=1 eslint src/**/*.ts* --fix",
+		"release": "cliff-jumper"
+	},
+	"devDependencies": {
+		"@favware/cliff-jumper": "^1.9.0",
+		"@types/node": "^18.11.11",
+		"eslint": "8.29.0",
+		"eslint-config-custom": "workspace:^",
+		"tsconfig": "workspace:^",
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.3"
+	},
+	"dependencies": {
+		"eventemitter3": "^5.0.0"
+	}
+}

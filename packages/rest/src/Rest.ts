@@ -1,39 +1,52 @@
-import type { Logger } from '../utils';
+import EventEmitter from 'eventemitter3';
+import { DefaultRestConfig } from './constants';
+import type { RestEvents } from './types';
 
-export interface RestConfig {
+/**
+ * Required Configuration for the REST client.
+ */
+export interface RequiredRestConfig {
 	token: string;
-	apiRoot?: string;
-	cacheMatchers?: RegExp[];
-	logger?: Logger;
 }
 
-export class Rest {
-	private _token!: string;
-	private _apiRoot: string = 'https://discord.com/api/v10';
-	private _cacheMatchers: RegExp[] = [];
-	private _cache: Map<string, unknown> = new Map();
-	private logger: Logger | undefined;
+/**
+ * Optional Configuration for the REST client.
+ */
+export interface OptionalRestConfig {
+	apiRoot: string;
+	cacheMatchers: RegExp[];
+}
 
-	public constructor(config: RestConfig) {
-		this._token = config.token;
-		this._apiRoot = config.apiRoot || this._apiRoot;
-		this._cacheMatchers = config.cacheMatchers || [/^\/gateway\/bot$/];
-		this.logger = config.logger;
+export class Rest extends EventEmitter<RestEvents> {
+	private options: RequiredRestConfig & OptionalRestConfig;
+	private cache: Map<string, unknown> = new Map();
+
+	public constructor(config: RequiredRestConfig & Partial<OptionalRestConfig>) {
+		super();
+
+		this.options = {
+			...DefaultRestConfig,
+			...config,
+		};
+	}
+
+	private debug(msg: string) {
+		this.emit('debug', msg);
 	}
 
 	private async _request<T>(method: string, path: string, body?: any): Promise<T> {
 		const now = Date.now();
 
-		const res = await fetch(`${this._apiRoot}${path}`, {
+		const res = await fetch(`${this.options.apiRoot}${path}`, {
 			method,
 			headers: {
-				Authorization: `Bot ${this._token}`,
+				Authorization: `Bot ${this.options.token}`,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(body),
 		});
 
-		this.logger?.debug(`[REST] ${method} ${path} (${res.status}) ${Date.now() - now}ms`);
+		this.debug(`[REST] ${method} ${path} (${res.status}) ${Date.now() - now}ms`);
 
 		if (res.status >= 400) {
 			throw new Error(`${method} ${path} returned ${res.status} ${res.statusText}`);
@@ -51,13 +64,13 @@ export class Rest {
 	private async request<T>(...args: Parameters<Rest['_request']>): Promise<T> {
 		const key = args.join(' ');
 
-		if (this._cacheMatchers.some((matcher) => matcher.test(args[1]))) {
-			if (this._cache.has(key)) {
-				return this._cache.get(key) as T;
+		if (this.options.cacheMatchers.some((matcher) => matcher.test(args[1]))) {
+			if (this.cache.has(key)) {
+				return this.cache.get(key) as T;
 			}
 
 			const res = await this._request<T>(...args);
-			this._cache.set(key, res);
+			this.cache.set(key, res);
 			return res;
 		}
 

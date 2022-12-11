@@ -2062,6 +2062,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@disploy/rest@workspace:^, @disploy/rest@workspace:packages/rest":
+  version: 0.0.0-use.local
+  resolution: "@disploy/rest@workspace:packages/rest"
+  dependencies:
+    "@favware/cliff-jumper": ^1.9.0
+    "@types/node": ^18.11.11
+    eslint: 8.29.0
+    eslint-config-custom: "workspace:^"
+    eventemitter3: ^5.0.0
+    tsconfig: "workspace:^"
+    tsup: ^6.5.0
+    typescript: ^4.9.3
+  languageName: unknown
+  linkType: soft
+
 "@disploy/ws@workspace:^, @disploy/ws@workspace:packages/ws":
   version: 0.0.0-use.local
   resolution: "@disploy/ws@workspace:packages/ws"
@@ -6647,6 +6662,7 @@ __metadata:
   resolution: "disploy@workspace:packages/disploy"
   dependencies:
     "@babel/core": ^7.20.5
+    "@disploy/rest": "workspace:^"
     "@favware/cliff-jumper": ^1.9.0
     "@types/express": ^4.17.14
     "@types/glob": ^8.0.0

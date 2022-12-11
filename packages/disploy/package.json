@@ -54,6 +54,7 @@
 		"vitest": "^0.25.4"
 	},
 	"dependencies": {
+		"@disploy/rest": "workspace:^",
 		"colorette": "^2.0.19",
 		"discord-api-types": "^0.37.21",
 		"dotenv": "^16.0.3",
