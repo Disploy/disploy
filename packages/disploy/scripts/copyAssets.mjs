@@ -1,4 +1,5 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync, watch } from 'fs';
+import chokidar from 'chokidar';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, rmdirSync, statSync } from 'fs';
 import { join } from 'path';
 
 const copy = (src, dest) => {
@@ -17,6 +18,9 @@ const copy = (src, dest) => {
 	}
 };
 
+/**
+ * @type {import('chokidar').FSWatcher}
+ */
 let listener = null;
 
 export const copyAssets = () => {
@@ -27,9 +31,9 @@ export const copyAssets = () => {
 };
 
 export function startWatching() {
-	listener = watch('./cli/assets', { recursive: true }, (eventType, filename) => {
-		copyAssets();
-	});
+	listener = chokidar.watch('./cli/assets');
+
+	listener.on('all', () => copyAssets());
 }
 
 export function stopWatching() {
