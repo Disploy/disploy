@@ -6,6 +6,8 @@ import {
 	RESTGetAPIWebhookWithTokenMessageResult,
 	RESTPatchAPIWebhookWithTokenMessageJSONBody,
 	RESTPatchAPIWebhookWithTokenMessageResult,
+	RESTPostAPIWebhookWithTokenJSONBody,
+	RESTPostAPIWebhookWithTokenWaitResult,
 	Routes,
 	Snowflake,
 } from 'discord-api-types/v10';
@@ -102,30 +104,44 @@ export class BaseInteraction extends Base {
 	}
 
 	/**
-	 * Edit the reply that has been sent by the interaction.
+	 * Send a followup message to the interaction.
+	 * @param payload The payload to send the followup message with.
+	 * @returns The sent message.
+	 */
+	public async followUp(payload: APIInteractionResponseCallbackData): Promise<Message> {
+		const res = await this.app.rest.post<RESTPostAPIWebhookWithTokenJSONBody, RESTPostAPIWebhookWithTokenWaitResult>(
+			`${Routes.webhook(this.app.clientId, this.token)}?wait=true`,
+			payload,
+		);
+
+		return this.app.messages.constructMessage({ ...res, guild_id: this.guild?.id });
+	}
+
+	/**
+	 * Edit the original reply that has been sent by the interaction.
 	 * @param payload The payload to edit the reply with.
 	 * @returns The edited message.
 	 */
 	public async editReply(payload: RESTPatchAPIWebhookWithTokenMessageJSONBody) {
-		return this.app.messages.constructMessage(
-			await this.app.rest.patch<RESTPatchAPIWebhookWithTokenMessageJSONBody, RESTPatchAPIWebhookWithTokenMessageResult>(
-				Routes.webhookMessage(this.app.clientId, this.token),
-				{
-					...payload,
-				},
-			),
-		);
+		return this.app.messages.constructMessage({
+			...(await this.app.rest.patch<
+				RESTPatchAPIWebhookWithTokenMessageJSONBody,
+				RESTPatchAPIWebhookWithTokenMessageResult
+			>(Routes.webhookMessage(this.app.clientId, this.token), payload)),
+			guild_id: this.guild?.id,
+		});
 	}
 
 	/**
 	 * Fetch the message reply that has been sent by the interaction.
 	 * @returns The message that was sent by the interaction.
 	 */
-	public async fetchReply() {
-		return this.app.messages.constructMessage(
-			await this.app.rest.get<RESTGetAPIWebhookWithTokenMessageResult>(
-				Routes.webhookMessage(this.app.clientId, this.token),
-			),
-		);
+	public async fetchReply(id?: Snowflake) {
+		return this.app.messages.constructMessage({
+			...(await this.app.rest.get<RESTGetAPIWebhookWithTokenMessageResult>(
+				Routes.webhookMessage(this.app.clientId, this.token, id),
+			)),
+			guild_id: this.guild?.id,
+		});
 	}
 }
