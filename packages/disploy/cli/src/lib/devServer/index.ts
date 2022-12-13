@@ -43,8 +43,6 @@ export async function setApp(
 		clientId: options.clientId,
 		publicKey: options.publicKey,
 		token: options.token,
-		commands: newApp.commands,
-		env: process.env as Record<string, string>, // TZ could be undefined
 	});
 
 	if (skipSync) return;

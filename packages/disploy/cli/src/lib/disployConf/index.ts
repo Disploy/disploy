@@ -15,6 +15,9 @@ const disployConfigSchema = z.object({
 		z.object({
 			type: z.literal('standalone'),
 		}),
+		z.object({
+			type: z.literal('devServer'),
+		}),
 	]),
 });
 

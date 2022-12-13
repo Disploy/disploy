@@ -6,7 +6,7 @@ export default {
 
 	async run(interaction) {
 		return void interaction.reply({
-			content: `The environment variable "TEST" is set to "${interaction.app.env.TEST}"`,
+			content: `The environment variable "TEST" is set to "${interaction.app.env.get('TEST') ?? 'undefined'}"`,
 		});
 	},
 } satisfies Command;

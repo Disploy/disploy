@@ -26,15 +26,26 @@ import { RouterEvents } from './RouterEvents';
 
 export class Router extends EventEmitter {
 	private routes: BaseRoute[] = [];
-	private verifier: Verify | null = null;
+	private verifier?: Verify | null = null;
 	private app!: App;
+	private ready = false;
 
 	public constructor(app: App) {
 		super();
 		this.app = app;
+	}
+
+	public start() {
+		this.app.logger.debug('Starting router...');
+
 		if (this.app.publicKey) {
+			this.app.logger.debug('Public key provided, request verification enabled.');
 			this.verifier = RuntimeConstants.isNode ? new VerifyNode(this.app.publicKey) : new VerifyCFW(this.app.publicKey);
 		}
+
+		this.app.logger.debug('Public key not provided, request verification disabled.');
+
+		this.ready = true;
 	}
 
 	public addRoute(route: BaseRoute) {
@@ -58,6 +69,15 @@ export class Router extends EventEmitter {
 	}
 
 	public async entry(req: TRequest): Promise<TResponse> {
+		if (!this.ready) {
+			this.app.logger.warn(
+				'Router has not been initialized yet. Call App#start() before handling requests. Returning 503.',
+			);
+			return new TResponse().status(503).json({
+				message: 'Router has not been initialized yet. Call App#start() before handling requests.',
+			});
+		}
+
 		const res = new TResponse();
 
 		try {

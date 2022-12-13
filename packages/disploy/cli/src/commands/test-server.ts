@@ -32,7 +32,7 @@ export const TestServerCommand: CommandModule = {
 		const spinner = ora('Found change! Building project').start();
 		const entry = await BuildApp({
 			skipPrebuild: true,
-			overrideTarget: { type: 'standalone' },
+			overrideTarget: { type: 'devServer' },
 			entryFileName: `entry-${Math.random().toString(36).substring(7)}.mjs`,
 		});
 

@@ -1,5 +1,12 @@
+export interface LoggerOptions {
+	/**
+	 * Whether to log debug messages.
+	 */
+	debug: boolean;
+}
+
 export class Logger {
-	public constructor(private readonly options: { debug: boolean }) {}
+	public constructor(private readonly options: LoggerOptions) {}
 
 	private log(message: string, ...args: any[]) {
 		console.log(message, ...args);

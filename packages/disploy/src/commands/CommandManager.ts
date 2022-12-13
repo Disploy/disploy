@@ -10,12 +10,16 @@ import {
 } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { ApplicationCommandRoute } from '../router';
-import type { Command, ChatInputCommand } from './Command';
+import type { ChatInputCommand, Command } from './Command';
 
 export class CommandManager {
-	public constructor(private app: App) {}
-
 	private readonly commands = new Map<string, Command>();
+
+	public constructor(private app: App, baseCommands: Command[]) {
+		for (const command of baseCommands) {
+			this.registerCommand(command);
+		}
+	}
 
 	/**
 	 * Get the locally registered commands in this manager
@@ -28,6 +32,8 @@ export class CommandManager {
 	public registerCommand(command: Command) {
 		this.app.router.addRoute(new ApplicationCommandRoute(this.app, command));
 		this.commands.set(command.name, command);
+
+		this.app.logger.debug(`Registered command ${command.name}!`);
 	}
 
 	/**
