@@ -13,6 +13,6 @@ export class MessageContextMenuInteraction extends ContextMenuInteraction {
 		super(app, raw);
 
 		const resolvedMessage = raw.data.resolved.messages[this.targetId]!;
-		this.targetMessage = app.messages.constructMessage(resolvedMessage);
+		this.targetMessage = app.messages.constructMessage({ ...resolvedMessage, guild_id: this.guild?.id });
 	}
 }

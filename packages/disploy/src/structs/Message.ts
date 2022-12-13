@@ -21,6 +21,8 @@ import {
 } from 'discord-api-types/v10';
 import type { App } from '../client';
 import { Base } from './Base';
+import { Guild } from './Guild';
+import { ToBeFetched } from './ToBeFetched';
 import { User } from './User';
 
 export class Message extends Base {
@@ -28,6 +30,11 @@ export class Message extends Base {
 	 * The ID of the message.
 	 */
 	public readonly id: Snowflake;
+
+	/**
+	 * The guild the message was sent in. (if sent in a guild)
+	 */
+	public readonly guild: ToBeFetched<Guild> | null;
 
 	/**
 	 * The content of the message.
@@ -164,9 +171,34 @@ export class Message extends Base {
 	 */
 	public readonly stickerItems: APIStickerItem[];
 
-	public constructor(app: App, raw: APIMessage) {
+	/**
+	 * Generates a URL to the message.
+	 */
+	public url(
+		{
+			instance = 'stable',
+		}: {
+			/**
+			 * The instance of Discord to use.
+			 * Defaults to "stable". (discord.com/channels/xxx/xxx/xxx)
+			 * @default "stable"
+			 */
+			instance?: 'stable' | 'ptb' | 'canary' | string;
+		} = {
+			instance: 'stable',
+		},
+	): string {
+		return `https://${instance === 'stable' ? '' : `${instance}.`}discord.com/channels/${
+			this.guild ? `${this.guild.id}/` : ''
+		}${this.channelId}/${this.id}`;
+	}
+
+	public constructor(app: App, raw: APIMessage & { guild_id?: Snowflake }) {
 		super(app);
 		this.id = raw.id;
+		this.guild = raw.guild_id
+			? new ToBeFetched(this.app, Guild, raw.guild_id, (id) => app.rest.get(Routes.guild(id)))
+			: null;
 		this.content = raw.content;
 		this.channelId = raw.channel_id;
 		this.author = new User(this.app, raw.author);
@@ -190,7 +222,7 @@ export class Message extends Base {
 		this.messageReference = raw.message_reference;
 		this.flags = raw.flags;
 		this.referencedMessage = raw.referenced_message
-			? this.app.messages.constructMessage(raw.referenced_message)
+			? this.app.messages.constructMessage({ ...raw.referenced_message, guild_id: raw.guild_id })
 			: undefined;
 		this.interaction = raw.interaction;
 		this.thread = raw.thread;
@@ -204,15 +236,19 @@ export class Message extends Base {
 	 * @returns The created message.
 	 */
 	public async reply(payload: Omit<RESTPostAPIChannelMessageJSONBody, 'message_reference'>): Promise<Message> {
-		return this.app.messages.constructMessage(
-			await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(Routes.channelMessages(this.channelId), {
-				...payload,
-				message_reference: {
-					message_id: this.id,
-					channel_id: this.channelId,
+		return this.app.messages.constructMessage({
+			...(await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(
+				Routes.channelMessages(this.channelId),
+				{
+					...payload,
+					message_reference: {
+						message_id: this.id,
+						channel_id: this.channelId,
+					},
 				},
-			}),
-		);
+			)),
+			guild_id: this.guild?.id,
+		});
 	}
 
 	/**
@@ -230,11 +266,12 @@ export class Message extends Base {
 	 * @returns The edited message.
 	 */
 	public async edit(payload: RESTPatchAPIChannelMessageJSONBody): Promise<Message> {
-		return this.app.messages.constructMessage(
-			await this.app.rest.patch<RESTPatchAPIChannelMessageJSONBody, APIMessage>(
+		return this.app.messages.constructMessage({
+			...(await this.app.rest.patch<RESTPatchAPIChannelMessageJSONBody, APIMessage>(
 				Routes.channelMessage(this.channelId, this.id),
 				payload,
-			),
-		);
+			)),
+			guild_id: this.guild?.id,
+		});
 	}
 }
