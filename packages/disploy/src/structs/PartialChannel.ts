@@ -13,7 +13,7 @@ export class PartialChannel extends ChannelMethods {
 	/**
 	 * The name of the channel.
 	 */
-	public name?: string;
+	public name: string | null;
 
 	/**
 	 * The type of the channel.
@@ -23,7 +23,7 @@ export class PartialChannel extends ChannelMethods {
 	public constructor(app: App, raw: APIPartialChannel) {
 		super(app, raw);
 		this.id = raw.id;
-		this.name = raw.name;
+		this.name = raw.name ?? null;
 		this.type = raw.type;
 		this.createdTimestamp = SnowflakeUtil.toTimestamp(this.id);
 	}
