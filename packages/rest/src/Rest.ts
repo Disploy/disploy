@@ -13,12 +13,12 @@ export interface RequiredRestConfig {
  * Optional Configuration for the REST client.
  */
 export interface OptionalRestConfig {
-	apiRoot: string;
-	cacheMatchers: RegExp[];
+	apiRoot?: string;
+	cacheMatchers?: RegExp[];
 }
 
 export class Rest extends EventEmitter<RestEvents> {
-	private options: RequiredRestConfig & OptionalRestConfig;
+	private options: RequiredRestConfig & Required<OptionalRestConfig>;
 	private cache: Map<string, unknown> = new Map();
 
 	public constructor(config: RequiredRestConfig & Partial<OptionalRestConfig>) {
