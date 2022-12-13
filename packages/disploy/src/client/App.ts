@@ -66,12 +66,14 @@ export class App {
 		token,
 		commands,
 		handlers,
+		env,
 	}: {
 		publicKey: string | null;
 		clientId: string;
 		token: string;
 		commands?: Command[];
 		handlers?: MessageComponentHandler[];
+		env?: Record<string, string>;
 	}): void {
 		// Required environment variables
 		this.publicKey = publicKey;
@@ -91,6 +93,7 @@ export class App {
 
 		// Misc
 		this.user = new ToBeFetched(this, User, this.clientId, (id) => this.rest.get(Routes.user(id)));
+		this.env = this.env ? { ...this.env, ...env } : env ?? {};
 
 		// Command Framework
 
