@@ -51,7 +51,6 @@ export const SyncCommand: CommandModule = {
 			clientId: clientId,
 			publicKey: publicKey,
 			token: token,
-			commands,
 		});
 
 		const spinner = ora(`Syncing ${commands.length} commands`).start();
