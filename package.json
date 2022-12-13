@@ -7,10 +7,12 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "turbo run build",
+		"build": "turbo run build --filter=!@disploy/docs",
+		"build:docs": "turbo run build --filter=@disploy/docs",
 		"test": "turbo run test",
 		"type-check": "turbo run type-check --parallel",
-		"dev": "turbo run dev --parallel",
+		"dev": "turbo run dev --parallel --filter=!@disploy/docs",
+		"dev:docs": "turbo run dev --parallel --filter=@disploy/docs",
 		"lint": "turbo run lint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"publish": "node scripts/ayumi.mjs publish",
