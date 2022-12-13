@@ -27,6 +27,7 @@ export class App {
 
 	// Misc
 	public user!: ToBeFetched<User>;
+	public env: Record<string, string> = {};
 
 	private _commandBuffer: Command[] = [];
 	private _handlerBuffer: MessageComponentHandler[] = [];
@@ -38,6 +39,7 @@ export class App {
 
 		this._commandBuffer = options?.commands ?? [];
 		this._handlerBuffer = options?.handlers ?? [];
+		this.env = options?.env ?? {};
 	}
 
 	private _loadCommands(commands: Command[] | undefined) {

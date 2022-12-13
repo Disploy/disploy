@@ -11,4 +11,5 @@ export interface AppOptions {
 	commands?: Command[];
 	handlers?: MessageComponentHandler[];
 	rest?: RequiredRestConfig & OptionalRestConfig;
+	env?: Record<string, string>;
 }
