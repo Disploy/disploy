@@ -16,13 +16,22 @@ export const aliases: string[] = [];
 export const desc: string = 'Enter development mode';
 
 export const builder = (yargs: Argv) =>
-	yargs.options('ignore-watcher-output', {
-		alias: 'iwo',
-		default: false,
-		type: 'boolean',
+	yargs.options({
+		'ignore-watcher-output': {
+			desc: 'Ignores the watchers output (tsc)',
+			alias: 'iwo',
+			default: false,
+			type: 'boolean',
+		},
+		'no-tunnel': {
+			desc: 'Disables the ngrok tunnel',
+			alias: 'nt',
+			default: false,
+			type: 'boolean',
+		},
 	});
 
-export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean }> = {
+export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean; 'no-tunnel': boolean }> = {
 	aliases,
 	builder,
 	command: 'dev',
@@ -94,14 +103,20 @@ export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean }>
 
 		createServer(devServerPort);
 
-		const spinner = ora('Tunneling to ngrok').start();
+		let url = `http://localhost:${devServerPort}`;
 
-		const url = await ngrok.connect({
-			addr: devServerPort,
-			proto: 'http',
-		});
+		if (opts.noTunnel) {
+			const spinner = ora('Tunneling to ngrok').start();
 
-		spinner.succeed('Connected to ngrok');
+			const tunnelUrl = await ngrok.connect({
+				addr: devServerPort,
+				proto: 'http',
+			});
+
+			url = tunnelUrl;
+
+			spinner.succeed('Connected to ngrok');
+		}
 
 		logger.info(
 			[
