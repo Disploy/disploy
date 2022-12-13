@@ -1,3 +1,4 @@
+import { ButtonStyle, ComponentType } from 'discord-api-types/v10';
 import type { Command } from 'disploy';
 
 export default {
@@ -11,18 +12,18 @@ export default {
 			content: `ok (in ${reply.timestamp - interaction.createdTimestamp}ms)`,
 			components: [
 				{
-					type: 1,
+					type: ComponentType.ActionRow,
 					components: [
 						{
-							type: 2,
+							type: ComponentType.Button,
 							label: 'Click me!',
-							style: 1,
+							style: ButtonStyle.Primary,
 							custom_id: `ping-${interaction.user.id}`,
 						},
 						{
-							type: 2,
+							type: ComponentType.Button,
 							label: 'i have no params',
-							style: 2,
+							style: ButtonStyle.Secondary,
 							emoji: {
 								name: '🫢',
 							},
