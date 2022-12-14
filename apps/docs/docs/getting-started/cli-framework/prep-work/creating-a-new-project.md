@@ -4,19 +4,17 @@ sidebar_position: 2
 
 # Creating a new project
 
-:::warning
-
-`create-disploy-app` is not [yet implemented](https://github.com/Disploy/disploy/issues/50).
-
-:::
+You can bootstrap a new project using `create-disploy-app`:
 
 ```bash
 npx create-disploy-app@latest
 # or
 yarn create disploy-app
 # or
-pnpm create disploy-app
+pnpm create disploy-ap
 ```
+
+> Make sure to select "Disploy CLI Framework (TypeScript)".
 
 ## Project structure
 
