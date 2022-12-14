@@ -8,6 +8,10 @@ You can bootstrap a new project using `create-disploy-app`:
 
 ```bash
 npx create-disploy-app@latest
+# or
+yarn create disploy-app
+# or
+pnpm create disploy-ap
 ```
 
 > Make sure to select "Disploy CLI Framework (TypeScript)".
