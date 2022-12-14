@@ -4,11 +4,13 @@ sidebar_position: 2
 
 # Creating a new project
 
-## Start by running the command:
+You can bootstrap a new project using `create-disploy-app`:
 
 ```bash
 npx create-disploy-app@latest
 ```
+
+> Make sure to select "Disploy CLI Framework (TypeScript)".
 
 ## Project structure
 
