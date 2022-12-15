@@ -23,15 +23,15 @@ export const builder = (yargs: Argv) =>
 			default: false,
 			type: 'boolean',
 		},
-		'no-tunnel': {
-			desc: 'Disables the ngrok tunnel',
-			alias: 'nt',
-			default: false,
+		tunnel: {
+			desc: 'Uses ngrok to tunnel the dev server',
+			alias: 't',
+			default: true,
 			type: 'boolean',
 		},
 	});
 
-export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean; 'no-tunnel': boolean }> = {
+export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean; tunnel: boolean }> = {
 	aliases,
 	builder,
 	command: 'dev',
@@ -105,7 +105,7 @@ export const DevCommand: CommandModule<{}, { 'ignore-watcher-output': boolean; '
 
 		let url = `http://localhost:${devServerPort}`;
 
-		if (opts.noTunnel) {
+		if (opts.tunnel) {
 			const spinner = ora('Tunneling to ngrok').start();
 
 			const tunnelUrl = await ngrok.connect({
