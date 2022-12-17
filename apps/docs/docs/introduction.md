@@ -22,4 +22,4 @@ We also have a CLI that makes it easy to quickly prototype and deploy your bot, 
 
 ## Why use Disploy?
 
-Disploy's main goal is to make it easy to build, test and deploy Discord bots. We want to make it easy to build bots that are easy to maintain and scale through serverless platforms like Cloudflare Workers. Disploy is extremely flexible and can be used on many different runtimes, including Cloudflare Workers, Vercel, Deno, Node.js and more.
+**Disploy's main goal is to make it easy to build, test and deploy Discord bots.** We want to make it easy to build bots that are easy to maintain and scale through serverless platforms like Cloudflare Workers. Disploy is extremely flexible and can be used on many different runtimes, including Cloudflare Workers, Vercel, Deno, Node.js and more.
