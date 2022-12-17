@@ -19,11 +19,11 @@
 
 > **Warning**: We're still in development, and packages are published to npm every 12 hours to the `@dev` tag. You can view our [v1.0.0 milestone](https://github.com/Disploy/disploy/milestone/1) to see what features are planned for the first release and their current status.
 
-Disploy is a library for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
+Disploy is a flexible router for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots.
 
 # Features
 
-Disploy features a [library](#library) and an opinionated [framework](#framework) with tooling inspired by Next.js.
+Disploy features a [library](#library) and an opinionated [framework](#framework) with tooling inspired by [Next.js](https://nextjs.org).
 
 ## Library
 
@@ -33,7 +33,7 @@ This is a slimmed-down guide to using Disploy with Next.js as your server.
 
 ### Usage with Next.js
 
-The API entry point
+The API entry point:
 
 ```ts
 // Entrypoint - pages/api/interactions.ts
@@ -45,7 +45,7 @@ export default createNextAdapter(ExampleApp);
 
 > **Note**: An "adapter" is a function that transforms requests from your server implementation of choice and creates a [`TRequest`](https://disploy.dev/docs/Documentation/disploy/interfaces/TRequest) that's fed into `App#router#entry` which returns a [`Promise<TResponse>`](https://disploy.dev/docs/Documentation/disploy/classes/TResponse) which your adapter should transform and return to Discord.
 
-Setting up the Disploy App
+Setting up the Disploy App:
 
 ```ts
 // Main Bot - lib/core/main.ts
@@ -77,7 +77,7 @@ for (const command of commands) {
 }
 ```
 
-Setting up an array of commands
+Setting up an array of commands:
 
 ```ts
 // Command Array - lib/core/commands/commands.ts
@@ -88,7 +88,7 @@ const c = [Ping];
 export default c;
 ```
 
-Example command
+Example command:
 
 ```ts
 import type { ChatInputInteraction, Command } from 'disploy';
@@ -109,7 +109,7 @@ export default Ping;
 
 ## Framework
 
-Disploy comes inbuilt with a CLI that can bundle your bot based on a file system structure. Inspired by Next.js.
+Disploy comes inbuilt with a CLI that can bundle your bot based on a file system structure, which is inspired by Next.js.
 
 Use the "TypeScript Framework" boilerplate from [`create-disploy-app`](https://github.com/Disploy/create-disploy-app).
 
@@ -192,7 +192,7 @@ The CLI bundles your app by taking in commands and message components and turnin
 
 ### Testing
 
-`@disploy/disbench` will be a testing library that will allow you to test your bot in a similar way to how you would test a web app with a mocked Discord API.
+`@disploy/disbench` will be a testing library that will allow you to test your bot in a similar way to how you would test a web app with a mocked Discord API. View the repository [here](https://github.com/Disploy/disbench).
 
 Example usage (this is not final):
 
@@ -219,4 +219,4 @@ expect(response).toEqual('Hello World!');
 
 ---
 
-https://discord.gg/E3z8MDnTWn - Join our Discord server for support and updates!
+Join our [Discord server](https://discord.gg/E3z8MDnTWn) for support and updates!
