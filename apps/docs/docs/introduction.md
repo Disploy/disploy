@@ -10,7 +10,7 @@ We're still in development, and packages are published to npm every 12 hours to 
 
 :::
 
-Disploy is a library for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots. You can learn more on our GitHub [README](https://github.com/Disploy/disploy#readme).
+Disploy is a flexible router for building HTTP interaction-based Discord bots with ease. It's designed to make it easy to build, test and deploy Discord bots. You can learn more on our GitHub [README](https://github.com/Disploy/disploy#readme).
 
 This guide will walk you through the basics of Disploy, we recommend reading it from top to bottom. If you have any questions, feel free to ask in our [Discord server](https://discord.gg/E3z8MDnTWn). -->
 
@@ -22,4 +22,4 @@ We also have a CLI that makes it easy to quickly prototype and deploy your bot, 
 
 ## Why use Disploy?
 
-Disploy's main goal is to make it easy to build, test and deploy Discord bots. We want to make it easy to build bots that are easy to maintain and scale through serverless platforms like Cloudflare Workers. Disploy is extremely flexible and can be used on many different runtimes, including Cloudflare Workers, Vercel, Deno, Node.js and more.
+Disploy's main goal is to make it easy to build, test and deploy HTTP interaction-based Discord bots. We want to make it easy to build bots that are easy to maintain and scale through serverless platforms. Disploy is extremely flexible and can be used on many different runtimes, including Cloudflare Workers, Vercel, Deno, Node.js and more.
