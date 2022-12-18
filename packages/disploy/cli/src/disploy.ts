@@ -1,4 +1,4 @@
-#!/usr/bin/env node --no-warnings
+#!/usr/bin/env node
 
 import dotenv from 'dotenv';
 import path from 'node:path';
