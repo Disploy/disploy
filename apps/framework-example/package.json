@@ -12,12 +12,12 @@
 		"test-server": "disploy test-server"
 	},
 	"dependencies": {
-		"discord-api-types": "^0.37.22",
+		"discord-api-types": "^0.37.24",
 		"disploy": "workspace:^"
 	},
 	"devDependencies": {
-		"@types/node": "^18.11.15",
-		"eslint": "8.29.0",
+		"@types/node": "^18.11.17",
+		"eslint": "8.30.0",
 		"eslint-config-custom": "workspace:^",
 		"rimraf": "^3.0.2",
 		"tsconfig": "workspace:^",
