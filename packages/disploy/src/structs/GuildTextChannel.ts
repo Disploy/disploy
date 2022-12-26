@@ -1,4 +1,11 @@
-import { APIGuildChannel, ChannelType, Snowflake } from 'discord-api-types/v10';
+import {
+	APIGuildChannel,
+	APIMessage,
+	ChannelType,
+	RESTPostAPIChannelMessageJSONBody,
+	Routes,
+	Snowflake,
+} from 'discord-api-types/v10';
 import type { App } from '../client';
 import { BaseChannel } from './BaseChannel';
 
@@ -32,5 +39,19 @@ export class GuildTextChannel extends BaseChannel {
 	 */
 	public override toString() {
 		return `<#${this.id}>`;
+	}
+
+	/**
+	 * Sends a message to the channel.
+	 * @param payload Message payload
+	 * @returns Created message
+	 */
+	public async send(payload: RESTPostAPIChannelMessageJSONBody) {
+		return this.app.messages.constructMessage({
+			...(await this.app.rest.post<RESTPostAPIChannelMessageJSONBody, APIMessage>(Routes.channelMessages(this.id), {
+				...payload,
+			})),
+			guild_id: this.guildId,
+		});
 	}
 }
