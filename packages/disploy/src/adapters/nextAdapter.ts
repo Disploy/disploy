@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next/types';
 import type { App } from '../client';
 import type { TRequest } from '../http';
 
-export function createNextAdapter(app: App) {
+export function createNextAdapter(app: App, randId?: string) {
 	return async function (req: NextApiRequest, res: NextApiResponse) {
 		if (req.method !== 'POST') {
 			res.status(405);
@@ -14,6 +14,7 @@ export function createNextAdapter(app: App) {
 			body: req.body,
 			headers: req.headers,
 			_request: req,
+			randId,
 		};
 
 		const payload = await app.router.entry(tReq);
