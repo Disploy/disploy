@@ -1,7 +1,7 @@
 export class TResponse {
 	public serialized!: {
 		body: any;
-		headers: { [key: string]: string | string[] | undefined };
+		headers: Record<string, string>;
 		status: number;
 	};
 
@@ -23,7 +23,7 @@ export class TResponse {
 		return this;
 	}
 
-	public setHeader(key: string, value: string | string[]) {
+	public setHeader(key: string, value: string) {
 		this.serialized.headers[key] = value;
 		return this;
 	}
