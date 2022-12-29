@@ -10,19 +10,10 @@ export function createNextAdapter(app: App) {
 			return;
 		}
 
-		const randId = req.query.randId;
-
-		if (randId && typeof randId !== 'string') {
-			res.status(400);
-			res.json({ error: 'Invalid randId' });
-			return;
-		}
-
 		const tReq: TRequest = {
 			body: req.body,
 			headers: req.headers,
 			_request: req,
-			randId,
 		};
 
 		const payload = await app.router.entry(tReq);
