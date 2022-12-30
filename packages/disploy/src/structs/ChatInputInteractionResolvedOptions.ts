@@ -1,4 +1,5 @@
 import type { Snowflake } from 'discord-api-types/v10';
+import { Attachment } from './Attachment';
 import { Base } from './Base';
 import type { BaseChannel } from './BaseChannel';
 import type { ChatInputInteraction } from './ChatInputInteraction';
@@ -27,16 +28,22 @@ export class ChatInputInteractionResolvedOptions extends Base {
 	 */
 	public channels: Map<Snowflake, BaseChannel>;
 
+	/**
+	 * The resolved attachments.
+	 */
+	public attachments: Map<Snowflake, Attachment>;
+
 	constructor(interaction: ChatInputInteraction) {
 		super(interaction.app);
 		this.interaction = interaction;
 		this.members = new Map();
 		this.users = new Map();
 		this.channels = new Map();
+		this.attachments = new Map();
 
 		if (!interaction.raw.data.resolved) return;
 
-		const { users, members, channels } = interaction.raw.data.resolved;
+		const { users, members, channels, attachments } = interaction.raw.data.resolved;
 
 		if (users) {
 			for (const user in users) {
@@ -57,6 +64,12 @@ export class ChatInputInteractionResolvedOptions extends Base {
 				}
 
 				this.members.set(member, new PartialGuildMember(this.interaction.app, members[member]!));
+			}
+		}
+
+		if (attachments) {
+			for (const attachment in attachments) {
+				this.attachments.set(attachment, new Attachment(this.interaction.app, attachments[attachment]!));
 			}
 		}
 	}

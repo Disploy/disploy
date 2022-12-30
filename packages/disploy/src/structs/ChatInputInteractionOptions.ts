@@ -1,4 +1,5 @@
 import type {
+	APIApplicationCommandInteractionDataAttachmentOption,
 	APIApplicationCommandInteractionDataBooleanOption,
 	APIApplicationCommandInteractionDataChannelOption,
 	APIApplicationCommandInteractionDataIntegerOption,
@@ -8,6 +9,7 @@ import type {
 	APIApplicationCommandInteractionDataUserOption,
 } from 'discord-api-types/v10';
 import type { App } from '../client';
+import type { Attachment } from './Attachment';
 import { Base } from './Base';
 import type { BaseChannel } from './BaseChannel';
 import type { ChatInputInteraction } from './ChatInputInteraction';
@@ -85,6 +87,15 @@ export class ChatInputInteractionOptions extends Base {
 	public getChannel(key: string, nullable = false): BaseChannel | undefined {
 		return this.resolved.channels.get(
 			this.getValue<APIApplicationCommandInteractionDataChannelOption>(key, nullable)?.value!,
+		)!;
+	}
+
+	public getAttachment(key: string): Attachment;
+	public getAttachment(key: string, nullable: false): Attachment;
+	public getAttachment(key: string, nullable: boolean): Attachment | undefined;
+	public getAttachment(key: string, nullable = false): Attachment | undefined {
+		return this.resolved.attachments.get(
+			this.getValue<APIApplicationCommandInteractionDataAttachmentOption>(key, nullable)?.value!,
 		)!;
 	}
 }
