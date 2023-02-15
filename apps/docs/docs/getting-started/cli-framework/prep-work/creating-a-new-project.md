@@ -11,7 +11,7 @@ npx create-disploy-app@latest
 # or
 yarn create disploy-app
 # or
-pnpm create disploy-ap
+pnpm create disploy-app
 ```
 
 > Make sure to select "Disploy CLI Framework (TypeScript)".
