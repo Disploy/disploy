@@ -7,7 +7,7 @@
 		<a href="https://vercel.com/?utm_source=disploy&utm_campaign=oss"><img src="https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg" alt="Vercel" /></a>
 	</p>
     <h3>
-        Visit <a href="https://disploy.dev">disploy.dev</a> to get started!
+        Visit <a href="https://disploy.dev">disploy.dev</a> for a detailed guide!
     </h3>
 	<br />
 	<p>
@@ -64,6 +64,7 @@ export const ExampleApp = new App({
 	logger: {
 		debug: true,
 	},
+	commands,
 });
 
 ExampleApp.start({
@@ -71,10 +72,6 @@ ExampleApp.start({
 	token,
 	publicKey,
 });
-
-for (const command of commands) {
-	ExampleApp.commands.registerCommand(command);
-}
 ```
 
 Setting up an array of commands:
